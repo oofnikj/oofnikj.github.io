@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://badgateway.qc.to/</loc>
+    <lastmod>2020-01-21T07:43:42+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://badgateway.qc.to/tags/docker/</loc>
+    <lastmod>2020-01-21T07:43:42+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://badgateway.qc.to/tags/docker-compose/</loc>
+    <lastmod>2020-01-21T07:43:42+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://badgateway.qc.to/tags/linux/</loc>
+    <lastmod>2020-01-21T07:43:42+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://badgateway.qc.to/tags/netem/</loc>
+    <lastmod>2020-01-21T07:43:42+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://badgateway.qc.to/posts/</loc>
+    <lastmod>2020-01-21T07:43:42+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://badgateway.qc.to/slow-your-network-down/</loc>
+    <lastmod>2020-01-21T07:43:42+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://badgateway.qc.to/tags/</loc>
+    <lastmod>2020-01-21T07:43:42+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://badgateway.qc.to/tags/tcp/</loc>
+    <lastmod>2020-01-21T07:43:42+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://badgateway.qc.to/tags/wireshark/</loc>
+    <lastmod>2020-01-21T07:43:42+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://badgateway.qc.to/categories/</loc>
+  </url>
+  
+</urlset>
