@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on BAD GATEWAY</title>
+    <title>Tags on bad gateway</title>
     <link>https://oofnikj.github.io/tags/</link>
-    <description>Recent content in Tags on BAD GATEWAY</description>
+    <description>Recent content in Tags on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 21 Jan 2020 07:43:42 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
@@ -85,6 +85,51 @@
       <pubDate>Sat, 28 Sep 2019 16:31:55 +0000</pubDate>
       
       <guid>https://oofnikj.github.io/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>apache</title>
+      <link>https://oofnikj.github.io/tags/apache/</link>
+      <pubDate>Fri, 27 Sep 2019 18:20:32 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/apache/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GCP</title>
+      <link>https://oofnikj.github.io/tags/gcp/</link>
+      <pubDate>Fri, 27 Sep 2019 18:20:32 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/gcp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>meta</title>
+      <link>https://oofnikj.github.io/tags/meta/</link>
+      <pubDate>Fri, 27 Sep 2019 18:20:32 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/meta/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SSL</title>
+      <link>https://oofnikj.github.io/tags/ssl/</link>
+      <pubDate>Fri, 27 Sep 2019 18:20:32 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/ssl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>wordpress</title>
+      <link>https://oofnikj.github.io/tags/wordpress/</link>
+      <pubDate>Fri, 27 Sep 2019 18:20:32 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/wordpress/</guid>
       <description></description>
     </item>
     

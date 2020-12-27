@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on BAD GATEWAY</title>
+    <title>Posts on bad gateway</title>
     <link>https://oofnikj.github.io/posts/</link>
-    <description>Recent content in Posts on BAD GATEWAY</description>
+    <description>Recent content in Posts on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 21 Jan 2020 07:43:42 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
@@ -23,6 +23,15 @@
       
       <guid>https://oofnikj.github.io/local-development-with-kubernetes/</guid>
       <description>I wrote this howto for work while learning Kubernetes, mostly for myself, but also for other devs to jump in and learn without racking up cloud costs.</description>
+    </item>
+    
+    <item>
+      <title>how to make a blog</title>
+      <link>https://oofnikj.github.io/how-to-make-a-blog/</link>
+      <pubDate>Fri, 27 Sep 2019 18:20:32 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/how-to-make-a-blog/</guid>
+      <description>I&amp;rsquo;ve been meaning to do this for quite some time.</description>
     </item>
     
   </channel>
