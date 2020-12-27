@@ -2,62 +2,62 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on BAD GATEWAY</title>
-    <link>https://badgateway.qc.to/tags/</link>
+    <link>https://oofnikj.github.io/tags/</link>
     <description>Recent content in Tags on BAD GATEWAY</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 Jan 2020 07:43:42 +0000</lastBuildDate><atom:link href="https://badgateway.qc.to/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Jan 2020 07:43:42 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>docker</title>
-      <link>https://badgateway.qc.to/tags/docker/</link>
+      <link>https://oofnikj.github.io/tags/docker/</link>
       <pubDate>Tue, 21 Jan 2020 07:43:42 +0000</pubDate>
       
-      <guid>https://badgateway.qc.to/tags/docker/</guid>
+      <guid>https://oofnikj.github.io/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
       <title>docker-compose</title>
-      <link>https://badgateway.qc.to/tags/docker-compose/</link>
+      <link>https://oofnikj.github.io/tags/docker-compose/</link>
       <pubDate>Tue, 21 Jan 2020 07:43:42 +0000</pubDate>
       
-      <guid>https://badgateway.qc.to/tags/docker-compose/</guid>
+      <guid>https://oofnikj.github.io/tags/docker-compose/</guid>
       <description></description>
     </item>
     
     <item>
       <title>linux</title>
-      <link>https://badgateway.qc.to/tags/linux/</link>
+      <link>https://oofnikj.github.io/tags/linux/</link>
       <pubDate>Tue, 21 Jan 2020 07:43:42 +0000</pubDate>
       
-      <guid>https://badgateway.qc.to/tags/linux/</guid>
+      <guid>https://oofnikj.github.io/tags/linux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>netem</title>
-      <link>https://badgateway.qc.to/tags/netem/</link>
+      <link>https://oofnikj.github.io/tags/netem/</link>
       <pubDate>Tue, 21 Jan 2020 07:43:42 +0000</pubDate>
       
-      <guid>https://badgateway.qc.to/tags/netem/</guid>
+      <guid>https://oofnikj.github.io/tags/netem/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tcp</title>
-      <link>https://badgateway.qc.to/tags/tcp/</link>
+      <link>https://oofnikj.github.io/tags/tcp/</link>
       <pubDate>Tue, 21 Jan 2020 07:43:42 +0000</pubDate>
       
-      <guid>https://badgateway.qc.to/tags/tcp/</guid>
+      <guid>https://oofnikj.github.io/tags/tcp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>wireshark</title>
-      <link>https://badgateway.qc.to/tags/wireshark/</link>
+      <link>https://oofnikj.github.io/tags/wireshark/</link>
       <pubDate>Tue, 21 Jan 2020 07:43:42 +0000</pubDate>
       
-      <guid>https://badgateway.qc.to/tags/wireshark/</guid>
+      <guid>https://oofnikj.github.io/tags/wireshark/</guid>
       <description></description>
     </item>
     
