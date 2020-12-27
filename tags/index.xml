@@ -61,5 +61,32 @@
       <description></description>
     </item>
     
+    <item>
+      <title>helm</title>
+      <link>https://oofnikj.github.io/tags/helm/</link>
+      <pubDate>Sat, 28 Sep 2019 16:31:55 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/helm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>k3s</title>
+      <link>https://oofnikj.github.io/tags/k3s/</link>
+      <pubDate>Sat, 28 Sep 2019 16:31:55 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/k3s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>https://oofnikj.github.io/tags/kubernetes/</link>
+      <pubDate>Sat, 28 Sep 2019 16:31:55 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

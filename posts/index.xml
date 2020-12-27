@@ -16,5 +16,14 @@
       <description>Have you you ever wanted to deliberately slow down your network to test your web service over a flaky connection? You can do it with &lt;code&gt;netem&lt;/code&gt;, the Network Emulator.</description>
     </item>
     
+    <item>
+      <title>local development with kubernetes</title>
+      <link>https://oofnikj.github.io/local-development-with-kubernetes/</link>
+      <pubDate>Sat, 28 Sep 2019 16:31:55 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/local-development-with-kubernetes/</guid>
+      <description>I wrote this howto for work while learning Kubernetes, mostly for myself, but also for other devs to jump in and learn without racking up cloud costs.</description>
+    </item>
+    
   </channel>
 </rss>

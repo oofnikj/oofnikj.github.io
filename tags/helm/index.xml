@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>helm on BAD GATEWAY</title>
+    <link>https://oofnikj.github.io/tags/helm/</link>
+    <description>Recent content in helm on BAD GATEWAY</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 28 Sep 2019 16:31:55 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/helm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>local development with kubernetes</title>
+      <link>https://oofnikj.github.io/local-development-with-kubernetes/</link>
+      <pubDate>Sat, 28 Sep 2019 16:31:55 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/local-development-with-kubernetes/</guid>
+      <description>I wrote this howto for work while learning Kubernetes, mostly for myself, but also for other devs to jump in and learn without racking up cloud costs.</description>
+    </item>
+    
+  </channel>
+</rss>
