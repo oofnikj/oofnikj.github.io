@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>backing up wordpress with git</title>
+      <link>https://oofnikj.github.io/backing-up-wordpress-with-git/</link>
+      <pubDate>Sun, 29 Sep 2019 05:53:06 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/backing-up-wordpress-with-git/</guid>
+      <description>So I started this blog, and it&amp;rsquo;s running on a virtual server somewhere in the cloud. What happens if it disappears?</description>
+    </item>
+    
+    <item>
       <title>local development with kubernetes</title>
       <link>https://oofnikj.github.io/local-development-with-kubernetes/</link>
       <pubDate>Sat, 28 Sep 2019 16:31:55 +0000</pubDate>
