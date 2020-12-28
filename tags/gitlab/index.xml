@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>GCP on bad gateway</title>
-    <link>https://oofnikj.github.io/tags/gcp/</link>
-    <description>Recent content in GCP on bad gateway</description>
+    <title>gitlab on bad gateway</title>
+    <link>https://oofnikj.github.io/tags/gitlab/</link>
+    <description>Recent content in gitlab on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 Oct 2019 08:24:57 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/gcp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 04 Oct 2019 08:24:57 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>using a private container registry with gitlab</title>
       <link>https://oofnikj.github.io/using-a-private-container-registry-with-gitlab/</link>
@@ -14,15 +14,6 @@
       
       <guid>https://oofnikj.github.io/using-a-private-container-registry-with-gitlab/</guid>
       <description>In the process of migrating our CI from self-hosted Jenkins to GitLab, I&amp;rsquo;ve encountered a couple of hurdles.</description>
-    </item>
-    
-    <item>
-      <title>how to make a blog</title>
-      <link>https://oofnikj.github.io/how-to-make-a-blog/</link>
-      <pubDate>Fri, 27 Sep 2019 18:20:32 +0000</pubDate>
-      
-      <guid>https://oofnikj.github.io/how-to-make-a-blog/</guid>
-      <description>I&amp;rsquo;ve been meaning to do this for quite some time.</description>
     </item>
     
   </channel>

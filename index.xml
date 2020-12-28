@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>using a private container registry with gitlab</title>
+      <link>https://oofnikj.github.io/using-a-private-container-registry-with-gitlab/</link>
+      <pubDate>Fri, 04 Oct 2019 08:24:57 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/using-a-private-container-registry-with-gitlab/</guid>
+      <description>In the process of migrating our CI from self-hosted Jenkins to GitLab, I&amp;rsquo;ve encountered a couple of hurdles.</description>
+    </item>
+    
+    <item>
       <title>high performance kubernetes load balancing</title>
       <link>https://oofnikj.github.io/high-performance-kubernetes-load-balancing/</link>
       <pubDate>Thu, 03 Oct 2019 05:48:40 +0000</pubDate>

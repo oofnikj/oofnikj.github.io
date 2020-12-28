@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>using a private container registry with gitlab // bad gateway</title>
+    <link rel="shortcut icon" href="/bg.png" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.79.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="oofnik" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://oofnikj.github.io/css/main.min.b2f24eefc5585352491239a2edc4ac107967fcea239f8c0a1001e2a77fc62db0.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="using a private container registry with gitlab"/>
+<meta name="twitter:description" content="In the process of migrating our CI from self-hosted Jenkins to GitLab, I&rsquo;ve encountered a couple of hurdles."/>
+
+    <meta property="og:title" content="using a private container registry with gitlab" />
+<meta property="og:description" content="In the process of migrating our CI from self-hosted Jenkins to GitLab, I&rsquo;ve encountered a couple of hurdles." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://oofnikj.github.io/using-a-private-container-registry-with-gitlab/" />
+<meta property="article:published_time" content="2019-10-04T08:24:57+00:00" />
+<meta property="article:modified_time" content="2019-10-04T08:24:57+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://oofnikj.github.io/"><img class="app-header-avatar" src="/bg.png" alt="oofnik" /></a>
+      <h1>bad gateway</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/posts/">Posts</a>
+            &#xB7
+          
+          <a class="app-header-menu-item" href="/tags">Tags</a>
+      </nav>
+      <p>a collection of notes about dev and ops things</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/oofnikj" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/oofnik" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/jordan.sokolic" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="/index.xml" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-rss">
+  <title>rss</title>
+  <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">using a private container registry with gitlab</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Oct 4, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://oofnikj.github.io/tags/gcp/">GCP</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/gitlab/">gitlab</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>This one took me a while to figure out.</p>
+<p>Originally I planned to move to a self-hosted installation on GKE, but abandoned that idea after a while due to maintenance overhead. I did learn a lot, though.</p>
+<p>Next option: <a href="https://gitlab.com">Gitlab.com</a>. GitLab Cloud offers a whole lot of features for free, including 2000 build minutes, unlimited private repositories, unlimited number of collaborators, issue boards, &hellip; yeah, I don&rsquo;t know why we didn&rsquo;t migrate earlier either.</p>
+<h2 id="setting-it-up">Setting it up</h2>
+<p>Since we&rsquo;re already on GCP, I wanted to continue using our private container registry instead of using the GitLab registry (even though they offer 10GB for free&hellip;). The <a href="https://docs.gitlab.com/ee/ci/docker/using_docker_images.html#define-an-image-from-a-private-container-registry">docs</a> do a decent job outlining the process of using your own private container registry, but there&rsquo;s one point that they fail to make which you just kind of have to figure out yourself.</p>
+<p>They provide three options to authenticate against a private registry: a) provide static credentials, b) use a credential store, or c) use a credential helper.</p>
+<p>I started with the third option.</p>
+<p>Following their AWS example, I created a CI/CD variable named <code>DOCKER_AUTH_CONFIG</code> with the following content, hoping for the best:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;credHelpers&#34;</span>: {
+    <span style="color:#f92672">&#34;gcr.io&#34;</span>: <span style="color:#e6db74">&#34;gcr&#34;</span>
+  }
+}
+</code></pre></div><p>But no dice.</p>
+<p>They mention this bit in the <a href="https://docs.gitlab.com/ee/ci/docker/using_docker_images.html#using-credential-helpers">docs</a>:</p>
+<blockquote>
+<p>Make sure <code>docker-credential-ecr-login</code> is available in GitLab Runner’s <code>$PATH</code>.</p>
+</blockquote>
+<p>Uh, okay, well I&rsquo;m using their shared runners, so I have no idea what&rsquo;s in their <code>$PATH</code>. But apparently, despite the fact that <a href="https://docs.gitlab.com/ee/user/gitlab_com/#shared-runners">they themselves</a> host their runners on Google Cloud Platform, <code>docker-credential-gcr</code> isn&rsquo;t.</p>
+<p>Next I tried setting static credentials.</p>
+<p>I [generated a service account(https://cloud.google.com/iam/docs/creating-managing-service-accounts) for my GCP project with the Storage Admin role, and used the key to <a href="https://cloud.google.com/container-registry/docs/advanced-authentication">log in</a> to Google Container Registry from my local machine. This generates a Docker authentication file in <code>~/.docker/config.json</code>, which the GitLab guide instructs you to copy as a variable in to your CI/CD configuration.</p>
+<p>That didn&rsquo;t work, either.</p>
+<p>Turns out, when you do</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker login -u _json_key --password-stdin gcr.io &lt; key-file.json
+</code></pre></div><p>The credentials file gets created with some extra stuff that needs to be removed manually.</p>
+<h3 id="before">Before:</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+	<span style="color:#f92672">&#34;auths&#34;</span>: {
+		<span style="color:#f92672">&#34;gcr.io&#34;</span>: {
+			<span style="color:#f92672">&#34;auth&#34;</span>: <span style="color:#e6db74">&#34;[actual base64-encoded JSON service account key]&#34;</span>
+		},
+		<span style="color:#f92672">&#34;https://asia.gcr.io&#34;</span>: {
+			<span style="color:#f92672">&#34;auth&#34;</span>: <span style="color:#e6db74">&#34;[secret]&#34;</span>,
+			<span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;not@val.id&#34;</span>
+<span style="color:#960050;background-color:#1e0010">...</span>
+		<span style="color:#e6db74">&#34;https://us.gcr.io&#34;</span>: {
+			<span style="color:#f92672">&#34;auth&#34;</span>: <span style="color:#e6db74">&#34;[secret]&#34;</span>,
+			<span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;not@val.id&#34;</span>
+		}
+	},
+	<span style="color:#f92672">&#34;HttpHeaders&#34;</span>: {
+		<span style="color:#f92672">&#34;User-Agent&#34;</span>: <span style="color:#e6db74">&#34;Docker-Client/19.03.2 (linux)&#34;</span>
+	}
+}
+</code></pre></div><p>Which results in the following error when running a build:</p>
+<pre><code>ERROR: Preparation failed: Error response from daemon: unauthorized: You don't have the needed permissions to perform this operation, and you may have invalid credentials. To authenticate your request, follow the steps in: https://cloud.google.com/container-registry/docs/advanced-authentication (executor_docker.go:188:0s)
+</code></pre>
+<h3 id="after">After:</h3>
+<p>Removing the irrelevant sections from the credentials file, we are left with the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;auths&#34;</span>: {
+    <span style="color:#f92672">&#34;gcr.io&#34;</span>: {
+      <span style="color:#f92672">&#34;auth&#34;</span>: <span style="color:#e6db74">&#34;[actual base64-encoded JSON service account key]&#34;</span>
+    }
+  }
+}
+</code></pre></div><p>Result:</p>
+<pre><code>Authenticating with credentials from $DOCKER_AUTH_CONFIG
+Pulling docker image gcr.io/[GCP_PROJECT]/[MY_IMAGE]:[TAG] ...
+Using docker image sha256:8af18e4c85bcada4f1c029120138053ac75f1261ba884774add731012f5c65ba for gcr.io/[GCP_PROJECT]/[MY_IMAGE]:[TAG] ...
+</code></pre>
+<p>And we&rsquo;re good!</p>
+<p>We can now run builds using images in our private registry without hard-coding credentials in our CI manifest.</p>
+<p>Maybe I&rsquo;ll open a PR (ehm, MR in GitLab-ese) to update the docs?</p>
+<p>Link to the (minimally redacted) <code>gitlab-ci.yml</code> I used for this project <a href="https://gist.github.com/oofnikj/aff92570f6c1c2d6dae00d25c39014d2">here</a>.</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

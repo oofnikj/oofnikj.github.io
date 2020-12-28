@@ -53,6 +53,21 @@
   </url>
   
   <url>
+    <loc>https://oofnikj.github.io/tags/gcp/</loc>
+    <lastmod>2019-10-04T08:24:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/gitlab/</loc>
+    <lastmod>2019-10-04T08:24:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/using-a-private-container-registry-with-gitlab/</loc>
+    <lastmod>2019-10-04T08:24:57+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://oofnikj.github.io/tags/haproxy/</loc>
     <lastmod>2019-10-03T05:48:40+00:00</lastmod>
   </url>
@@ -124,11 +139,6 @@
   
   <url>
     <loc>https://oofnikj.github.io/tags/apache/</loc>
-    <lastmod>2019-09-27T18:20:32+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://oofnikj.github.io/tags/gcp/</loc>
     <lastmod>2019-09-27T18:20:32+00:00</lastmod>
   </url>
   
