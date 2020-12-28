@@ -6,13 +6,193 @@
     <description>Recent content in Tags on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 Jan 2020 07:43:42 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>dkms</title>
+      <link>https://oofnikj.github.io/tags/dkms/</link>
+      <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/dkms/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://oofnikj.github.io/tags/linux/</link>
+      <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>openwrt</title>
+      <link>https://oofnikj.github.io/tags/openwrt/</link>
+      <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/openwrt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>wifi</title>
+      <link>https://oofnikj.github.io/tags/wifi/</link>
+      <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/wifi/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>docker</title>
       <link>https://oofnikj.github.io/tags/docker/</link>
-      <pubDate>Tue, 21 Jan 2020 07:43:42 +0000</pubDate>
+      <pubDate>Thu, 27 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://oofnikj.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gitlab</title>
+      <link>https://oofnikj.github.io/tags/gitlab/</link>
+      <pubDate>Thu, 27 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/gitlab/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>multiarch</title>
+      <link>https://oofnikj.github.io/tags/multiarch/</link>
+      <pubDate>Thu, 27 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/multiarch/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gitops</title>
+      <link>https://oofnikj.github.io/tags/gitops/</link>
+      <pubDate>Sun, 02 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/gitops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>helm</title>
+      <link>https://oofnikj.github.io/tags/helm/</link>
+      <pubDate>Sun, 02 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/helm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jenkins</title>
+      <link>https://oofnikj.github.io/tags/jenkins/</link>
+      <pubDate>Sun, 02 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/jenkins/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>https://oofnikj.github.io/tags/kubernetes/</link>
+      <pubDate>Sun, 02 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>aws</title>
+      <link>https://oofnikj.github.io/tags/aws/</link>
+      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/aws/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bash</title>
+      <link>https://oofnikj.github.io/tags/bash/</link>
+      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/bash/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>athena</title>
+      <link>https://oofnikj.github.io/tags/athena/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/athena/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nat</title>
+      <link>https://oofnikj.github.io/tags/nat/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/nat/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>networking</title>
+      <link>https://oofnikj.github.io/tags/networking/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/networking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sql</title>
+      <link>https://oofnikj.github.io/tags/sql/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/sql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hostapd</title>
+      <link>https://oofnikj.github.io/tags/hostapd/</link>
+      <pubDate>Thu, 20 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/hostapd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rdp</title>
+      <link>https://oofnikj.github.io/tags/rdp/</link>
+      <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/rdp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ubuntu</title>
+      <link>https://oofnikj.github.io/tags/ubuntu/</link>
+      <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/ubuntu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vnc</title>
+      <link>https://oofnikj.github.io/tags/vnc/</link>
+      <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tags/vnc/</guid>
       <description></description>
     </item>
     
@@ -22,15 +202,6 @@
       <pubDate>Tue, 21 Jan 2020 07:43:42 +0000</pubDate>
       
       <guid>https://oofnikj.github.io/tags/docker-compose/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>linux</title>
-      <link>https://oofnikj.github.io/tags/linux/</link>
-      <pubDate>Tue, 21 Jan 2020 07:43:42 +0000</pubDate>
-      
-      <guid>https://oofnikj.github.io/tags/linux/</guid>
       <description></description>
     </item>
     
@@ -62,29 +233,20 @@
     </item>
     
     <item>
-      <title>gitlab</title>
-      <link>https://oofnikj.github.io/tags/gitlab/</link>
-      <pubDate>Wed, 09 Oct 2019 15:11:14 +0000</pubDate>
+      <title>bfg</title>
+      <link>https://oofnikj.github.io/tags/bfg/</link>
+      <pubDate>Sun, 27 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/gitlab/</guid>
+      <guid>https://oofnikj.github.io/tags/bfg/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>helm</title>
-      <link>https://oofnikj.github.io/tags/helm/</link>
-      <pubDate>Wed, 09 Oct 2019 15:11:14 +0000</pubDate>
+      <title>git</title>
+      <link>https://oofnikj.github.io/tags/git/</link>
+      <pubDate>Sun, 27 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/helm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kubernetes</title>
-      <link>https://oofnikj.github.io/tags/kubernetes/</link>
-      <pubDate>Wed, 09 Oct 2019 15:11:14 +0000</pubDate>
-      
-      <guid>https://oofnikj.github.io/tags/kubernetes/</guid>
+      <guid>https://oofnikj.github.io/tags/git/</guid>
       <description></description>
     </item>
     
@@ -148,15 +310,6 @@
       <pubDate>Sun, 29 Sep 2019 05:53:06 +0000</pubDate>
       
       <guid>https://oofnikj.github.io/tags/backup/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>git</title>
-      <link>https://oofnikj.github.io/tags/git/</link>
-      <pubDate>Sun, 29 Sep 2019 05:53:06 +0000</pubDate>
-      
-      <guid>https://oofnikj.github.io/tags/git/</guid>
       <description></description>
     </item>
     

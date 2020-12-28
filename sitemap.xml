@@ -4,21 +4,161 @@
   
   <url>
     <loc>https://oofnikj.github.io/</loc>
-    <lastmod>2020-01-21T07:43:42+00:00</lastmod>
+    <lastmod>2020-09-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://oofnikj.github.io/tags/docker/</loc>
-    <lastmod>2020-01-21T07:43:42+00:00</lastmod>
+    <loc>https://oofnikj.github.io/tags/dkms/</loc>
+    <lastmod>2020-09-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://oofnikj.github.io/tags/docker-compose/</loc>
-    <lastmod>2020-01-21T07:43:42+00:00</lastmod>
+    <loc>https://oofnikj.github.io/kernel-patching-with-dkms/</loc>
+    <lastmod>2020-09-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://oofnikj.github.io/tags/linux/</loc>
+    <lastmod>2020-09-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/openwrt/</loc>
+    <lastmod>2020-09-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/posts/</loc>
+    <lastmod>2020-09-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/</loc>
+    <lastmod>2020-09-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/wifi/</loc>
+    <lastmod>2020-09-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/docker/</loc>
+    <lastmod>2020-08-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/gitlab/</loc>
+    <lastmod>2020-08-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/multi-architecture-docker-builds/</loc>
+    <lastmod>2020-08-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/multiarch/</loc>
+    <lastmod>2020-08-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/deploy-jenkins-the-easy-way/</loc>
+    <lastmod>2020-08-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/gitops/</loc>
+    <lastmod>2020-08-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/helm/</loc>
+    <lastmod>2020-08-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/jenkins/</loc>
+    <lastmod>2020-08-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/kubernetes/</loc>
+    <lastmod>2020-08-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/aws/</loc>
+    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/awsp-aws-profile-switcher/</loc>
+    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/bash/</loc>
+    <lastmod>2020-07-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/athena/</loc>
+    <lastmod>2020-05-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/breaking-down-aws-flow-logs/</loc>
+    <lastmod>2020-05-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/nat/</loc>
+    <lastmod>2020-05-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/networking/</loc>
+    <lastmod>2020-05-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/sql/</loc>
+    <lastmod>2020-05-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/contain-your-router/</loc>
+    <lastmod>2020-02-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/hostapd/</loc>
+    <lastmod>2020-02-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/better-remote-desktop/</loc>
+    <lastmod>2020-02-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/rdp/</loc>
+    <lastmod>2020-02-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/ubuntu/</loc>
+    <lastmod>2020-02-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/vnc/</loc>
+    <lastmod>2020-02-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/docker-compose/</loc>
     <lastmod>2020-01-21T07:43:42+00:00</lastmod>
   </url>
   
@@ -28,17 +168,7 @@
   </url>
   
   <url>
-    <loc>https://oofnikj.github.io/posts/</loc>
-    <lastmod>2020-01-21T07:43:42+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://oofnikj.github.io/slow-your-network-down/</loc>
-    <lastmod>2020-01-21T07:43:42+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://oofnikj.github.io/tags/</loc>
     <lastmod>2020-01-21T07:43:42+00:00</lastmod>
   </url>
   
@@ -53,18 +183,18 @@
   </url>
   
   <url>
-    <loc>https://oofnikj.github.io/tags/gitlab/</loc>
-    <lastmod>2019-10-09T15:11:14+00:00</lastmod>
+    <loc>https://oofnikj.github.io/tags/bfg/</loc>
+    <lastmod>2019-10-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://oofnikj.github.io/tags/helm/</loc>
-    <lastmod>2019-10-09T15:11:14+00:00</lastmod>
+    <loc>https://oofnikj.github.io/clean-up-your-git/</loc>
+    <lastmod>2019-10-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://oofnikj.github.io/tags/kubernetes/</loc>
-    <lastmod>2019-10-09T15:11:14+00:00</lastmod>
+    <loc>https://oofnikj.github.io/tags/git/</loc>
+    <lastmod>2019-10-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -119,11 +249,6 @@
   
   <url>
     <loc>https://oofnikj.github.io/tags/backup/</loc>
-    <lastmod>2019-09-29T05:53:06+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://oofnikj.github.io/tags/git/</loc>
     <lastmod>2019-09-29T05:53:06+00:00</lastmod>
   </url>
   

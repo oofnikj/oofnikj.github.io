@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>deploy jenkins the easy way // bad gateway</title>
+    <link rel="shortcut icon" href="/bg.png" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.79.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="oofnik" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://oofnikj.github.io/css/main.min.b2f24eefc5585352491239a2edc4ac107967fcea239f8c0a1001e2a77fc62db0.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="deploy jenkins the easy way"/>
+<meta name="twitter:description" content="Jenkins will probably never go away. It&rsquo;s an absolute beast of a software package, both in terms of capabilities, as well as headache - inducing power."/>
+
+    <meta property="og:title" content="deploy jenkins the easy way" />
+<meta property="og:description" content="Jenkins will probably never go away. It&rsquo;s an absolute beast of a software package, both in terms of capabilities, as well as headache - inducing power." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://oofnikj.github.io/deploy-jenkins-the-easy-way/" />
+<meta property="article:published_time" content="2020-08-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-08-02T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://oofnikj.github.io/"><img class="app-header-avatar" src="/bg.png" alt="oofnik" /></a>
+      <h1>bad gateway</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/posts/">Posts</a>
+            &#xB7
+          
+          <a class="app-header-menu-item" href="/tags">Tags</a>
+      </nav>
+      <p>a collection of notes about dev and ops things</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/oofnikj" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/oofnik" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/jordan.sokolic" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="/index.xml" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-rss">
+  <title>rss</title>
+  <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">deploy jenkins the easy way</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Aug 2, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://oofnikj.github.io/tags/gitops/">gitops</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/helm/">helm</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/jenkins/">jenkins</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/kubernetes/">kubernetes</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>Jenkins will probably never go away. It&rsquo;s an absolute beast of a software package, both in terms of capabilities, as well as headache - inducing power. At least modern DevOps tools make it easier than ever to get up and running.</p>
+<h2 id="can---do-dinosaur">Can - Do Dinosaur</h2>
+<p>Jenkins has been around in some form or another for more than fifteen years. It&rsquo;s the unsung mule of the software industry: handling everything from continuous integration, deployment automation, scheduled tasks, even manually configured one-off jobs, it&rsquo;s become the do-everything tool that every software dev team has at least wrestled with, and probably more than once.</p>
+<p>Since its original debut in 2005 under the name Hudson, the software world has become a very, very different place. Jenkins (Hudson) was architected, like many software platforms of the day, as a giant Java monolith. Looking back from today&rsquo;s containerized and serverless applications running on distributed cloud infrastructure, it&rsquo;s rather amusing that such a dinosaur is still powering critical production stuff for so many companies.</p>
+<p>Why would <em>anybody</em> choose something like Jenkins in 2020 over today&rsquo;s <a href="https://about.gitlab.com/stages-devops-lifecycle/continuous-integration/">proliferation</a> <a href="https://github.com/features/actions">of</a> <a href="https://circleci.com/docs/2.0/about-circleci/">alternative</a> <a href="https://docs.drone.io/">continuous</a> <a href="https://docs.travis-ci.com/user/for-beginners/">integration</a> <a href="https://cloud.google.com/cloud-build">and</a> <a href="https://aws.amazon.com/codebuild/">delivery</a> software platforms? The answer, I think, is simply this:</p>
+<p><strong>Short of automating a SpaceX launch, there is probably nothing Jenkins can&rsquo;t do.</strong></p>
+<p>Any of the CI/CD platforms on the market today can handle SCM triggering, automated testing, and packaging and deploying of artifacts. But veering even a little bit off that beaten path with anything other than Jenkins will quickly turn into a long evening of what is very likely to result in futility.</p>
+<p>A brief list of non - CI/CD things I&rsquo;ve automated with Jenkins:</p>
+<ul>
+<li>spin up and tear down test environments on demand to test feature branches</li>
+<li>delete orphaned or abandoned cloud resources on a schedule and generate a report</li>
+<li>database migration between geographic regions</li>
+<li>generate user credentials for some service and e-mail them to whoever ran the job</li>
+<li>provision new infrastructure with interactive approval by specific team members</li>
+</ul>
+<p>I&rsquo;m all for modernizing, but there are some tools for which there is currently no adequate replacement.</p>
+<hr>
+<p>With that said, there have been <em>tremendous</em> improvements in the Jenkins ecosystem lately with regard to deployment. The advantages of declarative configuration have finally transformed what was once an hours-long process of installing and configuring a Jenkins server into a set of manifests that can be version controlled and deployed as in any other modern GitOps flow.</p>
+<p>I&rsquo;ve put together a <a href="https://github.com/oofnikj/jenkins-easy">repository</a> to showcase how modern tooling can be used to deploy a Jenkins instance on Kubernetes in a 100% declarative fashion. With the help of two plugins in particular, <a href="https://github.com/jenkinsci/configuration-as-code-plugin">Jenkins Configuration as Code</a> and <a href="https://github.com/jenkinsci/job-dsl-plugin">Job DSL</a>, the horrid mess of Jenkins configuration can be abstracted into a repeatable workflow that doesn&rsquo;t require clicking around in a UI from the early 2000&rsquo;s, running carefully crafted commands in a particular order, or (heaven forbid) modifying XML files on disk and hoping you didn&rsquo;t forget a forward slash somewhere.</p>
+<h3 id="the-parts">The parts</h3>
+<p>The Jenkins deployment itself is orchestrated by the <a href="https://docs.fluxcd.io/projects/helm-operator/en/stable/">FluxCD Helm operator</a>. If you&rsquo;re not familiar with Kubernetes operators, an operator is a piece of software that watches for changes in a particular kind of custom resource on a cluster - say, a <code>HelmRelease</code> - and does the things it needs to do in order to bring the state of the system in line with the declaration, extending the logic of the Kubernetes control plane to basically anything in the cluster.</p>
+<p>There is, in fact, a <a href="https://jenkinsci.github.io/kubernetes-operator/docs/">Jenkins operator</a>, which I&rsquo;ve played with, and while it looks promising, I ran into a few issues with customization that I think need a little more polishing. Perhaps in the future, those issues will be ironed out and I&rsquo;ll migrate this guide to using it, but meanwhile, I&rsquo;m relying on the relatively battle-tested <a href="https://github.com/helm/charts/tree/master/stable/jenkins">Jenkins Helm chart</a>.</p>
+<p>The Jenkins Helm chart handles the installation of plugins and placement of configuration files. Once the main Jenkins server is running, JCasC kicks in and configures things like the security realm and credential provisioning. Finally, Job DSL is used to create a seed job which, when run, will download all the job definitions from the same Git repository holding the rest of the configuration and provision your Jenkins jobs accordingly.</p>
+<p>Identity is managed by an external provider. I chose Okta because they have an easy to use API, great documentation, and a dev account is free. Most importantly, Okta resources can be provisioned with Terraform, which brings us closer to our goal of being completely declarative.</p>
+<p>All the code, including step-by-step instructions and references, is available on GitHub: <a href="https://github.com/oofnikj/jenkins-easy">https://github.com/oofnikj/jenkins-easy</a></p>
+<hr>
+<h3 id="references">References</h3>
+<p>Shout out to Gregory Paciga over at <a href="https://gerg.dev/2020/06/creating-a-job-dsl-seed-job-with-jcasc/">gerg.dev</a> for the seed job inspiration. The docs are a bit lacking on this topic.</p>
+<ul>
+<li>Job DSL Wiki <a href="https://github.com/jenkinsci/job-dsl-plugin/wikihttps://github.com/jenkinsci/configuration-as-code-pluginhttps://gerg.dev/2020/06/creating-a-job-dsl-seed-job-with-jcasc/https://docs.fluxcd.io/projects/helm-operator/en/stable/get-started/using-helm/https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidchttps://www.terraform.io/docs/providers/okta/index.html">https://github.com/jenkinsci/job-dsl-plugin/wiki</a></li>
+<li>JCasC plugin <a href="https://github.com/jenkinsci/configuration-as-code-plugin">https://github.com/jenkinsci/configuration-as-code-plugin</a></li>
+<li>Jenkins Helm chart <a href="https://github.com/jenkinsci/helm-charts">https://github.com/jenkinsci/helm-charts</a></li>
+<li>Gregory&rsquo;s blog post <a href="https://gerg.dev/2020/06/creating-a-job-dsl-seed-job-with-jcasc/">https://gerg.dev/2020/06/creating-a-job-dsl-seed-job-with-jcasc/</a></li>
+<li>FluxCD Helm Operator <a href="https://docs.fluxcd.io/projects/helm-operator/en/stable/get-started/using-helm/">https://docs.fluxcd.io/projects/helm-operator/en/stable/get-started/using-helm/</a></li>
+<li>Okta guide to OAuth2 and OpenID Connect <a href="https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc">https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc</a></li>
+<li>Okta Terraform provider docs <a href="https://www.terraform.io/docs/providers/okta/index.html">https://www.terraform.io/docs/providers/okta/index.html</a></li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>multi-architecture docker builds // bad gateway</title>
+    <link rel="shortcut icon" href="/bg.png" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.79.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="oofnik" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://oofnikj.github.io/css/main.min.b2f24eefc5585352491239a2edc4ac107967fcea239f8c0a1001e2a77fc62db0.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="multi-architecture docker builds"/>
+<meta name="twitter:description" content="Wouldn&rsquo;t it be nice to have your Docker images come out of the oven ready to run on anything?"/>
+
+    <meta property="og:title" content="multi-architecture docker builds" />
+<meta property="og:description" content="Wouldn&rsquo;t it be nice to have your Docker images come out of the oven ready to run on anything?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://oofnikj.github.io/multi-architecture-docker-builds/" />
+<meta property="article:published_time" content="2020-08-27T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-08-27T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://oofnikj.github.io/"><img class="app-header-avatar" src="/bg.png" alt="oofnik" /></a>
+      <h1>bad gateway</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/posts/">Posts</a>
+            &#xB7
+          
+          <a class="app-header-menu-item" href="/tags">Tags</a>
+      </nav>
+      <p>a collection of notes about dev and ops things</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/oofnikj" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/oofnik" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/jordan.sokolic" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="/index.xml" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-rss">
+  <title>rss</title>
+  <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">multi-architecture docker builds</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Aug 27, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          9 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://oofnikj.github.io/tags/docker/">docker</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/gitlab/">gitlab</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/multiarch/">multiarch</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>Wouldn&rsquo;t it be nice to have your Docker images come out of the oven ready to run on <em>anything</em>?</p>
+<p>Multi-architecture Docker builds aren&rsquo;t a particularly new thing, but given the rising popularity of running workloads on ARM, from people building <a href="https://www.pidramble.com/">Raspberry Pi-powered Kubernetes clusters</a> to the growing availability of ARM-powered cloud infrastructure, it&rsquo;s surprisingly difficult to find references on how to do it properly, or even at all.</p>
+<p>This post is intended to be one of those references.</p>
+<hr>
+<h2 id="bc-before-containers">B.C. (before containers)</h2>
+<p>Prior to the advent of tools like Docker, the way an application would be packaged and distributed for multiple platforms depended heavily on the programming language(s) in which it was written &ndash; specifically, the toolchain associated with those languages. For interpreted languages like Python or Ruby, or even intermediates like Java, this wasn&rsquo;t (and still isn&rsquo;t) really an issue, since the machine code is generated at run time by the platform-dependent executables installed on the system running the code. But for compiled languages like C, cross-compiling can get hairy. Try building a kernel driver on your laptop for your USB Wi-Fi chip to work on your Raspberry Pi if you don&rsquo;t believe me.</p>
+<p>What happens when you want to package the code, plus the runtime, plus all of its dependencies into a container that can run anywhere? The process works a little differently.</p>
+<h2 id="ad-_anno-dockeri_">A.D. (<em>anno Dockeri</em>)</h2>
+<p>A major part of the appeal of containerization is that it shouldn&rsquo;t matter what language your code is written in; it should <em>just work</em>. It follows, then, that it shouldn&rsquo;t matter how your language&rsquo;s cross-compilation toolchain works, either. So the typical approach to building cross-platform Docker containers is using software emulation to <em>pretend</em> we&rsquo;re always building on the target platform. That, plus some additional neat tricks, is how we&rsquo;ll proceed.</p>
+<h2 id="manifest-lists">Manifest lists</h2>
+<p>Some time in 2017, Docker introduced the <a href="https://github.com/docker/distribution/blob/master/docs/spec/manifest-v2-2.md">schema manifest v2</a>, which allowed a single image and tag combination to be specified for multiple architectures in a manifest list (or &ldquo;fat manifest&rdquo;). If you&rsquo;ve ever browsed the Docker Hub and seen an entry like this, it&rsquo;s using a manifest list:</p>
+<p><img src="images/hub.png" alt="Docker Hub"></p>
+<p>A Docker daemon always knows what architecture it&rsquo;s running on, and will pull only the image it knows how to run from the manifest. This is why you can <code>docker run -it ubuntu bash</code> both from your laptop and from your ARM-powered cloud instance and get the same result.</p>
+<p>So how do we build a multi-architecture Docker image? And, more importantly, how do we automate it in CI?</p>
+<h2 id="local">Local</h2>
+<p>The tooling required to build multi-architecture Docker images is still experimental, so the process is a bit clunky. Hopefully that will change in the future, but in the mean time, make sure you&rsquo;re running at least Docker version 19.03.</p>
+<h3 id="prepare">Prepare</h3>
+<p>If you&rsquo;re running Docker Desktop for Mac v19.03 or later, experimental mode can be enabled under <strong>Preferences &gt; Command Line</strong>. On Linux, you&rsquo;ll need to enable experimental mode by adding the following key - value pair to your <code>~/.docker/config.json</code> (create it if it doesn&rsquo;t exist):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;experimental&#34;</span>: <span style="color:#e6db74">&#34;enabled&#34;</span>}
+</code></pre></div><p>We can accomplish that programmatically with <code>jq</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ jq <span style="color:#e6db74">&#39;. += {&#34;experimental&#34;: &#34;enabled&#34;}&#39;</span> ~/.docker/config.json &gt; /tmp/config
+$ mv /tmp/config ~/.docker/config.json
+</code></pre></div><p>Confirm that your Docker client now has experimental superpowers:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx inspect --bootstrap
+Name:   default
+Driver: docker
+
+Nodes:
+Name:      default
+Endpoint:  default
+Status:    running
+Platforms: linux/amd64, linux/386
+</code></pre></div><p>You should see some information like the above, telling us a little bit about the currently selected builder instance using the legacy <code>docker</code> driver. The <code>--bootstrap</code> option ensures that the builder is booted up to make sure all the information about the builder is available.</p>
+<p>For multi-architecture builds, create a new BuildKit builder instance and set it to the default. It should return a random whimsical name:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx create --use
+competent_chaplygin
+</code></pre></div><p>A lot is happening in this single command, but in short, it&rsquo;s creating a new builder instance using the <code>docker-container</code> driver and BuildKit backend. We need this new kind of builder to build our multi-arch Docker image.</p>
+<p>Re-run <code>docker buildx inspect</code> and you should see some additional output:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx inspect --bootstrap
+Name:   competent_chaplygin
+Driver: docker-container
+
+Nodes:
+Name:      competent_chaplygin0
+Endpoint:  unix:///var/run/docker.sock
+Status:    running
+Platforms: linux/amd64, linux/386
+</code></pre></div><p>If you&rsquo;re on Mac OS, you can probably skip this next step, but Linux users will have to register additional platforms like <code>linux/arm64</code>, either by installing some packages or running the <code>multiarch/qemu-user-static</code> container in privileged mode.</p>
+<p>This step tells the running kernel how to process binary files built for foreign architectures through the <code>binfmt_misc</code> interface. Only privileged containers can write to the <code>proc</code> filesystem of the host, which is why we need to add the <code>--privileged</code> flag. Artur Klauser has an outstanding <a href="https://nexus.eddiesinentropy.net/2020/01/12/Building-Multi-architecture-Docker-Images-With-Buildx/">write-up</a> on this topic for more information, but luckily, the <a href="https://hub.docker.com/r/multiarch/qemu-user-static">multiarch</a> project has done brilliant work by packaging everything we need to do in one command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+</code></pre></div><p>And just like that, our builder becomes cross-platform capable:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx inspect --bootstrap
+Name:   competent_chaplygin
+Driver: docker-container
+
+Nodes:
+Name:      competent_chaplygin0
+Endpoint:  unix:///var/run/docker.sock
+Status:    running
+Platforms: linux/amd64, linux/386, linux/arm64, linux/riscv64, linux/ppc64le, linux/arm/v7, linux/arm/v6
+</code></pre></div><h3 id="build">Build</h3>
+<p>Next, let&rsquo;s create a simple Dockerfile to test our BuildKit builder. We&rsquo;ll install <code>openvpn</code>, a SSL-based VPN:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cat <span style="color:#e6db74">&lt;&lt;EOF &gt; Dockerfile
+</span><span style="color:#e6db74">FROM alpine:latest
+</span><span style="color:#e6db74">RUN apk update &amp;&amp; apk add openvpn
+</span><span style="color:#e6db74">ENTRYPOINT [&#34;/usr/sbin/openvpn&#34;]
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><p>Normally we&rsquo;d build this image with <code>docker build -t openvpn .</code> , but the syntax for the BuildKit builder is a little different:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx build -t openvpn --platform linux/amd64,linux/arm64 .
+</code></pre></div><p>You&rsquo;ll notice that the output of the BuildKit builder looks a little different too.</p>
+<p>It took me a while to realize that it&rsquo;s <a href="https://github.com/docker/buildx#--load">not possible</a> to actually <em>load</em> multi-arch images directly into the local Docker daemon; they must first be pushed to a registry. Once the image has been uploaded, a client comes along and issues a <code>docker pull</code> command, which will only pull down the image for the relevant architecture.</p>
+<p>There are plenty of services that offer free container registries such as Docker Hub or GitLab. I&rsquo;m going to assume you&rsquo;ve got something already set up at <code>docker.io/&lt;youruser&gt;</code>, so replace that with your actual image repository prefix in the following steps. Just make sure that if you&rsquo;re pushing containers to public registries, you&rsquo;re not including any sensitive data like passwords or API keys.</p>
+<p>Actually, that goes for private registries too. Secrets in Docker images are no less bad than secrets in Git. Unless they&rsquo;re encrypted, just <strong>don&rsquo;t do it</strong>.</p>
+<p>Note that with Docker Hub, the <code>docker.io</code> prefix can be omitted.</p>
+<p>With <code>docker buildx</code>, you build and push the image in one go:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx build -t docker.io/&lt;youruser&gt;/openvpn --platform linux/amd64,linux/arm64 . --push
+</code></pre></div><p>If all goes as planned, Docker will have built your image for each architecture specified in a comma-separated list, in parallel, and push each container image with the default <code>latest</code> tag, all as a single manifest.</p>
+<p>A couple of things to note here. The foreign architectures will take significantly longer than the native builds (i.e. building a <code>linux/arm64</code> image on an Intel / AMD machine) because the machine instructions are actually being translated in real-time by QEMU, a software-based processor emulator, as the container is being built.</p>
+<p>If you run <code>ps</code> during the build, you will see something like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ps -ef | grep qemu
+root       <span style="color:#ae81ff">10151</span>   <span style="color:#ae81ff">10128</span>  <span style="color:#ae81ff">2</span> 06:20 ?        00:00:00 /usr/bin/qemu-aarch64-static /bin/sh -c apk update <span style="color:#f92672">&amp;&amp;</span> apk add openvpn
+root       <span style="color:#ae81ff">10168</span>   <span style="color:#ae81ff">10151</span> <span style="color:#ae81ff">28</span> 06:20 ?        00:00:00 /usr/bin/qemu-aarch64-static /sbin/apk update
+</code></pre></div><p>It works sort of like the JVM, but for ARM or PowerPC instead of Java bytecode. Amazing.</p>
+<p>Checking our registry, we should now see something like this:</p>
+<p><img src="images/openvpn.png" alt="openvpn"></p>
+<p>We just pushed our first multi-architecture Docker image. Solid!</p>
+<hr>
+<h3 id="run">Run</h3>
+<p>If we can build foreign architectures, surely we can run them, too, you ask? Well, earlier we enabled experimental mode for the Docker client. Now we need to enable it for the daemon.</p>
+<p>Add the following key - value pair to <code>/etc/docker/daemon.json</code> (again, create it if it doesn&rsquo;t exist):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;experimental&#34;</span>: <span style="color:#66d9ef">true</span>}
+</code></pre></div><p>That&rsquo;s not a typo. The daemon expects boolean value <code>true</code> while the client expects the string value <code>&quot;enabled&quot;</code>.</p>
+<p>Docker devs, if you&rsquo;re reading this, a little consistency please before this goes GA would be much appreciated.</p>
+<p>Next, we have to restart our Docker daemon. If you&rsquo;re running Docker with <code>systemd</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo systemctl restart docker
+</code></pre></div><p>Now we can pull our multi-arch image back down from our registry, forcing Docker to pull the specified platform:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker pull &lt;username&gt;/openvpn --platform linux/arm64 
+</code></pre></div><p>If we run this image with the <code>--version</code> parameter, OpenVPN will print out the architecture for which it was compiled, which is why I&rsquo;ve used it for this example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker run --rm &lt;youruser&gt;/openvpn --version
+OpenVPN 2.4.9 aarch64-alpine-linux-musl <span style="color:#f92672">[</span>SSL <span style="color:#f92672">(</span>OpenSSL<span style="color:#f92672">)]</span> <span style="color:#f92672">[</span>LZO<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>LZ4<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>EPOLL<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>MH/PKTINFO<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>AEAD<span style="color:#f92672">]</span> built on Apr <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">2020</span>
+</code></pre></div><hr>
+<h2 id="gitlab">GitLab</h2>
+<p>Now that we&rsquo;ve seen how to handle multi-architecture Docker images locally, let&rsquo;s set up a remote build system to build it for us. I&rsquo;ll use GitLab for this guide, but these instructions should translate fairly easily to any other CI/CD automation platforms.</p>
+<p>It&rsquo;s probably best to put the full example here and work backwards, explaining what each part does:</p>
+
+
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span style="color:#f92672">variables</span>:
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span>  <span style="color:#f92672">CI_IMAGE</span>: <span style="color:#ae81ff">$DOCKER_HUB_USER/$CI_PROJECT_NAME</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span>  <span style="color:#f92672">PLATFORM</span>: <span style="color:#ae81ff">linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span style="color:#f92672">before_script</span>:
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span>  - <span style="color:#ae81ff">docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_TOKEN</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span>  - <span style="color:#ae81ff">docker run --rm --privileged multiarch/qemu-user-static --reset -p yes</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span>  - <span style="color:#ae81ff">docker buildx create --use</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span style="color:#f92672">build-master</span>:
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span>  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">$DOCKER_HUB_USER/docker:buildx</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span>  <span style="color:#f92672">stage</span>: <span style="color:#ae81ff">build</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span>  <span style="color:#f92672">services</span>:
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span>    - <span style="color:#ae81ff">docker:dind</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span>  <span style="color:#f92672">script</span>:
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span>    - <span style="color:#ae81ff">docker buildx build --push -t &#34;$CI_IMAGE&#34;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span>      --<span style="color:#ae81ff">platform &#34;$PLATFORM&#34; --cache-from &#34;$CI_IMAGE&#34;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span>      --<span style="color:#ae81ff">build-arg BUILDKIT_INLINE_CACHE=1 .</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span>  <span style="color:#f92672">only</span>:
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20</span>    - <span style="color:#ae81ff">master</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22</span><span style="color:#f92672">build-feature</span>:
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23</span>  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">$DOCKER_HUB_USER/docker:buildx</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24</span>  <span style="color:#f92672">stage</span>: <span style="color:#ae81ff">build</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25</span>  <span style="color:#f92672">services</span>:
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26</span>    - <span style="color:#ae81ff">docker:dind</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27</span>  <span style="color:#f92672">script</span>:
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28</span>    - <span style="color:#ae81ff">docker buildx build --push -t &#34;$CI_IMAGE:$CI_COMMIT_REF_SLUG&#34; </span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29</span>      --<span style="color:#ae81ff">platform &#34;$PLATFORM&#34; --cache-from &#34;$CI_IMAGE:$CI_COMMIT_REF_SLUG&#34;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30</span>      --<span style="color:#ae81ff">build-arg BUILDKIT_INLINE_CACHE=1 .</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31</span>  <span style="color:#f92672">except</span>:
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32</span>    - <span style="color:#ae81ff">master</span>
+</code></pre></div>
+<p>First of all, we&rsquo;re running that same <code>multiarch/qemu-user-static</code> container from before to register our foreign binary formats with the kernel. Note that your GitLab runner must allow running containers in privileged mode for this to work. GitLab shared runners allow this, but if you&rsquo;re using your own runners, privileged containers must be explicitly allowed in the runner configuration.</p>
+<p>Next up, I&rsquo;m using a custom Docker image I&rsquo;ve built based on the official <code>docker:latest</code> image which includes the <code>buildx</code> plugin. The source is available <a href="https://github.com/oofnikj/docker-buildx">here</a>.</p>
+<p>The final interesting bit is the introduction of two additional command-line arguments:</p>
+<pre><code>--cache-from &quot;$CI_IMAGE&quot; --build-arg BUILDKIT_INLINE_CACHE=1
+</code></pre>
+<p>These arguments speed up the build considerably by (a) downloading the previously built image to the local runner to make it available to the build cache, and (b) telling BuildKit that we want the build cache to be included in the final artifact for all subsequent runs. More on that <a href="https://github.com/moby/buildkit#export-cache">here</a>.</p>
+<p>Besides a few custom environment variables I&rsquo;ve defined as variables in my project for my Docker Hub username and token, that&rsquo;s about it.</p>
+<hr>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="https://nexus.eddiesinentropy.net/2020/01/12/Building-Multi-architecture-Docker-Images-With-Buildx/">https://nexus.eddiesinentropy.net/2020/01/12/Building-Multi-architecture-Docker-Images-With-Buildx/</a></li>
+<li><a href="https://github.com/docker/distribution/blob/master/docs/spec/manifest-v2-2.md">https://github.com/docker/distribution/blob/master/docs/spec/manifest-v2-2.md</a></li>
+<li><a href="https://www.auroria.io/docker-multi-architecture-builds-with-gitlab-runner/">https://www.auroria.io/docker-multi-architecture-builds-with-gitlab-runner/</a></li>
+<li><a href="https://github.com/moby/buildkit#export-cache">https://github.com/moby/buildkit#export-cache</a></li>
+<li><a href="https://testdriven.io/blog/faster-ci-builds-with-docker-cache/">https://testdriven.io/blog/faster-ci-builds-with-docker-cache/</a></li>
+<li><a href="https://www.docker.com/blog/multi-arch-build-what-about-gitlab-ci/">https://www.docker.com/blog/multi-arch-build-what-about-gitlab-ci/</a></li>
+<li><a href="https://github.com/docker/buildx#--load">https://github.com/docker/buildx#&ndash;load</a></li>
+<li><a href="https://www.docker.com/blog/multi-arch-images/">https://www.docker.com/blog/multi-arch-images/</a></li>
+<li><a href="https://hub.docker.com/r/multiarch/qemu-user-static">https://hub.docker.com/r/multiarch/qemu-user-static</a></li>
+<li><a href="https://eyskens.me/multiarch-docker-images/">https://eyskens.me/multiarch-docker-images/</a></li>
+<li><a href="https://gitlab.com/gitlab-org/gitlab-runner/-/merge_requests/1861">https://gitlab.com/gitlab-org/gitlab-runner/-/merge_requests/1861</a></li>
+<li><a href="https://stackoverflow.com/questions/61430005/gitlab-ci-cd-building-multiarch-docker-images/63555735">https://stackoverflow.com/questions/61430005/gitlab-ci-cd-building-multiarch-docker-images/63555735</a></li>
+<li><a href="https://github.com/oofnikj/docker-buildx">https://github.com/oofnikj/docker-buildx</a></li>
+<li><a href="https://github.com/docker/buildx/issues/94">https://github.com/docker/buildx/issues/94</a></li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

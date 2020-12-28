@@ -6,7 +6,70 @@
     <description>Recent content on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 Jan 2020 07:43:42 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>kernel patching with dkms</title>
+      <link>https://oofnikj.github.io/kernel-patching-with-dkms/</link>
+      <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/kernel-patching-with-dkms/</guid>
+      <description>How do you maintain a patched version of an in-tree Linux kernel module?</description>
+    </item>
+    
+    <item>
+      <title>multi-architecture docker builds</title>
+      <link>https://oofnikj.github.io/multi-architecture-docker-builds/</link>
+      <pubDate>Thu, 27 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/multi-architecture-docker-builds/</guid>
+      <description>Wouldn&amp;rsquo;t it be nice to have your Docker images come out of the oven ready to run on &lt;em&gt;anything&lt;/em&gt;?</description>
+    </item>
+    
+    <item>
+      <title>deploy jenkins the easy way</title>
+      <link>https://oofnikj.github.io/deploy-jenkins-the-easy-way/</link>
+      <pubDate>Sun, 02 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/deploy-jenkins-the-easy-way/</guid>
+      <description>Jenkins will probably never go away. It&amp;rsquo;s an absolute beast of a software package, both in terms of capabilities, as well as headache - inducing power.</description>
+    </item>
+    
+    <item>
+      <title>awsp: AWS profile switcher</title>
+      <link>https://oofnikj.github.io/awsp-aws-profile-switcher/</link>
+      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/awsp-aws-profile-switcher/</guid>
+      <description>Simple script to make switching between AWS profiles easier.</description>
+    </item>
+    
+    <item>
+      <title>breaking down AWS flow logs</title>
+      <link>https://oofnikj.github.io/breaking-down-aws-flow-logs/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/breaking-down-aws-flow-logs/</guid>
+      <description>Extract detailed cost information from network flow logs and present it in an interactive dashboard.</description>
+    </item>
+    
+    <item>
+      <title>contain your router</title>
+      <link>https://oofnikj.github.io/contain-your-router/</link>
+      <pubDate>Thu, 20 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/contain-your-router/</guid>
+      <description>I hate home router hardware. I really do. So I set out on building a replacement &amp;ndash; without spending any money.</description>
+    </item>
+    
+    <item>
+      <title>better remote desktop</title>
+      <link>https://oofnikj.github.io/better-remote-desktop/</link>
+      <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/better-remote-desktop/</guid>
+      <description>I was looking for something that I could use to log in to my desktop over a not so good WAN link and ended up forking Chromium.</description>
+    </item>
+    
     <item>
       <title>slow your network down</title>
       <link>https://oofnikj.github.io/slow-your-network-down/</link>
@@ -14,6 +77,15 @@
       
       <guid>https://oofnikj.github.io/slow-your-network-down/</guid>
       <description>Have you you ever wanted to deliberately slow down your network to test your web service over a flaky connection? You can do it with &lt;code&gt;netem&lt;/code&gt;, the Network Emulator.</description>
+    </item>
+    
+    <item>
+      <title>clean up your git</title>
+      <link>https://oofnikj.github.io/clean-up-your-git/</link>
+      <pubDate>Sun, 27 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/clean-up-your-git/</guid>
+      <description>Have you ever found yourself frantically trying to un-commit some enormous binary file you&amp;rsquo;ve accidentally checked in to version control? Or perhaps you&amp;rsquo;ve made the mistake of committing your AWS root credentials?</description>
     </item>
     
     <item>

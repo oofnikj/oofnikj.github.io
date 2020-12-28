@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>kernel patching with dkms // bad gateway</title>
+    <link rel="shortcut icon" href="/bg.png" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.79.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="oofnik" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://oofnikj.github.io/css/main.min.b2f24eefc5585352491239a2edc4ac107967fcea239f8c0a1001e2a77fc62db0.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="kernel patching with dkms"/>
+<meta name="twitter:description" content="How do you maintain a patched version of an in-tree Linux kernel module?"/>
+
+    <meta property="og:title" content="kernel patching with dkms" />
+<meta property="og:description" content="How do you maintain a patched version of an in-tree Linux kernel module?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://oofnikj.github.io/kernel-patching-with-dkms/" />
+<meta property="article:published_time" content="2020-09-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-12T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://oofnikj.github.io/"><img class="app-header-avatar" src="/bg.png" alt="oofnik" /></a>
+      <h1>bad gateway</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/posts/">Posts</a>
+            &#xB7
+          
+          <a class="app-header-menu-item" href="/tags">Tags</a>
+      </nav>
+      <p>a collection of notes about dev and ops things</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/oofnikj" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/oofnik" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/jordan.sokolic" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="/index.xml" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-rss">
+  <title>rss</title>
+  <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">kernel patching with dkms</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Sep 12, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://oofnikj.github.io/tags/dkms/">dkms</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/linux/">linux</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/openwrt/">openwrt</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/wifi/">wifi</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h2 id="the-problem">The Problem</h2>
+<p>For my <a href="https://oofnikj.github.io/contain-your-router/">Dockerized router project</a>, I had to find a way to broadcast a 5 GHz Wi-Fi signal from my desktop hardware &ndash; a function that&rsquo;s almost exclusively the domain of embedded wireless routers and access points.</p>
+<p>It turns out that the Wi-Fi module that came with my Intel NUC is notoriously non-cooperative. The <code>iwlwifi</code> kernel driver for Intel Wi-Fi modules simply refuses to do such a thing.</p>
+<p>After some Googling, I learned that Qualcomm / Atheros Wi-Fi chipsets are more amenable to operating in AP mode at 5 GHz. So I had to go find a suitable Wi-Fi module that would work.</p>
+<p>A quick trip to the local laptop repair shop later, I had a Lenovo-branded M.2 Wi-Fi module with an Atheros chipset ready to swap with the stock Intel hardware.</p>
+<p>For anyone wondering, here&rsquo;s the exact hardware spec:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ lspci -kvnn
+02:00.0 Network controller <span style="color:#f92672">[</span>0280<span style="color:#f92672">]</span>: Qualcomm Atheros QCA6174 802.11ac Wireless Network Adapter <span style="color:#f92672">[</span>168c:003e<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>rev 20<span style="color:#f92672">)</span>
+	Subsystem: Lenovo QCA6174 802.11ac Wireless Network Adapter <span style="color:#f92672">[</span>17aa:3044<span style="color:#f92672">]</span>
+	Flags: bus master, fast devsel, latency 0, IRQ <span style="color:#ae81ff">131</span>
+	Memory at <span style="color:#ae81ff">91000000</span> <span style="color:#f92672">(</span>64-bit, non-prefetchable<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>size<span style="color:#f92672">=</span>2M<span style="color:#f92672">]</span>
+	Capabilities: &lt;access denied&gt;
+	Kernel driver in use: ath10k_pci
+	Kernel modules: ath10k_pci
+</code></pre></div><p>Wireless chipsets supported by the <code>ath</code> family of kernel modules are able to broadcast on 5 GHz, but there&rsquo;s a catch: the stock driver code compiled for and delivered with most Linux distributions almost certainly will not allow you to do it.</p>
+<p>By default, the kernel driver looks at two things: the wireless regulatory domain etched in to the EEPROM of the hardware, and the software <a href="https://wireless.wiki.kernel.org/en/developers/regulatory/wireless-regdb">wireless regulatory database</a>. The combined restrictions from both are what determine the channels on which a radio can initiate a broadcast, a function required to run in access point mode. A more detailed overview can be found <a href="https://wireless.wiki.kernel.org/en/users/drivers/ath#regulatory">here</a>.</p>
+<p>The OpenWrt project, an embedded Linux distribution designed to run on wireless routers and networking gear, maintains a set of patches<a href="#references">[4]</a> for the <code>ath</code> kernel module which allow for a custom regulatory domain to be set by the user. Which leads us to&hellip;</p>
+<h2 id="the-solution">The Solution</h2>
+<p>Running an OpenWrt filesystem on a stock Linux kernel is possible, but we need a way to incorporate those tweaks if we want to run our wireless hardware in 5GHz AP mode. That&rsquo;s what <a href="https://github.com/oofnikj/ath-user-regd">ath_user_regd</a> is for.</p>
+<p>If you&rsquo;ve ever installed VirtualBox or an external kernel driver for some hardware, you probably came across <a href="https://github.com/dell/dkms">DKMS</a>, the dynamic kernel module support package. DKMS is a collection of clever shell scripts available for most Linux distros that can automatically recompile the source code for a kernel module whenever a new kernel is installed. VirtualBox uses DKMS hooks to do exactly that to keep your virtual machines running after a kernel upgrade. I use it for <code>ath_user_regd</code> to maintain a patched version of the <code>ath</code> kernel module with the OpenWrt patches applied.</p>
+<p>Instructions for use are in the <a href="https://github.com/oofnikj/ath-user-regd">repo link</a>.</p>
+<p>But please, before using it, <strong>read the disclaimer</strong>. I&rsquo;m not responsible if you fry your Wi-Fi hardware, break laws, or do other not-smart things.</p>
+<p>Credit to Renaud Cerrato&rsquo;s <a href="https://medium.com/@renaudcerrato/how-to-build-your-own-wireless-router-from-scratch-c06fa7199d95">DIY router article</a> for the original idea.</p>
+<h2 id="references">References</h2>
+<ol>
+<li><a href="https://oofnikj.github.io/contain-your-router/">https://badgateway.qc.to/contain-your-router</a></li>
+<li><a href="https://wireless.wiki.kernel.org/en/developers/regulatory/wireless-regdb">https://wireless.wiki.kernel.org/en/developers/regulatory/wireless-regdb</a></li>
+<li><a href="https://wireless.wiki.kernel.org/en/users/drivers/ath#regulatory">https://wireless.wiki.kernel.org/en/users/drivers/ath#regulatory</a></li>
+<li><a href="https://github.com/openwrt/openwrt/blob/master/package/kernel/mac80211/patches/ath/402-ath_regd_optional.patch">https://github.com/openwrt/openwrt/blob/master/package/kernel/mac80211/patches/ath/402-ath_regd_optional.patch</a> and <a href="https://github.com/openwrt/openwrt/blob/master/package/kernel/mac80211/patches/ath/406-ath_relax_default_regd.patch">https://github.com/openwrt/openwrt/blob/master/package/kernel/mac80211/patches/ath/406-ath_relax_default_regd.patch</a></li>
+<li><a href="https://github.com/dell/dkms">https://github.com/dell/dkms</a></li>
+<li><a href="https://github.com/oofnikj/ath-user-regd">https://github.com/oofnikj/ath-user-regd</a></li>
+<li><a href="https://medium.com/@renaudcerrato/how-to-build-your-own-wireless-router-from-scratch-part-3-d54eecce157f">https://medium.com/@renaudcerrato/how-to-build-your-own-wireless-router-from-scratch-part-3-d54eecce157f</a></li>
+</ol>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

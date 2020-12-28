@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>jenkins on bad gateway</title>
+    <link>https://oofnikj.github.io/tags/jenkins/</link>
+    <description>Recent content in jenkins on bad gateway</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 02 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/jenkins/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>deploy jenkins the easy way</title>
+      <link>https://oofnikj.github.io/deploy-jenkins-the-easy-way/</link>
+      <pubDate>Sun, 02 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/deploy-jenkins-the-easy-way/</guid>
+      <description>Jenkins will probably never go away. It&amp;rsquo;s an absolute beast of a software package, both in terms of capabilities, as well as headache - inducing power.</description>
+    </item>
+    
+  </channel>
+</rss>

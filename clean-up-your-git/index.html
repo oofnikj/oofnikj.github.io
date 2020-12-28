@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>clean up your git // bad gateway</title>
+    <link rel="shortcut icon" href="/bg.png" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.79.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="oofnik" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://oofnikj.github.io/css/main.min.b2f24eefc5585352491239a2edc4ac107967fcea239f8c0a1001e2a77fc62db0.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="clean up your git"/>
+<meta name="twitter:description" content="Have you ever found yourself frantically trying to un-commit some enormous binary file you&rsquo;ve accidentally checked in to version control? Or perhaps you&rsquo;ve made the mistake of committing your AWS root credentials?"/>
+
+    <meta property="og:title" content="clean up your git" />
+<meta property="og:description" content="Have you ever found yourself frantically trying to un-commit some enormous binary file you&rsquo;ve accidentally checked in to version control? Or perhaps you&rsquo;ve made the mistake of committing your AWS root credentials?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://oofnikj.github.io/clean-up-your-git/" />
+<meta property="article:published_time" content="2019-10-27T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-10-27T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://oofnikj.github.io/"><img class="app-header-avatar" src="/bg.png" alt="oofnik" /></a>
+      <h1>bad gateway</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/posts/">Posts</a>
+            &#xB7
+          
+          <a class="app-header-menu-item" href="/tags">Tags</a>
+      </nav>
+      <p>a collection of notes about dev and ops things</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/oofnikj" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/oofnik" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/jordan.sokolic" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="/index.xml" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-rss">
+  <title>rss</title>
+  <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">clean up your git</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Oct 27, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://oofnikj.github.io/tags/bfg/">bfg</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/git/">git</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>Have you ever found yourself frantically trying to un-commit some enormous binary file you&rsquo;ve accidentally checked in to version control? Or perhaps you&rsquo;ve made the mistake of committing your AWS root credentials?</p>
+<p>Enter the <a href="https://rtyley.github.io/bfg-repo-cleaner/">BFG</a>.</p>
+<hr>
+<p>Git tries really, <em>really</em> hard to track every single change you make to your repository. If you add a new file and commit it, then you delete the file and commit the deletion, that file will forever be stored in the commit history &ndash; unless you do something about it.</p>
+<p>There <em>are</em> ways to rewrite that history. There&rsquo;s <code>git rebase</code>, which you can use to drop commits, making it like they never happened.</p>
+<p>But what if, say, you want to eliminate any mention of an entire subdirectory from your repository? You could wrestle with <code>git filter-branch</code>.</p>
+<p>In our case, we had to filter out a 700MB binary file that was committed <em>three years ago</em>. This means that every time a developer (or a CI server) cloned the repository, it had to download this file, forever archived somewhere in the inner workings of Git pack files. There are ways to speed up the clone, like using <a href="https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---depthltdepthgt">shallow clone</a> or <a href="https://git-scm.com/docs/git-clone#Documentation/git-clone.txt---reference-if-ableltrepositorygt">reference</a> repositories, but I won&rsquo;t get in to that here.</p>
+<p>Using <code>git filter-branch</code> to get rid of that commit, (which requires recalculating and repacking all 100,000 subsequent commits) would have taken <em>days</em>, even on a relatively powerful 8-core machine.</p>
+<p>TL;DR: BFG can do most of what <code>git filter-branch</code> can, but <a href="https://www.youtube.com/watch?v=Ir4IHzPhJuI">way faster</a>. It&rsquo;s also way easier to use.</p>
+<h2 id="scrub">Scrub</h2>
+<p>The basic workflow goes like this:</p>
+<ul>
+<li>do a full clone of your repository using the <code>--mirror</code> flag.<br>
+This means that the clone will be bare, i.e., only the stuff that normally resides in <code>.git</code> will be visible - the work tree itself will not show up.</li>
+<li>Run BFG with the options of your choice, depending on whether you&rsquo;re trying to delete binary blobs, secrets, or what have you.<br>
+We opted for <code>--strip-biggest-blobs 50</code>, which deletes the 50 biggest files in the repository&rsquo;s history, but only those that have been explicitly deleted already.</li>
+<li>Expire unreachable objects and run garbage collection on the repository, triggering a repack of all data:</li>
+</ul>
+<pre><code>$ git reflog expire --expire=now --all &amp;&amp; git gc --prune=now --aggressive
+</code></pre><p>This was all fairly straightforward in our case, except for one snag: The BFG part of the process took only 3 or 4 minutes. But during the repack stage, after bringing my quad core, 16 GB laptop to its knees for 30 minutes, Git was killed by OOM.</p>
+<p><code>git gc</code> uses <code>git-pack-objects</code> under the hood. As it turns out, this process can consume an obnoxiously huge amount of memory if your repository is big enough.</p>
+<p>From the <code>git-config</code> man page:</p>
+<blockquote>
+<p><code>pack.windowMemory</code></p>
+<p><code>The maximum size of memory that is consumed by each thread in git-pack-objects(1) for pack window memory when no limit is given on the command line. The value can be suffixed with &quot;k&quot;, &quot;m&quot;, or &quot;g&quot;. When left unconfigured (or set explicitly to 0), **there will be no limit**.</code></p>
+</blockquote>
+<p>I had to limit the window memory per thread to something reasonable to allow the process to finish:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git config pack.windowMemory 1g
+</code></pre></div><p>Now we can re-run <code>git gc</code> as above, hopefully without running out of memory. Sit back and relax while your CPU fan prepares for take-off.</p>
+<hr>
+<h2 id="beam-me-up">Beam me up</h2>
+<p>Look at how much junk we got rid of:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd ../repo-before <span style="color:#f92672">&amp;&amp;</span> du -h -d0 .git
+1.7G	.git
+$ cd ../repo-after <span style="color:#f92672">&amp;&amp;</span> du -h -d0 .git
+652M	.git
+</code></pre></div><p>Time to push your shiny new repository up to remote.</p>
+<p>I suggest creating a new repository instead of overwriting the original with <code>--force</code>, but it&rsquo;s your call.</p>
+<p>Just make sure to push everything, including your tags, since this is the only time you&rsquo;ll be able to do so. You can either replace your existing remote as I did to avoid confusion, or (if you&rsquo;re brave) create a new remote with a different name.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd repo-after
+$ git remote remove origin
+$ git remote add origin &lt;your_remote_url&gt;
+$ git push --set-upstream origin --all
+$ git push --set-upstream origin --tags
+</code></pre></div><h3 id="a-note-of-warning">A note of warning</h3>
+<p>Because of how Git works, this process will regenerate a new commit hash for every commit that was modified, <em>as well as for every subsequent commit thereafter</em>. To make tracking things a little bit easier, the BFG will amend all of your commit messages, appending the former commit ID to them:</p>
+<pre><code>commit 0012d4ea4e76a41228057b3c8da212be6ccd96bd
+Author: ...
+Date:   Wed Sep 25 16:13:21 2019 -0700
+    Place all the commands in proper file names
+    Former-commit-id: 29da234fbcf10dcee7272a57b2e77a74adca115e
+</code></pre>
+<p>All in all, the <a href="https://en.wikipedia.org/wiki/BFG_(weapon)">ambiguously</a> <a href="https://en.wikipedia.org/wiki/The_BFG">named</a> BFG is an excellent tool for shaping up Git repositories of any size.</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>bash on bad gateway</title>
+    <link>https://oofnikj.github.io/tags/bash/</link>
+    <description>Recent content in bash on bad gateway</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 03 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/bash/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>awsp: AWS profile switcher</title>
+      <link>https://oofnikj.github.io/awsp-aws-profile-switcher/</link>
+      <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/awsp-aws-profile-switcher/</guid>
+      <description>Simple script to make switching between AWS profiles easier.</description>
+    </item>
+    
+  </channel>
+</rss>

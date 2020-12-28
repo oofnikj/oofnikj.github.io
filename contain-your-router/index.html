@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>contain your router // bad gateway</title>
+    <link rel="shortcut icon" href="/bg.png" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.79.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="oofnik" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://oofnikj.github.io/css/main.min.b2f24eefc5585352491239a2edc4ac107967fcea239f8c0a1001e2a77fc62db0.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="contain your router"/>
+<meta name="twitter:description" content="I hate home router hardware. I really do. So I set out on building a replacement &ndash; without spending any money."/>
+
+    <meta property="og:title" content="contain your router" />
+<meta property="og:description" content="I hate home router hardware. I really do. So I set out on building a replacement &ndash; without spending any money." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://oofnikj.github.io/contain-your-router/" />
+<meta property="article:published_time" content="2020-02-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-02-20T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://oofnikj.github.io/"><img class="app-header-avatar" src="/bg.png" alt="oofnik" /></a>
+      <h1>bad gateway</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/posts/">Posts</a>
+            &#xB7
+          
+          <a class="app-header-menu-item" href="/tags">Tags</a>
+      </nav>
+      <p>a collection of notes about dev and ops things</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/oofnikj" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/oofnik" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/jordan.sokolic" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="/index.xml" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-rss">
+  <title>rss</title>
+  <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">contain your router</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Feb 20, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          6 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://oofnikj.github.io/tags/docker/">docker</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/hostapd/">hostapd</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/networking/">networking</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/openwrt/">openwrt</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/wifi/">wifi</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>I hate home router hardware. I really do. So I set out on building a replacement &ndash; without spending any money.</p>
+<hr>
+<h2 id="why">Why?</h2>
+<p>What the marketing world refers to as a &lsquo;router&rsquo; actually combines several functions into a single hardware device: gateway, firewall, switch, wireless access point, DNS, DHCP, and sometimes DSL / cable modem.</p>
+<p>Save for the modem part, we can do all of that on any Linux box. In fact, almost all home router devices (including the one you got from your ISP) are penguin powered.</p>
+<p>I hate consumer-grade routers because they are built with cheap, unreliable, developer-unfriendly hardware, running vulnerable, outdated, crippled software.</p>
+<p>If you&rsquo;re lucky, your router hardware is supported by one of the open router firmware projects like <a href="https://openwrt.org/">OpenWRT</a> or <a href="https://exotic.se/freshtomato/">FreshTomato</a>. But even then, hardware limitations might prevent you from installing the packages you&rsquo;d like to run, like a VPN or torrent client. Or there might be unfixable bugs because the hardware vendor won&rsquo;t release up-to-date driver source code.</p>
+<p>So here&rsquo;s an idea: why not run a router OS on normal PC hardware?</p>
+<h2 id="bare-metal-vs-vm-vs-container">Bare metal vs. VM vs. container</h2>
+<p>First, we need to decide how we&rsquo;re going to deploy this virtual router.</p>
+<p>If we deploy to bare metal, we need a spare computer lying around with the right hardware.</p>
+<p>But let&rsquo;s say you don&rsquo;t have spare computer lying around, and you want to utilize the hardware you&rsquo;ve got for more than just routing? Virtualization is a great solution for this.</p>
+<p>I actually started this project with virtualization using VirtualBox, until I learned that 1) PCI passthrough support was <a href="https://www.virtualbox.org/ticket/14584#comment:2">silently</a> <a href="https://forums.virtualbox.org/viewtopic.php?f=7&amp;t=96625#p468864">removed</a> (thanks, Oracle!) relatively recently, and 2) USB Wi-Fi adapters have slim-to-none 802.11ac support in AP mode under Linux. So I switched to KVM / Libvirt, which can do PCI passthrough just fine.</p>
+<p>But.</p>
+<p>Then I spent a couple of days messing with <a href="https://wiki.archlinux.org/index.php/PCI_passthrough_via_OVMF">VFIO and IOMMU groups</a>, and I learned that with my particular hardware, it&rsquo;s not possible to pass just the Wi-Fi card through to the VM, but the Ethernet adapter must be passed too.</p>
+<p>My Ethernet chipset did not appreciate this, and would require a cold reboot to get going again, even back on the host. So much for that plan.</p>
+<p>I did a little reading and found out that Docker <a href="https://docs.docker.com/network/macvlan/">supports</a> a network driver called <code>macvlan</code>, which allows a container to be directly connected to a host&rsquo;s network interface by creating a virtual sub-interface with a unique MAC address - just like layer 2 VM bridging.</p>
+<p>If we can get our router platform running in Docker, this might be the golden ticket.</p>
+<h2 id="choosing-a-platform">Choosing a platform</h2>
+<p>While we can do the routing, switching, access point-ing and so on directly with Linux CLI tools like <code>ip</code>, <code>iptables</code>, <code>hostapd</code> and so on, it&rsquo;s awfully convenient to have a unified UI to configure your network settings.</p>
+<p>In addition to the open-source projects targeting embedded devices listed above, there are quite a few purpose-built Linux distributions designed to run on common x86 hardware like IPFire, Openwall, and ClearOS. There&rsquo;s even a Wikipedia page <a href="https://en.wikipedia.org/wiki/List_of_router_and_firewall_distributions">dedicated to them</a>.</p>
+<p>Glaring omissions pfSense and OPNsense are excluded because they are based on FreeBSD, not Linux. I&rsquo;ve used both pfSense and OPNsense in professional environments and can vouch for their performance and stability, but there are two big problems that take them out of the running for this project:</p>
+<ol>
+<li>
+<p>They are built upon FreeBSD, not Linux, which means they must be run either in a VM or on bare metal. We&rsquo;re doing containers here.</p>
+</li>
+<li>
+<p><a href="https://docs.netgate.com/pfsense/en/latest/book/wireless/pfsense-as-an-access-point.html#should-an-external-ap-or-pfsense-be-used-for-an-access-point">pfSense can&rsquo;t do 802.11ac in AP mode</a>. I&rsquo;m not sure if this is a limitation of FreeBSD or just pfSense, but either way, for me it&rsquo;s a deal-breaker.</p>
+</li>
+</ol>
+<p>I&rsquo;m going to fast-forward here and just tell you why I picked OpenWRT: I&rsquo;ve installed it before, I like the built-in package management system <code>opkg</code>, it has a great CLI configuration management tool called <code>uci</code>, it&rsquo;s tiny (less than 4 megabytes!), and the web interface is actually quite polished.</p>
+<p>Oh, and there are already pre-built images available on <a href="https://hub.docker.com/r/openwrtorg/rootfs/tags">Docker Hub</a>.</p>
+<h2 id="teleport-the-wi-fi">Teleport the Wi-Fi</h2>
+<p>We need OpenWRT to be able to directly control our Wi-Fi interface from inside a container. But how?</p>
+<p>Containers are isolated from the host in several ways. They have their own PID namespace, their own user namespace, and their own network namespace. But since containers are all running atop the host kernel, we can expose various resources from the host to the container, like network interfaces, by moving them from the primary namespace to that of the container.</p>
+<p>Docker provides a <code>--network=host</code> option, where your container runs in the <em>same</em> network namespace as the rest of the system&rsquo;s processes. But if you only want a single interface to be controlled directly by the container, you need to do some command-line voodoo.</p>
+<p>Here&rsquo;s a quick demonstration of how this works.</p>
+<p>Note &ndash; this only works on Linux hosts, and it will knock out your internet connection if you&rsquo;re connected over the interface you&rsquo;re moving. You&rsquo;ve been warned.</p>
+<p>Also, depending on your Wi-Fi drivers, this might not work at all. Some drivers support setting the network namespace while others will return an error.</p>
+<p>If your Wi-Fi works on your distro out of the box (i.e., you didn&rsquo;t need to compile your own drivers), chances are the drivers are part of the official mainline kernel, and you should be fine.</p>
+<ul>
+<li>
+<p>Run a detached container:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker run --rm -it -d --name netns-test alpine
+17da7018a16ce46ce87a1f14d263e3fc367ea9c1d2d0a896e812c652445042a0
+</code></pre></div></li>
+<li>
+<p>Get the container&rsquo;s parent PID:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ PID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>docker inspect -f <span style="color:#e6db74">&#39;{{.State.Pid}}&#39;</span> netns-test<span style="color:#66d9ef">)</span>
+</code></pre></div></li>
+<li>
+<p>Get our Wi-Fi interface name:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ip link show
+...
+4: wlp2s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span style="color:#ae81ff">1500</span> qdisc noqueue state UP mode DORMANT group default qlen <span style="color:#ae81ff">1000</span>
+    link/ether xx:xx:xx:xx:xx:xx brd ff:ff:ff:ff:ff:ff
+...
+</code></pre></div></li>
+<li>
+<p>Get the physical device associated with our interface:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ PHY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>cat /sys/class/net/wlp2s0/phy80211/name<span style="color:#66d9ef">)</span>
+</code></pre></div></li>
+<li>
+<p>Move our device to the container namespace:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo iw phy $PHY set netns $PID
+</code></pre></div></li>
+<li>
+<p>Show that the interface is now inside the container namespace:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker exec netns-test ip link show wlp2s0
+4: wlp2s0: &lt;BROADCAST,MULTICAST&gt; mtu <span style="color:#ae81ff">1500</span> qdisc noop state DOWN qlen <span style="color:#ae81ff">1000</span>
+    link/ether xx:xx:xx:xx:xx:xx brd ff:ff:ff:ff:ff:ff
+</code></pre></div></li>
+<li>
+<p>And not in our host namespace:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ip link show dev wlp2s0
+Device <span style="color:#e6db74">&#34;wlp2s0&#34;</span> does not exist.
+</code></pre></div></li>
+<li>
+<p>Shut it down to get our Wi-Fi back:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker kill netns-test
+</code></pre></div></li>
+</ul>
+<hr>
+<h2 id="wrapping-up">Wrapping up</h2>
+<p>I&rsquo;ve written a script to automate the process of setting up OpenWRT in Docker and moving the Wi-Fi interface which you can find, along with instructions, <a href="https://github.com/oofnikj/docker-openwrt">here</a>.</p>
+<p>The script will generate the OpenWRT config at runtime from templates based on the configuration you provide. A sample configuration file is provided for reference. At the very least you&rsquo;ll need to change the values of <code>LAN_PARENT</code> and <code>WIFI_IFACE</code>.</p>
+<p>If you&rsquo;re going to run this behind your existing router, keep in mind that from the container&rsquo;s perspective, WAN is anything upstream (i.e., your existing LAN), while LAN is the Wi-Fi access point and its clients, plus the container host, connected with a virtual Ethernet interface.</p>
+<p>By default, LAN devices can access anything upstream, but (like any sane router configuration) firewall rules prevent devices from the WAN zone from accessing the web UI or anything in the LAN without port forwarding.</p>
+<p>It&rsquo;s certainly possible to configure OpenWRT without a WAN zone and to set it up to act as a bridge between your existing wired LAN and your wireless devices.</p>
+<p>Check out the links below for references on how to configure OpenWRT to your liking.</p>
+<p>Also, have a look at how I <a href="https://oofnikj.github.io/kernel-patching-with-dkms/">patched</a> my kernel to broadcast 802.11ac Wi-Fi at 500 Mbps.</p>
+<hr>
+<h3 id="references">References</h3>
+<ul>
+<li><a href="https://platform9.com/blog/container-namespaces-deep-dive-container-networking/">https://platform9.com/blog/container-namespaces-deep-dive-container-networking/</a></li>
+<li><a href="https://docs.docker.com/network/network-tutorial-macvlan/">https://docs.docker.com/network/network-tutorial-macvlan/</a></li>
+<li><a href="https://github.com/sdelrio/rpi-hostap">https://github.com/sdelrio/rpi-hostap</a></li>
+<li><a href="https://openwrt.org/docs/guide-user/network/ucicheatsheet">https://openwrt.org/docs/guide-user/network/ucicheatsheet</a></li>
+<li><a href="https://openwrt.org/docs/guide-user/network/start">https://openwrt.org/docs/guide-user/network/start</a></li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

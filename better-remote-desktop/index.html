@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>better remote desktop // bad gateway</title>
+    <link rel="shortcut icon" href="/bg.png" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.79.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="oofnik" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://oofnikj.github.io/css/main.min.b2f24eefc5585352491239a2edc4ac107967fcea239f8c0a1001e2a77fc62db0.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="better remote desktop"/>
+<meta name="twitter:description" content="I was looking for something that I could use to log in to my desktop over a not so good WAN link and ended up forking Chromium."/>
+
+    <meta property="og:title" content="better remote desktop" />
+<meta property="og:description" content="I was looking for something that I could use to log in to my desktop over a not so good WAN link and ended up forking Chromium." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://oofnikj.github.io/better-remote-desktop/" />
+<meta property="article:published_time" content="2020-02-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-02-08T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://oofnikj.github.io/"><img class="app-header-avatar" src="/bg.png" alt="oofnik" /></a>
+      <h1>bad gateway</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/posts/">Posts</a>
+            &#xB7
+          
+          <a class="app-header-menu-item" href="/tags">Tags</a>
+      </nav>
+      <p>a collection of notes about dev and ops things</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/oofnikj" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/oofnik" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/jordan.sokolic" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="/index.xml" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-rss">
+  <title>rss</title>
+  <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">better remote desktop</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Feb 8, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://oofnikj.github.io/tags/linux/">linux</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/rdp/">rdp</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/ubuntu/">ubuntu</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/vnc/">vnc</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>There are a lot of names in the remote desktop world, both open source and proprietary. Most (all?) of the open source ones run on Linux. Some of the proprietary ones do too.</p>
+<p>Two main protocols dominate the market: <a href="https://en.wikipedia.org/wiki/RFB_protocol">RFB</a> (remote framebuffer) and <a href="https://en.wikipedia.org/wiki/Remote_Desktop_Protocol">RDP</a> (remote desktop protocol). The classic RFB protocol is implemented in a lot of remote desktop software, mostly as some flavor of VNC. It&rsquo;s even built in to some operating systems and desktop environments, like Apple&rsquo;s <a href="https://support.apple.com/en-il/guide/mac-help/mh11848/10.15/mac/10.15">screen sharing</a> for Mac OS and its <a href="https://help.gnome.org/users/gnome-help/stable/sharing-desktop.html.en">equivalent</a> in GNOME. There&rsquo;s also the cross-platform <a href="https://github.com/LibVNC/x11vnc">x11vnc</a> project.</p>
+<p>VNC / RFB is great for running over a LAN but not so good for a high-latency WAN connection. RDP was built to one-up VNC by being smart about choosing what data to send, making it more efficient. Thankfully, RDP - originally published by Microsoft - has since been reverse-engineered and open-sourced.</p>
+<p>I had been using an open-source RDP package called <a href="https://github.com/neutrinolabs/xrdp">xrdp</a> to remote in to my Linux desktop for a while, but a couple of nagging issues led me to search for something that better suited my needs.</p>
+<p>Firstly, since xrdp is not only a remote desktop server but also a session manager, by design it launches a virtual session separate from the console session, meaning you can&rsquo;t just leave all your windows open and have them be available remotely. Great if you&rsquo;re running a remote session manager, not so much if you just want to share your screen.</p>
+<p>Secondly, because xrdp doesn&rsquo;t yet support the newer H.264 encoding mode (though it&rsquo;s <a href="https://github.com/neutrinolabs/xrdp/issues/1422">in the works</a>), performance over limited bandwidth connections can be pretty mediocre compared to Windows-native RDP.</p>
+<p>I filed a <a href="https://github.com/neutrinolabs/xrdp/issues/1483">bug report</a> with a suggestion on how to improve things by tweaking the default TCP send buffer size, but I was still underwhelmed.</p>
+<p>Another open source RDP implementation by the <a href="https://github.com/FreeRDP/FreeRDP">FreeRDP project</a> provides a server that hooks in to your X window session allowing for true screen sharing. It also supports H.264 video encoding, solving both problems. But documentation on how to actually use <code>freerdp-shadow-cli</code> is frustratingly sparse, and I couldn&rsquo;t get clipboard or sound redirection to work. Unsatisfied, I kept looking.</p>
+<hr>
+<h2 id="chrome-remote-desktop">Chrome Remote Desktop</h2>
+<p>Google Chrome ships with a lot of extra bells and whistles, among which is a remote desktop subsystem.</p>
+<p>Why does a web browser ship with a remote desktop subsystem, Google?</p>
+<p>I don&rsquo;t know. But it works well. And it does almost what I want it to. <em>Almost.</em></p>
+<p>There&rsquo;s also the benefit of not having to worry about opening ports on your router and exposing a VNC or RDP server directly to the internet (a <a href="https://blog.binaryedge.io/2019/05/15/rdp-exposed-on-the-internet/">Really Bad Idea</a>). Chrome Remote Desktop uses <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API">WebRTC</a> to initiate an encrypted peer-to-peer connection.</p>
+<h3 id="getting-it-to-work-on-ubuntu">Getting it to work on Ubuntu</h3>
+<p>As packaged, CRD won&rsquo;t work without some tweaking on Ubuntu 18.04. So let&rsquo;s dig in.</p>
+<p>First, you&rsquo;ll of course need to install CRD. Visit <a href="https://remotedesktop.google.com/access">https://remotedesktop.google.com/access</a> and follow the steps to get it installed on your system.</p>
+<p>Next, we need to make a change to the PolKit configuration so our remote virtual desktop doesn&rsquo;t crash immediately upon startup. You can read more about this issue <a href="https://c-nergy.be/blog/?p=12043">here</a>, which fixes the same issue for xrdp.</p>
+<p>Create a file called <code>45-allow-colord.pkla</code> in <code>/etc/polkit-1/localauthority/50-local.d/</code> with the following contents:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#66d9ef">[Allow Colord all Users]</span>
+<span style="color:#a6e22e">Identity</span><span style="color:#f92672">=</span><span style="color:#e6db74">unix-user:*</span>
+<span style="color:#a6e22e">Action</span><span style="color:#f92672">=</span><span style="color:#e6db74">org.freedesktop.color-manager.create-device;org.freedesktop.color-manager.create-profile;org.freedesktop.color-manager.delete-device;org.freedesktop.color-manager.delete-profile;org.freedesktop.color-manager.modify-device;org.freedesktop.color-manager.modify-profile</span>
+<span style="color:#a6e22e">ResultAny</span><span style="color:#f92672">=</span><span style="color:#e6db74">no</span>
+<span style="color:#a6e22e">ResultInactive</span><span style="color:#f92672">=</span><span style="color:#e6db74">no</span>
+<span style="color:#a6e22e">ResultActive</span><span style="color:#f92672">=</span><span style="color:#e6db74">yes</span>
+</code></pre></div><p>Next, generate the session file which CRD will execute to launch the desktop. We need to set some environment variables, and then launch the desktop shell:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cat <span style="color:#e6db74">&lt;&lt;EOF &gt; ~/.chrome-remote-desktop-session
+</span><span style="color:#e6db74">export \$(dbus-launch)
+</span><span style="color:#e6db74">export GNOME_SHELL_SESSION_MODE=$GNOME_SHELL_SESSION_MODE 
+</span><span style="color:#e6db74">export XDG_CURRENT_DESKTOP=$XDG_CURRENT_DESKTOP
+</span><span style="color:#e6db74">export XDG_DATA_DIRS=$XDG_DATA_DIRS
+</span><span style="color:#e6db74">export XDG_CONFIG_DIRS=$XDG_CONFIG_DIRS
+</span><span style="color:#e6db74">exec $(which gnome-session) --session=ubuntu
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><p>Side note: The above snippet is called a <a href="https://www.tldp.org/LDP/abs/html/here-docs.html">here document</a>. If you&rsquo;re not familiar with them, it&rsquo;s a useful way of generating config files dynamically &ndash; basically a template engine built right in to the shell.</p>
+<p>Finally, restart the <code>chrome-remote-desktop</code> service:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo systemctl restart chrome-remote-desktop.service
+</code></pre></div><p>And you should be good to go.</p>
+<h3 id="mirror-mode">Mirror mode</h3>
+<p>Unlike on other platforms, Chrome Remote Desktop for Linux launches a virtual desktop session separate from your main console session (just like xrdp), which can be remotely accessed. I was surprised to find, however, that there&rsquo;s no easy way to switch Chrome Remote Desktop to &ldquo;mirror&rdquo; a.k.a. shadowing a.k.a, shared mode, where the console session <em>is</em> the remote session.</p>
+<p>So after some sleuthing, I <a href="https://github.com/oofnikj/chrome-remote-desktop">hacked</a> my own solution.</p>
+<p>In my modified Chrome Remote Desktop, there&rsquo;s an additional command-line argument, <code>--mirror</code>. When set, CRD will connect to your currently active X display (almost definitely <code>:0</code>) instead of launching a separate virtual session.</p>
+<p>You&rsquo;ll also find a wrapper script in the linked repository which handles things like audio redirection and sending a desktop notification upon connect and disconnect, and a <code>systemd</code> service intended to be installed in user mode to wrap it all up.</p>
+<p>Installation instructions can be found in the <a href="https://github.com/oofnikj/chrome-remote-desktop">readme</a>.</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

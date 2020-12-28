@@ -147,7 +147,7 @@ At this point HAProxy returns status <code>429</code> to the client until the re
 </code></pre>
 <p>My next attempt involved deploying an ingress controller to handle load balancing at the application layer.</p>
 <h4 id="layer-7---traefik">Layer 7 - Traefik</h4>
-<p>Since I&rsquo;d read a lot about <a href="https://traefik.io/">Traefik</a> and played around with it while writing my <a href="https://badgateway.qc.to/local-development-with-kubernetes/">local Kubernetes development guide</a>, I decided to give it a try.</p>
+<p>Since I&rsquo;d read a lot about <a href="https://traefik.io/">Traefik</a> and played around with it while writing my <a href="https://oofnikj.github.io/local-development-with-kubernetes/">local Kubernetes development guide</a>, I decided to give it a try.</p>
 <p>First, I wrote an <code>Ingress</code> object to be picked up by the Traefik controller. Then, per the <a href="https://docs.traefik.io/v1.7/configuration/backends/kubernetes/#annotations">docs</a>, I had to add some annotations to my app&rsquo;s service definition to limit the maximum number of connections:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
 <span style="color:#f92672">metadata</span>:
