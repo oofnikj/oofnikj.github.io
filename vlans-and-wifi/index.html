@@ -13,14 +13,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="vlans and wifi"/>
-<meta name="twitter:description" content="Transporting tagged VLAN traffic over a wireless link is a reasonably common setup in commercial environments. It turned out to be unexpectedly challenging with OpenWrt. I figured it out so you don&rsquo;t have to.
-Motivation I recently encountered an opportunity to implement VLANs in my home network after moving to a new place, where we inherited a video surveillance system.
-I wanted the camera network to be separate from my trusted LAN, partly because it&rsquo;s good security practice, but mostly because I wanted to hone my networking skills."/>
+<meta name="twitter:description" content="Transporting tagged VLAN traffic over a wireless link is a reasonably common setup in commercial environments. It turned out to be unexpectedly challenging with OpenWrt."/>
 
     <meta property="og:title" content="vlans and wifi" />
-<meta property="og:description" content="Transporting tagged VLAN traffic over a wireless link is a reasonably common setup in commercial environments. It turned out to be unexpectedly challenging with OpenWrt. I figured it out so you don&rsquo;t have to.
-Motivation I recently encountered an opportunity to implement VLANs in my home network after moving to a new place, where we inherited a video surveillance system.
-I wanted the camera network to be separate from my trusted LAN, partly because it&rsquo;s good security practice, but mostly because I wanted to hone my networking skills." />
+<meta property="og:description" content="Transporting tagged VLAN traffic over a wireless link is a reasonably common setup in commercial environments. It turned out to be unexpectedly challenging with OpenWrt." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://oofnikj.github.io/vlans-and-wifi/" />
 <meta property="article:published_time" content="2020-11-13T00:00:00+00:00" />
@@ -100,8 +96,10 @@ I wanted the camera network to be separate from my trusted LAN, partly because i
 <p>I recently encountered an opportunity to implement VLANs in my home network after moving to a new place, where we inherited a video surveillance system.</p>
 <p>I wanted the camera network to be separate from my trusted LAN, partly because it&rsquo;s good security practice, but mostly because I wanted to hone my networking skills.</p>
 <p>With a single device broadcasting Wi-Fi, setting up one SSID per VLAN is pretty straightforward on any platform. If you&rsquo;ve got multiple APs connected via Ethernet, as you might find in an office setting or large home, the setup gets a little trickier. But let&rsquo;s say you need to set up multiple APs without a way to wire them up with Ethernet - say, in a large home with concrete walls. This is where wireless trunking comes in.</p>
-<p><img src="images/diagram.png" alt=""></p>
+<p><img src="images/diagram.png" alt="diagram"></p>
+<blockquote>
 <p>Fig. 1: Network diagram</p>
+</blockquote>
 <h2 id="layer-cake">Layer Cake</h2>
 <p>One of the key concepts in networking is the <a href="https://en.wikipedia.org/wiki/OSI_model">OSI layer model</a>. It&rsquo;s a conceptually unifying way of understanding how computers talk to each other, all the way from the physical wire (or radio) that connects them to the way the bits are organized the moment they leave your web server.</p>
 <p>Without going in to too much detail, wired (Ethernet) and wireless (802.11) networks use different link level (layer 2) protocols. VLAN tagging is an Ethernet thing. This means that if you want to transport Ethernet frames over a different layer 2 protocol like 802.11 Wi-Fi, you need to <em>encapsulate</em> those frames into a different protocol higher up on the networking stack, send the encapsulated data over your not-Ethernet link, and unpack the data back to Ethernet frames on the other side. This problem is solved by the Generic Routing Encapsulation (GRE) protocol.</p>
@@ -116,56 +114,56 @@ I wanted the camera network to be separate from my trusted LAN, partly because i
 <p>The basic idea is this: set up router A in master (AP) mode, router B as a Wi-Fi client (STA), each with a static private IP somewhere in RFC1918. The wireless interfaces must each be configured with an MTU (maximum transmission unit) large enough to accommodate a full 1500-byte Ethernet frame, plus the GRE protocol headers, plus the encapsulating IP overhead. 802.11 supports an MTU of up to 2304, so I chose a reasonable value of 2048 bytes.</p>
 <p>Next, a GRE layer 2 tunnel is defined and bound to the wireless interface. The remote and local addresses must match the addresses chosen above. Optionally, the GRE interface is enslaved to a trunk bridge interface so that we may link in to a real wired backhaul network.</p>
 <p>In declarative UCI, all of that comes together (for router A) like this:</p>
-<pre><code>#/etc/config/wireless
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#/etc/config/wireless</span>
 
-config wifi-iface 'trunk'
-        option device      'radio0'
-        option mode        'ap'
-        option ifname      'wtun'
-        option network     'wtun'
-        option ssid        'trunk'
-        option encryption  'psk2'
-        option key         'supersecretpassword'
-        option hidden      '1'            # avoids beacon pollution
-        option disassoc_low_ack '0'       # helps stay connected
-</code></pre><pre><code># /etc/config/network
+config wifi-iface <span style="color:#e6db74">&#39;trunk&#39;</span>
+        option device      <span style="color:#e6db74">&#39;radio0&#39;</span>
+        option mode        <span style="color:#e6db74">&#39;ap&#39;</span>
+        option ifname      <span style="color:#e6db74">&#39;wtun&#39;</span>
+        option network     <span style="color:#e6db74">&#39;wtun&#39;</span>
+        option ssid        <span style="color:#e6db74">&#39;trunk&#39;</span>
+        option encryption  <span style="color:#e6db74">&#39;psk2&#39;</span>
+        option key         <span style="color:#e6db74">&#39;supersecretpassword&#39;</span>
+        option hidden      <span style="color:#e6db74">&#39;1&#39;</span>            <span style="color:#75715e"># avoids beacon pollution</span>
+        option disassoc_low_ack <span style="color:#e6db74">&#39;0&#39;</span>       <span style="color:#75715e"># helps stay connected</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># /etc/config/network</span>
 
-config interface 'wtun'                   # must match 'network' above
-        option proto     'static'
-        option ipaddr    '10.99.0.1'
-        option netmask   '255.255.255.0'
-        option delegate  '0'              # don't assign IPv6
-        option mtu       '2048'           # should be big enough
+config interface <span style="color:#e6db74">&#39;wtun&#39;</span>                   <span style="color:#75715e"># must match &#39;network&#39; above</span>
+        option proto     <span style="color:#e6db74">&#39;static&#39;</span>
+        option ipaddr    <span style="color:#e6db74">&#39;10.99.0.1&#39;</span>
+        option netmask   <span style="color:#e6db74">&#39;255.255.255.0&#39;</span>
+        option delegate  <span style="color:#e6db74">&#39;0&#39;</span>              <span style="color:#75715e"># don&#39;t assign IPv6</span>
+        option mtu       <span style="color:#e6db74">&#39;2048&#39;</span>           <span style="color:#75715e"># should be big enough</span>
 
-config interface 'gre'
-        option proto     'gretap'         # layer 2 encapsulation
-        option ipaddr    '10.99.0.1'      # from above
-        option peeraddr  '10.99.0.2'      # the other end
-        option tunlink   'wtun'           # from above
-        option network   'trunk'          # enslave to trunk bridge
-        option mtu       '1500'           # standard Ethernet MTU
+config interface <span style="color:#e6db74">&#39;gre&#39;</span>
+        option proto     <span style="color:#e6db74">&#39;gretap&#39;</span>         <span style="color:#75715e"># layer 2 encapsulation</span>
+        option ipaddr    <span style="color:#e6db74">&#39;10.99.0.1&#39;</span>      <span style="color:#75715e"># from above</span>
+        option peeraddr  <span style="color:#e6db74">&#39;10.99.0.2&#39;</span>      <span style="color:#75715e"># the other end</span>
+        option tunlink   <span style="color:#e6db74">&#39;wtun&#39;</span>           <span style="color:#75715e"># from above</span>
+        option network   <span style="color:#e6db74">&#39;trunk&#39;</span>          <span style="color:#75715e"># enslave to trunk bridge</span>
+        option mtu       <span style="color:#e6db74">&#39;1500&#39;</span>           <span style="color:#75715e"># standard Ethernet MTU</span>
 
-config interface 'trunk'
-        option type          'bridge'
-        option proto         'none'       # no IP address here; layer 2 only
-        option auto          '1'          # allow empty bridge to come up automatically
-        option bridge_empty  '1'
-        option ifname        'eth0'       # for a trunk port (requires at least one tagged port)
-        option delegate      '0'          # ignore IPv6
-        option igmp_snooping '1'
-        option stp           '1'          # just in case
+config interface <span style="color:#e6db74">&#39;trunk&#39;</span>
+        option type          <span style="color:#e6db74">&#39;bridge&#39;</span>
+        option proto         <span style="color:#e6db74">&#39;none&#39;</span>       <span style="color:#75715e"># no IP address here; layer 2 only</span>
+        option auto          <span style="color:#e6db74">&#39;1&#39;</span>          <span style="color:#75715e"># allow empty bridge to come up automatically</span>
+        option bridge_empty  <span style="color:#e6db74">&#39;1&#39;</span>
+        option ifname        <span style="color:#e6db74">&#39;eth0&#39;</span>       <span style="color:#75715e"># for a trunk port (requires at least one tagged port)</span>
+        option delegate      <span style="color:#e6db74">&#39;0&#39;</span>          <span style="color:#75715e"># ignore IPv6</span>
+        option igmp_snooping <span style="color:#e6db74">&#39;1&#39;</span>
+        option stp           <span style="color:#e6db74">&#39;1&#39;</span>          <span style="color:#75715e"># just in case</span>
 
-config interface 'lan'
-        option type          'bridge'
-        option ifname        'eth0.1 @trunk.1' # enslave VLAN 1, both on physical switch and trunk bridge
-        option proto         'static'
-        option ipaddr        '192.168.1.1'
-        option netmask       '255.255.255.0'
-        option gateway       '192.168.1.1'
-        option ip6assign     '64'
-        option igmp_snooping '1'
-        option stp           '1'
-</code></pre><p>Note that these are not complete configuration files. There must also be a corresponding <code>wifi-device</code> called <code>radio0</code> defined in <code>/etc/config/wireless</code> to define some of the radio parameters (channel, HT mode, etc.), the rest of the networks are missing (WAN, guest, camera), but it should be enough to get you started.</p>
+config interface <span style="color:#e6db74">&#39;lan&#39;</span>
+        option type          <span style="color:#e6db74">&#39;bridge&#39;</span>
+        option ifname        <span style="color:#e6db74">&#39;eth0.1 @trunk.1&#39;</span> <span style="color:#75715e"># enslave VLAN 1, both on physical switch and trunk bridge</span>
+        option proto         <span style="color:#e6db74">&#39;static&#39;</span>
+        option ipaddr        <span style="color:#e6db74">&#39;192.168.1.1&#39;</span>
+        option netmask       <span style="color:#e6db74">&#39;255.255.255.0&#39;</span>
+        option gateway       <span style="color:#e6db74">&#39;192.168.1.1&#39;</span>
+        option ip6assign     <span style="color:#e6db74">&#39;64&#39;</span>
+        option igmp_snooping <span style="color:#e6db74">&#39;1&#39;</span>
+        option stp           <span style="color:#e6db74">&#39;1&#39;</span>
+</code></pre></div><p>Note that these are not complete configuration files. There must also be a corresponding <code>wifi-device</code> called <code>radio0</code> defined in <code>/etc/config/wireless</code> to define some of the radio parameters (channel, HT mode, etc.), the rest of the networks are missing (WAN, guest, camera), but it should be enough to get you started.</p>
 <p>I&rsquo;m using <code>10.99.0.1/24</code> for router A and <code>10.99.0.2/24</code> for router B in this example as the tunnel endpoint addresses. For router B, the following things need to be changed:</p>
 <ul>
 <li>Use <code>10.99.0.2</code> as the <code>wtun</code> interface IP address</li>

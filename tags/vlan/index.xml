@@ -13,9 +13,7 @@
       <pubDate>Fri, 13 Nov 2020 00:00:00 +0000</pubDate>
       
       <guid>https://oofnikj.github.io/vlans-and-wifi/</guid>
-      <description>Transporting tagged VLAN traffic over a wireless link is a reasonably common setup in commercial environments. It turned out to be unexpectedly challenging with OpenWrt. I figured it out so you don&amp;rsquo;t have to.
-Motivation I recently encountered an opportunity to implement VLANs in my home network after moving to a new place, where we inherited a video surveillance system.
-I wanted the camera network to be separate from my trusted LAN, partly because it&amp;rsquo;s good security practice, but mostly because I wanted to hone my networking skills.</description>
+      <description>Transporting tagged VLAN traffic over a wireless link is a reasonably common setup in commercial environments. It turned out to be unexpectedly challenging with OpenWrt.</description>
     </item>
     
   </channel>
