@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>raspberry pi security camera monitor // bad gateway</title>
+    <link rel="shortcut icon" href="/bg.png" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.79.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="oofnik" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://oofnikj.github.io/css/main.min.b2f24eefc5585352491239a2edc4ac107967fcea239f8c0a1001e2a77fc62db0.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="raspberry pi security camera monitor"/>
+<meta name="twitter:description" content="I took some time off between jobs. Among the things I did with my down time, I set up a secondary monitor for an IP camera system. Here is how it works.
+My dad had a couple of security cameras installed. They all feed in to a DVR that sits next to his computer. Besides recording, the thing muxes the camera feeds into a single picture-in-picture stream which is known in security-camera-speak as &ldquo;channel zero&rdquo;."/>
+
+    <meta property="og:title" content="raspberry pi security camera monitor" />
+<meta property="og:description" content="I took some time off between jobs. Among the things I did with my down time, I set up a secondary monitor for an IP camera system. Here is how it works.
+My dad had a couple of security cameras installed. They all feed in to a DVR that sits next to his computer. Besides recording, the thing muxes the camera feeds into a single picture-in-picture stream which is known in security-camera-speak as &ldquo;channel zero&rdquo;." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://oofnikj.github.io/raspberry-pi-security-camera-monitor/" />
+<meta property="article:published_time" content="2019-12-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-28T00:00:00+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://oofnikj.github.io/"><img class="app-header-avatar" src="/bg.png" alt="oofnik" /></a>
+      <h1>bad gateway</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/posts/">Posts</a>
+            &#xB7
+          
+          <a class="app-header-menu-item" href="/tags">Tags</a>
+      </nav>
+      <p>a collection of notes about dev and ops things</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/oofnikj" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/oofnik" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/jordan.sokolic" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="/index.xml" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-rss">
+  <title>rss</title>
+  <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">raspberry pi security camera monitor</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Dec 28, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          5 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://oofnikj.github.io/tags/dvr/">dvr</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/raspberrypi/">raspberrypi</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>I took some time off between jobs. Among the things I did with my down time, I set up a secondary monitor for an IP camera system. Here is how it works.</p>
+<p>My dad had a couple of security cameras installed. They all feed in to a DVR that sits next to his computer. Besides recording, the thing muxes the camera feeds into a single picture-in-picture stream which is known in security-camera-speak as &ldquo;channel zero&rdquo;.</p>
+<p>There&rsquo;s a monitor that sits on top of the DVR to display a live view, play back recorded video, and configure the system though an spectacularly non-intuitive interface. An additional monitor was installed in the kitchen that&rsquo;s hard-wired over a special run of coax directly to the DVR.</p>
+<p>My dad is down in the basement a lot, and he wanted a monitor set up there too. But running another coax wasn&rsquo;t possible for several reasons.</p>
+<p>This got me thinking.</p>
+<p>In addition to muxing and recording the camera streams, the thing is wired to the home network.</p>
+<p>After some googling and poking around, I figured out that all the video streams are <a href="https://www.use-ip.co.uk/forum/threads/hikvision-rtsp-stream-urls.890/">accessible</a> via RTSP over the network.</p>
+<p>All I had to do was set up something to connect to the wifi, stream the video, and display it on a monitor. Sounds like the perfect job for a Raspberry Pi Zero W.</p>
+<hr>
+<h2 id="stream">Stream</h2>
+<p>I&rsquo;m not going to go in to the details of setting up a Raspberry Pi to be accessible over the network via SSH, because there are already a <a href="https://magpi.raspberrypi.org/articles/ssh-remote-control-raspberry-pi">bazillion</a> <a href="https://itsfoss.com/ssh-into-raspberry/">guides</a> <a href="https://www.raspberrypi.org/documentation/remote-access/ssh/">out</a> <a href="https://learn.adafruit.com/adafruits-raspberry-pi-lesson-6-using-ssh/enabling-ssh">there</a> on how to that. But that&rsquo;s the first step.</p>
+<p>Now we need to set up some kind of video playback. My usual go-to would be <a href="https://www.videolan.org/vlc/index.html">VLC</a>, but I found that in this case, the Zero W didn&rsquo;t have enough oomph for smooth playback.</p>
+<p>Next I tried <code>omxplayer</code> which apparently comes pre-built with hardware acceleration, and that seemed to work much better.</p>
+<p>Here you need to know the IP address of your DVR, which you can find by wading through the garbage UI and eventually stumbling upon it by accident. Alternatively, you could look up the DHCP leases in your router&rsquo;s config page and see what address it assigned to the DVR, assuming you&rsquo;re using DHCP.</p>
+<p>You also need to know the port on which the DVR is listening for incoming RTSP connections. The standard port for RTSP is 554, but my unit was configured to listen on 10554. YMMV.</p>
+<p>The final command line to get <code>omxplayer</code> to play our video stream looks like this:</p>
+<p>omxplayer &ndash;loop &ndash;live &ndash;timeout 120 &ndash;avdict rtsp_transport:tcp rtsp://<!-- raw HTML omitted -->:<!-- raw HTML omitted -->@<!-- raw HTML omitted -->:<!-- raw HTML omitted -->/Streaming/channels/001</p>
+<p>Replace the bits in angle brackets and you should see your stream. You can read more about the command-line options available to <code>omxplayer</code> <a href="https://www.raspberrypi.org/documentation/raspbian/applications/omxplayer.md">here</a>.</p>
+<p>Note: You can play different camera streams by changing the number at the end. The first digit indicates which channel (we&rsquo;re playing the muxed channel, channel-zero). The second and third digits indicates whether you&rsquo;re playing the main, high-definition stream (<code>01</code>) or the standard-definition one (<code>02</code>) suitable for low-bandwidth connections.</p>
+<h2 id="resilience">Resilience</h2>
+<p>I want the stream to be completely automatic and resilient, such that it should be able to accommodate several failure conditions and self-recover. Simply running <code>omxplayer</code> as above manually on startup wasn&rsquo;t going to cut it.</p>
+<p>Instead, I configured <code>omxplayer</code> to launch as a <code>[systemd](https://en.wikipedia.org/wiki/Systemd)</code> service at startup that would respawn if anything went wrong.</p>
+<p>Fire up an editor to create a <code>systemd</code> service:</p>
+<pre><code>$ sudo vi /etc/systemd/system/dvr.service
+</code></pre><p>And here&rsquo;s what should go inside:</p>
+<p>[Unit]
+Description=Security camera
+Requires=network.target
+[Service]
+Type=simple
+ExecStart=/usr/bin/omxplayer &ndash;loop &ndash;live &ndash;timeout 120 &ndash;avdict rtsp_transport:tcp &ldquo;rtsp://<!-- raw HTML omitted -->:<!-- raw HTML omitted -->@<!-- raw HTML omitted -->:<!-- raw HTML omitted -->/Streaming/channels/001&rdquo;
+User=pi
+StandardOutput=null
+Restart=always
+RestartSec=10
+[Install]
+WantedBy=graphical.target</p>
+<p>You can read more about what all these parameters do over <a href="https://www.freedesktop.org/software/systemd/man/systemd.service.html">here</a>. But basically, we&rsquo;re telling <code>systemd</code> to wait until the network is available before launching our service, and restarting it if it exits with a delay of 10 seconds between restart attempts.</p>
+<p>Save the service file and exit. Now we need to tell <code>systemd</code> to re-read our service definitions, enable it, and start it:</p>
+<pre><code>$ sudo systemctl daemon-reload
+$ sudo systemctl enable dvr.service
+Created symlink /etc/systemd/system/graphical.target.wants/dvr.service → /etc/systemd/system/dvr.service.
+$ sudo systemctl start dvr.service
+</code></pre><p>And with any luck, you should see your video stream pop up.</p>
+<p>You can also reboot your pi now to confirm that the video comes up on boot.</p>
+<hr>
+<h2 id="resilience-cont">Resilience (cont.)</h2>
+<p>I had an additional problem (apparently I&rsquo;m not the <a href="https://github.com/raspberrypi/linux/issues/1342">only</a> <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=233847">one</a> either) where occasionally the onboard wifi on the Pi Zero W would hard crash at random intervals, and the only way to get it back online was to either power cycle the pi, or power cycle the router, neither of which were particularly palatable solutions.</p>
+<p>I did find, however, that whenever this hard crash happened, a bunch of error messages appeared in the kernel log, <code>/var/log/kern.log</code>:</p>
+<p>Dec 22 03:55:23 raspberrypi kernel: [151994.344119] brcmfmac: brcmf_cfg80211_scan: scan error (-110)
+Dec 22 03:56:23 raspberrypi kernel: [152054.344514] brcmfmac: brcmf_run_escan: error (-110)
+Dec 22 03:56:23 raspberrypi kernel: [152054.344542] brcmfmac: brcmf_cfg80211_scan: scan error (-110)
+Dec 22 03:57:23 raspberrypi kernel: [152114.344934] brcmfmac: brcmf_run_escan: error (-110)
+Dec 22 03:57:23 raspberrypi kernel: [152114.344962] brcmfmac: brcmf_cfg80211_scan: scan error (-110)
+Dec 22 03:58:23 raspberrypi kernel: [152174.345345] brcmfmac: brcmf_run_escan: error (-110)
+Dec 22 03:58:23 raspberrypi kernel: [152174.345372] brcmfmac: brcmf_cfg80211_scan: scan error (-110)
+Dec 22 03:59:23 raspberrypi kernel: [152234.345824] brcmfmac: brcmf_run_escan: error (-110)</p>
+<p>So I wrote a script to check for network connectivity, and unload / reload the kernel module if it goes away:</p>
+<!-- raw HTML omitted -->
+<p>Put this script in <code>/usr/local/bin</code> and run it every five or so minutes via <code>crontab</code>:</p>
+<pre><code>$ curl -sL https://gist.github.com/oofnikj/9b653e58d1f887fc166b7eb700e327b6/raw/f26e87d9299e74eb5844a6e5d0fb335638376fba/wififix.sh | sudo tee /usr/local/bin/wififix.sh
+$ sudo chmod +x /usr/local/bin/wififix.sh
+$ sudo bash -c &quot;cat &lt;(crontab -l) &lt;(echo '*/5 * * * * /usr/local/bin/wififix.sh') | crontab -&quot;
+</code></pre><p>It takes the pi about 30 seconds to regain connectivity when this happens, so the video freezes for that amount of time, but it always* comes back.</p>
+<p>*until the next failure mode reveals itself.</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

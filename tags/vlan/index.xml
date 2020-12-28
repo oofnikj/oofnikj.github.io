@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vlan on bad gateway</title>
+    <link>https://oofnikj.github.io/tags/vlan/</link>
+    <description>Recent content in vlan on bad gateway</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 13 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/vlan/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vlans and wifi</title>
+      <link>https://oofnikj.github.io/vlans-and-wifi/</link>
+      <pubDate>Fri, 13 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/vlans-and-wifi/</guid>
+      <description>Transporting tagged VLAN traffic over a wireless link is a reasonably common setup in commercial environments. It turned out to be unexpectedly challenging with OpenWrt. I figured it out so you don&amp;rsquo;t have to.
+Motivation I recently encountered an opportunity to implement VLANs in my home network after moving to a new place, where we inherited a video surveillance system.
+I wanted the camera network to be separate from my trusted LAN, partly because it&amp;rsquo;s good security practice, but mostly because I wanted to hone my networking skills.</description>
+    </item>
+    
+  </channel>
+</rss>

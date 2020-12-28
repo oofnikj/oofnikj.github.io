@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>raspberrypi on bad gateway</title>
+    <link>https://oofnikj.github.io/tags/raspberrypi/</link>
+    <description>Recent content in raspberrypi on bad gateway</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 28 Dec 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/raspberrypi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>raspberry pi security camera monitor</title>
+      <link>https://oofnikj.github.io/raspberry-pi-security-camera-monitor/</link>
+      <pubDate>Sat, 28 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/raspberry-pi-security-camera-monitor/</guid>
+      <description>I took some time off between jobs. Among the things I did with my down time, I set up a secondary monitor for an IP camera system. Here is how it works.
+My dad had a couple of security cameras installed. They all feed in to a DVR that sits next to his computer. Besides recording, the thing muxes the camera feeds into a single picture-in-picture stream which is known in security-camera-speak as &amp;ldquo;channel zero&amp;rdquo;.</description>
+    </item>
+    
+  </channel>
+</rss>

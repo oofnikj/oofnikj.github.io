@@ -6,7 +6,18 @@
     <description>Recent content in Posts on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 12 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 13 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vlans and wifi</title>
+      <link>https://oofnikj.github.io/vlans-and-wifi/</link>
+      <pubDate>Fri, 13 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/vlans-and-wifi/</guid>
+      <description>Transporting tagged VLAN traffic over a wireless link is a reasonably common setup in commercial environments. It turned out to be unexpectedly challenging with OpenWrt. I figured it out so you don&amp;rsquo;t have to.
+Motivation I recently encountered an opportunity to implement VLANs in my home network after moving to a new place, where we inherited a video surveillance system.
+I wanted the camera network to be separate from my trusted LAN, partly because it&amp;rsquo;s good security practice, but mostly because I wanted to hone my networking skills.</description>
+    </item>
+    
     <item>
       <title>kernel patching with dkms</title>
       <link>https://oofnikj.github.io/kernel-patching-with-dkms/</link>
@@ -80,12 +91,31 @@
     </item>
     
     <item>
+      <title>raspberry pi security camera monitor</title>
+      <link>https://oofnikj.github.io/raspberry-pi-security-camera-monitor/</link>
+      <pubDate>Sat, 28 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/raspberry-pi-security-camera-monitor/</guid>
+      <description>I took some time off between jobs. Among the things I did with my down time, I set up a secondary monitor for an IP camera system. Here is how it works.
+My dad had a couple of security cameras installed. They all feed in to a DVR that sits next to his computer. Besides recording, the thing muxes the camera feeds into a single picture-in-picture stream which is known in security-camera-speak as &amp;ldquo;channel zero&amp;rdquo;.</description>
+    </item>
+    
+    <item>
       <title>clean up your git</title>
       <link>https://oofnikj.github.io/clean-up-your-git/</link>
       <pubDate>Sun, 27 Oct 2019 00:00:00 +0000</pubDate>
       
       <guid>https://oofnikj.github.io/clean-up-your-git/</guid>
       <description>Have you ever found yourself frantically trying to un-commit some enormous binary file you&amp;rsquo;ve accidentally checked in to version control? Or perhaps you&amp;rsquo;ve made the mistake of committing your AWS root credentials?</description>
+    </item>
+    
+    <item>
+      <title>postgres &lt;--&gt; google cloud storage</title>
+      <link>https://oofnikj.github.io/postgres-google-cloud-storage/</link>
+      <pubDate>Sun, 13 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/postgres-google-cloud-storage/</guid>
+      <description>Don&amp;rsquo;t run a database if you can get away with it.</description>
     </item>
     
     <item>
