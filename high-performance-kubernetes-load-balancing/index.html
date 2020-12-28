@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>high performance kubernetes load balancing // bad gateway</title>
+    <link rel="shortcut icon" href="/bg.png" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.79.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="oofnik" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://oofnikj.github.io/css/main.min.ebe3e2ce5c96869556ce77338534b5fa7dd958f505ab46039377cd80ecb00528.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="high performance kubernetes load balancing"/>
+<meta name="twitter:description" content="What began as an investigation into a very stubborn intermittent error turned into a write-up on how to squeeze the most out of your Kubernetes deployment."/>
+
+    <meta property="og:title" content="high performance kubernetes load balancing" />
+<meta property="og:description" content="What began as an investigation into a very stubborn intermittent error turned into a write-up on how to squeeze the most out of your Kubernetes deployment." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://oofnikj.github.io/high-performance-kubernetes-load-balancing/" />
+<meta property="article:published_time" content="2019-10-03T05:48:40+00:00" />
+<meta property="article:modified_time" content="2019-10-03T05:48:40+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://oofnikj.github.io/"><img class="app-header-avatar" src="/bg.png" alt="oofnik" /></a>
+      <h1>bad gateway</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/posts/">Posts</a>
+            &#xB7
+          
+          <a class="app-header-menu-item" href="/tags">Tags</a>
+      </nav>
+      <p>a collection of notes about dev and ops things</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/oofnikj" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/oofnik" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/jordan.sokolic" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="/index.xml" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-rss">
+  <title>rss</title>
+  <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">high performance kubernetes load balancing</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Oct 3, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          9 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://oofnikj.github.io/tags/haproxy/">HAProxy</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/iptables/">iptables</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/kubernetes/">kubernetes</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/traefik/">Traefik</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/uwsgi/">uWSGI</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>What began as an investigation into a very stubborn intermittent error turned into a write-up on how to squeeze the most out of your Kubernetes deployment.</p>
+<hr>
+<p>Among the many features of Kubernetes, perhaps one of the most useful (and innovative) is its use of IP tables to perform the gruntwork of network plumbing.</p>
+<p>If you haven&rsquo;t already, I highly recommend watching Michael Rubin and Tim Hockin discuss the <a href="https://www.youtube.com/watch?v=y2bhV81MfKQ">ins and outs of Kubernetes networking</a>. It&rsquo;s a great overview of the k8s networking layer with a lot of examples and step-by-step explanation.</p>
+<h2 id="background">Background</h2>
+<p>First, a little background. My company offers a product that enhances e-commerce search by running a store&rsquo;s online catalog and query stream through a natural language engine to improve recall and precision for end users.</p>
+<p>The product is exposed as a a two-part API: queries and listings. A store&rsquo;s product catalog must first be indexed through our API, which analyzes existing data fields like title and description, adding structured data according to the product type - sizes and colors for fashion, freshness for grocery items, etc. These items get indexed back in to a search engine on the customer side. End-user queries are then analyzed in real-time with the same engine and translated into search engine-speak to return matching items from the indexed catalog.</p>
+<p>The takeaway here is high throughput for the listings API, while the goal for the queries API is low latency.</p>
+<p>Over the last few months, we&rsquo;ve put a lot of work into bringing our infrastructure up to date by preparing a migration from compute instances to an orchestrated containerized platform.</p>
+<p>You can probably guess which one.</p>
+<p>I&rsquo;m going to focus on the listings API in this post. Perhaps I&rsquo;ll go into the queries API in the future, but for now that&rsquo;ll remain out of scope.</p>
+<hr>
+<h3 id="the-old">The Old</h3>
+<p>The classic deployment looks like this: A fixed number of worker processes (let&rsquo;s say 4) are distributed among a set of autoscaling instances (for example, 10). These instances sit behind an HAProxy load balancer, which is itself stationed behind a cloud load balancer to handle SSL termination.</p>
+<p>All except for one of the worker instances are switched off when there are no indexing requests. HAProxy configuration is dynamically updated with the number of workers online through Consul template, so it knows how many connections it can accept before returning errors.</p>
+<p>Most of the time, HAProxy is idling along, ready to accept a maximum of 4 connections (4 workers per node x 1 online node) when requests start blasting in at full speed (40 concurrent).
+At this point HAProxy returns status <code>429</code> to the client until the rest of the instances have time to scale up. Scaling is handled by a custom script that reads the <code>429</code> rate from the HAProxy stats endpoint and determines how many instances needed to be brought online to handle the demand. This process ideally takes 2-3 minutes, after which the <code>429</code> rate drops to zero.</p>
+<h3 id="the-new">The New</h3>
+<p>While re-implementing the logic in Kubernetes, we did away with the custom autoscaling stuff, relying instead on GKE&rsquo;s autoscaling node pool plus a <code>HorizontalPodAutoscaler</code> to scale the deployment as needed.</p>
+<p>For testing, I settled on an intermediate-sized cluster of 6 nodes, 4 vCPUs each, for a total of 24 workers, one process per CPU core. No multi-threading here.</p>
+<h4 id="ip-tables">IP Tables</h4>
+<p>At first, I tried round-robin load balancing using the virtual IP created by a <code>ClusterIP</code> service, leaving out the HAProxy bits altogether. This worked, even error-free, only it was about two-thirds slower than the classic deployment. So that wasn&rsquo;t going to fly.</p>
+<p>Switching to the use of <code>NodePort</code>, setting <code>externalTrafficPolicy</code> to either <code>Local</code> or <code>Cluster</code> made things even worse:</p>
+<table>
+<thead>
+<tr>
+<th>LB Type</th>
+<th>Response Time (ms), mean</th>
+<th>Requests / sec, mean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ClusterIP</td>
+<td>732</td>
+<td>32.8</td>
+</tr>
+<tr>
+<td>NodePort (Local)</td>
+<td>912</td>
+<td>26.3</td>
+</tr>
+<tr>
+<td>NodePort (Cluster)</td>
+<td>944</td>
+<td>25.4</td>
+</tr>
+</tbody>
+</table>
+<p>My best guess is that because IP tables operates in kernel space, there&rsquo;s a lot of context-switching going on, causing a huge slowdown in processing speed. Looking at <code>top</code> on one of the indexing nodes revealed that a good chunk of CPU time was spent idling, reinforcing my suspicion:</p>
+<pre><code>%Cpu(s): 49.1 us,  2.8 sy,  0.0 ni, 47.9 id,  0.0 wa,  0.0 hi,  0.2 si,  0.0 st
+</code></pre>
+<p>My next attempt involved deploying an ingress controller to handle load balancing at the application layer.</p>
+<h4 id="layer-7---traefik">Layer 7 - Traefik</h4>
+<p>Since I&rsquo;d read a lot about <a href="https://traefik.io/">Traefik</a> and played around with it while writing my <a href="https://badgateway.qc.to/local-development-with-kubernetes/">local Kubernetes development guide</a>, I decided to give it a try.</p>
+<p>First, I wrote an <code>Ingress</code> object to be picked up by the Traefik controller. Then, per the <a href="https://docs.traefik.io/v1.7/configuration/backends/kubernetes/#annotations">docs</a>, I had to add some annotations to my app&rsquo;s service definition to limit the maximum number of connections:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">annotations</span>:
+    <span style="color:#f92672">traefik.ingress.kubernetes.io/max-conn-amount</span>: <span style="color:#e6db74">&#34;24&#34;</span>
+    <span style="color:#f92672">traefik.ingress.kubernetes.io/max-conn-extractor-func</span>: <span style="color:#ae81ff">client.ip</span>
+...
+</code></pre></div><p>Hammering it with <code>ab</code> with the same command-line options as before:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ab -t300 -c24 -k -r -l -p listing.json -T <span style="color:#e6db74">&#39;application/json&#39;</span> -m post <span style="color:#ae81ff">\ </span>
+  http://haproxy-controller.kube-system/listings
+</code></pre></div><p>A quick note about the command line flags used here for those of you who don&rsquo;t feel like pulling up the <code>man</code> page:</p>
+<ul>
+<li><code>-t300</code>: run for 5 minutes</li>
+<li><code>-c24</code>: 24 concurrent connections</li>
+<li><code>-k</code>: add a HTTP keep-alive header. <code>ab</code> speaks <code>HTTP/1.0</code>, which defaults to no keepalive.</li>
+<li><code>-r</code>: ignore errors</li>
+<li><code>-l</code>: accept variable length responses. Our app returns a request ID which is randomly generated and not always the same length.</li>
+<li><code>-p ...</code>: POST a file, and</li>
+<li><code>-T 'application/json'</code>: send it as JSON</li>
+</ul>
+<p>And here&rsquo;s where the intermittent error begins to appear.</p>
+<p>While load testing the listings API with Traefik, I encountered a consistent error rate of about 0.8 - 1% from the client side. The client would occasionally receive either <code>500</code> or <code>502</code> from the load balancer (hello, <a href="https://http.cat/502">blog name</a>) at seemingly random intervals. I tested with our internal indexing client, with <code>jmeter</code>, with <code>ab</code>, and with <code>curl</code> running in a <code>while</code> loop (yes, really), all showing the same results. The classic deployment didn&rsquo;t do that.</p>
+<p>When you&rsquo;re aiming for an SLA of five 9&rsquo;s, that is a no-go.</p>
+<p>Here&rsquo;s what <code>ab</code> reports:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Concurrency Level:      <span style="color:#ae81ff">24</span>
+Time taken <span style="color:#66d9ef">for</span> tests:   300.004 seconds
+Complete requests:      <span style="color:#ae81ff">14217</span>
+Failed requests:        <span style="color:#ae81ff">0</span>
+<span style="display:block;width:100%;background-color:#3c3d38">Non-2xx responses:      <span style="color:#ae81ff">67</span>
+</span>Keep-Alive requests:    <span style="color:#ae81ff">14217</span>
+Total transferred:      <span style="color:#ae81ff">16672816</span> bytes
+Total body sent:        <span style="color:#ae81ff">31315959</span>
+HTML transferred:       <span style="color:#ae81ff">12557455</span> bytes
+<span style="display:block;width:100%;background-color:#3c3d38">Requests per second:    47.39 <span style="color:#f92672">[</span><span style="color:#75715e">#/sec] (mean)</span>
+</span><span style="display:block;width:100%;background-color:#3c3d38">Time per request:       506.442 <span style="color:#f92672">[</span>ms<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>mean<span style="color:#f92672">)</span>
+</span>Time per request:       21.102 <span style="color:#f92672">[</span>ms<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>mean, across all concurrent requests<span style="color:#f92672">)</span>
+Transfer rate:          54.27 <span style="color:#f92672">[</span>Kbytes/sec<span style="color:#f92672">]</span> received
+                        101.94 kb/s sent
+                        156.21 kb/s total</code></pre></div>
+<p>Okay. On one hand, we&rsquo;re getting a <em>~30%</em> increase in throughput by balancing with an ingress controller instead of IP tables. So that&rsquo;s good. But on the other hand, we&rsquo;re getting errors. Not a whole lot of them, but still not satisfactory for our SLA with our customers.</p>
+<p>What&rsquo;s going on here?</p>
+<p>I did some research - mostly googling around, but also examining a <code>tcpdump</code> of a load testing session, which confirmed that the non-2xx responses above were indeed mostly <code>502</code>&rsquo;s - and found an open <a href="https://github.com/containous/traefik/issues/3237">bug report</a> in the Traefik project on GitHub that seems to match my experience, with a lot of suggested workarounds.</p>
+<p>The one that eventually did the trick, as counter-intuitive as it may seem, was to <a href="https://github.com/containous/traefik/issues/3237#issuecomment-514178590">disable keepalives</a> in the Traefik configuration.</p>
+<p>Since the author of the comment on the bug report that saved the day already linked to the relevant library used by Traefik, I perused some more and found this <a href="https://github.com/golang/go/blob/release-branch.go1.12/src/net/http/transport.go#L71-L74">tidbit</a>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71</span><span style="color:#75715e">// By default, Transport caches connections for future re-use.
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72</span><span style="color:#75715e">// This may leave many open connections when accessing many hosts.
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73</span><span style="color:#75715e">// This behavior can be managed using Transport&#39;s CloseIdleConnections method
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74</span><span style="color:#75715e">// and the MaxIdleConnsPerHost and DisableKeepAlives fields.
+</span></code></pre></div>
+<p>Apparently, connection caching does not play nice with uWSGI, which we also happen to be using as our application server.</p>
+<p>Testing again after setting <code>MaxIdleConnsPerHost = -1</code> in the Traefik config yielded similar performance, but with zero errors. Great success!</p>
+<p>Let&rsquo;s see if we can push things even further.</p>
+<h4 id="layer-7---haproxy">Layer 7 - HAProxy</h4>
+<p>Our old friend. HAProxy is one of the fastest (if not <em>the</em> fastest), most customizable load balancing proxy servers out there. It always showed excellent results in our classic deployments, barely moving the needle on resource consumption, even under full load, so I wanted to try it out <a href="https://github.com/helm/charts/tree/master/incubator/haproxy-ingress">reincarnated</a> as a Kubernetes ingress controller.</p>
+<p>All that needed to be done was to switch the ingress class from Traefik to HAProxy in our ingress resource and set the connection limit (<a href="https://github.com/jcmoraisjr/haproxy-ingress#annotations">docs</a>):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">... 
+metadata:
+  annotations:
+<span style="color:#f92672">-   kubernetes.io/ingress.class: &#34;traefik&#34;
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+   kubernetes.io/ingress.class: &#34;haproxy&#34;
+</span><span style="color:#a6e22e">+   ingress.kubernetes.io/maxconn-server: &#34;4&#34;
+</span><span style="color:#a6e22e"></span>...
+</code></pre></div>
+<p>Note that Traefik gives you the ability to set the maximum connections <em>per backend</em>, whereas HAProxy allows you to set the maximum connections <em>per server</em> &ndash; an important differentiation of which we&rsquo;ll see the effect later.</p>
+<p>How does HAProxy compare to Traefik?</p>
+<table>
+<thead>
+<tr>
+<th>LB Type</th>
+<th>Response Time (ms), mean</th>
+<th>Requests / sec, mean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Traefik</td>
+<td>477</td>
+<td>50.3</td>
+</tr>
+<tr>
+<td>HAProxy</td>
+<td>342</td>
+<td>70.1</td>
+</tr>
+</tbody>
+</table>
+<p>HAProxy is serving requests almost 30% faster than Traefik here, and ~50% faster than IP tables-based load balancing. Nice.</p>
+<p>Looking at <code>top</code> we see full resource utilization:</p>
+<pre><code>%Cpu(s): 99.4 us,  0.4 sy,  0.0 ni,  0.1 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+</code></pre>
+<p>Taking a look at <code>kubectl top nodes</code>:</p>
+<pre><code>NAME                             CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%
+gke-indexing-bd8adade-5fh5       3994m        101%   3650Mi          29%
+gke-indexing-bd8adade-81m6       3991m        101%   3651Mi          29%
+gke-indexing-bd8adade-cd3h       3995m        101%   3565Mi          28%
+gke-indexing-bd8adade-g0lj       3994m        101%   3612Mi          29%
+gke-indexing-bd8adade-nwkp       3992m        101%   3611Mi          29%
+gke-indexing-bd8adade-zbdw       3996m        101%   3502Mi          28%
+</code></pre>
+<p>That is <em>efficient</em>.</p>
+<p>How much difference does that <code>maxconn-server</code> annotation really make?
+Well, without it, we get numbers almost identical to Traefik:</p>
+<table>
+<thead>
+<tr>
+<th>LB Type</th>
+<th>Response Time (ms), mean</th>
+<th>Requests / sec, mean</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HAProxy (no <code>server-maxconn</code>)</td>
+<td>480</td>
+<td>50.0</td>
+</tr>
+</tbody>
+</table>
+<p>Without proper connection limits, the load balancer is blindly doing round-robin without taking in to account how many connections it has already opened to the backend. This causes the request queue to fill up on one server while another server might actually be able to process that request, leading to inefficiency.</p>
+<p>This can be more clearly demonstrated by observing <code>kubectl top nodes</code> with connection limiting disabled:</p>
+<pre><code>NAME                             CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%
+gke-indexing-bd8adade-01dm       3224m        82%    3411Mi          27%
+gke-indexing-bd8adade-4l1d       2799m        71%    2895Mi          23%
+gke-indexing-bd8adade-93l1       3746m        95%    3471Mi          27%
+gke-indexing-bd8adade-b52p       3092m        78%    3462Mi          27%
+gke-indexing-bd8adade-g0lj       3986m        101%   4729Mi          38%
+gke-indexing-bd8adade-rf9c       3464m        88%    3412Mi          27%
+</code></pre>
+<p>Quite a difference from before.</p>
+<p>From the viewpoint of HAProxy:</p>
+<figure>
+    <img src="hap-nolimit.png"
+         alt="HAProxy: server-maxconn unset"/> <figcaption>
+            <p>HAProxy: <code>server-maxconn</code> unset</p>
+        </figcaption>
+</figure>
+
+<p>Why does one server get 10 concurrent sessions while others get 2 or 3?</p>
+<p>Compare with:</p>
+<figure>
+    <img src="hap-maxconn.png"
+         alt="HAProxy: server-maxconn=4"/> <figcaption>
+            <p>HAProxy: <code>server-maxconn=4</code></p>
+        </figcaption>
+</figure>
+
+<p>Much, much better.</p>
+<hr>
+<p>I really like Traefik, and I think that v2.0 looks especially promising, but I didn&rsquo;t have a chance to check it out for this post. I did play a little with HAProxy 2.0 though, and was able to achieve similar results.</p>
+<p>There&rsquo;s also Google&rsquo;s recently GA&rsquo;d <a href="https://cloud.google.com/blog/products/containers-kubernetes/introducing-container-native-load-balancing-on-google-kubernetes-engine">container-native load balancing</a>, which I have yet to play around with. As a general rule we try to keep our infrastructure cloud-agnostic to avoid vendor lock, but I may update this post if / when I get around to trying it out.</p>
+<p>Unless Traefik 2.0 has HAProxy&rsquo;s ability to limit connections per server, I don&rsquo;t think we&rsquo;ll be able to consider it a viable contender to dethrone HAProxy, the king of light-speed load balancing.</p>
+<p>Maybe we&rsquo;ll see such a feature added in the future.</p>
+<p>Here&rsquo;s to hoping :)</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

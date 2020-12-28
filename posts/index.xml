@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>high performance kubernetes load balancing</title>
+      <link>https://oofnikj.github.io/high-performance-kubernetes-load-balancing/</link>
+      <pubDate>Thu, 03 Oct 2019 05:48:40 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/high-performance-kubernetes-load-balancing/</guid>
+      <description>What began as an investigation into a very stubborn intermittent error turned into a write-up on how to squeeze the most out of your Kubernetes deployment.</description>
+    </item>
+    
+    <item>
       <title>backing up wordpress with git</title>
       <link>https://oofnikj.github.io/backing-up-wordpress-with-git/</link>
       <pubDate>Sun, 29 Sep 2019 05:53:06 +0000</pubDate>
