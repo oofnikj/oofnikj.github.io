@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>tweaking the gitlab kubernetes installer // bad gateway</title>
+    <link rel="shortcut icon" href="/bg.png" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.79.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="oofnik" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://oofnikj.github.io/css/main.min.b2f24eefc5585352491239a2edc4ac107967fcea239f8c0a1001e2a77fc62db0.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="tweaking the gitlab kubernetes installer"/>
+<meta name="twitter:description" content="GitLab has a lovely feature that can bring up a Kubernetes cluster and install build runners on it with a single click. But you can&rsquo;t tweak it."/>
+
+    <meta property="og:title" content="tweaking the gitlab kubernetes installer" />
+<meta property="og:description" content="GitLab has a lovely feature that can bring up a Kubernetes cluster and install build runners on it with a single click. But you can&rsquo;t tweak it." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://oofnikj.github.io/tweaking-the-gitlab-kubernetes-installer/" />
+<meta property="article:published_time" content="2019-10-09T15:11:14+00:00" />
+<meta property="article:modified_time" content="2019-10-09T15:11:14+00:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://oofnikj.github.io/"><img class="app-header-avatar" src="/bg.png" alt="oofnik" /></a>
+      <h1>bad gateway</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/posts/">Posts</a>
+            &#xB7
+          
+          <a class="app-header-menu-item" href="/tags">Tags</a>
+      </nav>
+      <p>a collection of notes about dev and ops things</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/oofnikj" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/oofnik" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/jordan.sokolic" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="/index.xml" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-rss">
+  <title>rss</title>
+  <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">tweaking the gitlab kubernetes installer</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Oct 9, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          5 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://oofnikj.github.io/tags/gitlab/">gitlab</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/helm/">helm</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/kubernetes/">kubernetes</a>
+              <a class="tag" href="https://oofnikj.github.io/tags/tiller/">tiller</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>GitLab has a lovely feature that can bring up a Kubernetes cluster and install build runners on it with a single click. But you can&rsquo;t tweak it.</p>
+<hr>
+<p>While that&rsquo;s nice for those who just want to get builds running quickly on their own infrastructure, we were looking for something a little more customizable.</p>
+<h2 id="out-of-the-box">Out of the box</h2>
+<p>Although GitLab Cloud can currently only provision a cluster on Google Kubernetes Engine, it can connect to and manage any existing Kubernetes cluster as long as it&rsquo;s reachable via the web (an on-prem GitLab deployment doesn&rsquo;t have this requirement, of course). Once it&rsquo;s authenticated, you can use the GitLab UI to install Helm, which is required for installing the rest of the available applications like Prometheus or GitLab Runner.</p>
+<p>I followed the <a href="https://gitlab.com/help/user/project/clusters/index.md#add-existing-kubernetes-cluster">GitLab docs</a> on how to add my cluster, and everything seemed to be on track.</p>
+<p>The snazzy UI makes use of the <a href="https://gitlab.com/gitlab-org/charts/gitlab-runner/tree/master">GitLab Runner Helm chart</a> to deploy build runners to your cluster. Although the chart itself offers a lot of customization,  tweaking the chart values isn&rsquo;t an option if you&rsquo;re deploying via the UI.</p>
+<h2 id="schedule-conflict">Schedule conflict</h2>
+<p>Our cluster is composed of several node pools of non-uniform size. Specifically, we were looking for a way to tell GitLab to run builds with a certain tag only on the beefier nodes in our cluster.</p>
+<p>Unfortunately, at the time of writing, there is no way to define resource requests at the job level. There&rsquo;s an <a href="https://gitlab.com/gitlab-org/gitlab-runner/issues/2902">open issue</a> and even a <a href="https://gitlab.com/gitlab-org/gitlab-runner/merge_requests/874">merge request</a> with some traction addressing this very feature, but no word from the maintainers.</p>
+<p>Since the runner chart <a href="https://gitlab.com/gitlab-org/charts/gitlab-runner/blob/master/values.yaml#L281">supports</a> setting a <code>NodeSelector</code> for the runners, what we can do instead is use Kubernetes labels to schedule our runners on a subset of nodes with a particular label, and then specify a tag in our CI job so it only runs on runners with the tag associated with that label.</p>
+<p>Our beefy nodes are assigned the label key-value pair <code>runner: large</code>. So we match this in the runner configuration by passing a parameter to Helm:</p>
+<pre><code>--set runners.nodeSelector.runner=&quot;large&quot;
+</code></pre>
+<p>We also want to make sure that we don&rsquo;t schedule more than one runner per node, so we set a CPU request that&rsquo;s too big for our small nodes (0.94 CPU allocatable), but still schedulable on our big nodes (3.92 CPU allocatable):</p>
+<pre><code>--set runners.builds.cpuRequests=&quot;3&quot;
+</code></pre>
+<p>Second, we need to assign a tag to our souped-up runners indicating their beefy spec to jobs. This tag, <code>runner-large</code>, will later be specified in our pipeline job:</p>
+<pre><code>--set runners.tags='runner-large'
+</code></pre>
+<p>Now that we know exactly how we want to configure our runner chart, we have two options: a) deploy Helm, Tiller, and the runner chart on our own, or b) use the UI to deploy Tiller and GitLab Runner to our cluster, then tweak it.</p>
+<p>There are already a ton of examples out there on how to deploy charts with Helm.</p>
+<p>I&rsquo;m going to take you down the back route where we tweak an existing GitLab runner setup provisioned with the UI, without having to re-deploy.</p>
+<h2 id="lockdown">Lockdown</h2>
+<p>If you installed Tiller via the GitLab UI, logging in to your cluster and doing a <code>helm ls</code> to see what&rsquo;s what like I did will quickly reveal that something is amiss:</p>
+<pre><code>Error: could not find tiller
+</code></pre>
+<p>The first non-standard thing GitLab does when it installs Tiller in your cluster is deploying it to its own namespace &ndash; <code>gitlab-managed-apps</code> &ndash; instead of the default <code>kube-system</code>.</p>
+<p>We can tell Helm where to find Tiller either with the command-line flag <code>--tiller-namespace</code> or by setting the environment variable <code>TILLER_NAMESPACE</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ export TILLER_NAMESPACE<span style="color:#f92672">=</span>gitlab-managed-apps
+$ helm ls --tiller-connection-timeout <span style="color:#ae81ff">30</span>
+Error: context deadline exceeded
+</code></pre></div><p>Since Helm&rsquo;s default timeout is an obnoxiously long 5 minutes, we shorten it to 30 seconds, only to find out that something is still preventing us from gaining access.</p>
+<p>The second non-standard thing GitLab does is it <a href="https://github.com/helm/helm/blob/master/docs/tiller_ssl.md">deploys Tiller with TLS enabled</a>. This makes communication between the Helm client and Tiller secure. But now not only do we need to authenticate to our cluster, we need a <em>separate</em> set of credentials to authenticate to Tiller. Whew.</p>
+<p>Here&rsquo;s a little shell snippet that will pull the certs and keys out of the Tiller secret and set some environment variables so Helm can use them:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">export HELM_HOME<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>HELM_HOME<span style="color:#66d9ef">:-</span>$HOME/.helm<span style="color:#e6db74">}</span>
+export TILLER_NAMESPACE<span style="color:#f92672">=</span>gitlab-managed-apps
+export HELM_TLS_ENABLE<span style="color:#f92672">=</span>true
+kubectl config set-context --current --namespace gitlab-managed-apps
+kubectl get secret tiller-secret -ojsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{.data.ca\.crt}&#39;</span>  | base64 -d &gt; <span style="color:#e6db74">${</span>HELM_HOME<span style="color:#e6db74">}</span>/ca.pem
+kubectl get secret tiller-secret -ojsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{.data.tls\.crt}&#39;</span> | base64 -d &gt; <span style="color:#e6db74">${</span>HELM_HOME<span style="color:#e6db74">}</span>/cert.pem
+kubectl get secret tiller-secret -ojsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{.data.tls\.key}&#39;</span> | base64 -d &gt; <span style="color:#e6db74">${</span>HELM_HOME<span style="color:#e6db74">}</span>/key.pem
+</code></pre></div><p><strong>Warning!</strong> If you already have Helm TLS certificates in <code>~/.helm</code>, <strong>they will be overwritten</strong>.
+Take a look at <a href="https://medium.com/nuvo-group-tech/configure-helm-tls-communication-with-multiple-kubernetes-clusters-5e58674352e2">this post</a> for a guide on juggling multiple Kubernetes clusters with different sets of credentials for Helm.</p>
+<p>If all goes smoothly, you should be able to see your runner deployment with <code>helm ls</code>.</p>
+<h2 id="tweak-it">Tweak it</h2>
+<p>Now that we finally have access to GitLab&rsquo;s Tiller, we can follow the official GitLab <a href="https://docs.gitlab.com/runner/install/kubernetes.html#updating-gitlab-runner-using-the-helm-chart">docs</a> on how to update a runner deployed with Helm, adding in our extra flags from above:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">// add GitLab Helm chart repo to our local Helm config
+$ helm repo add gitlab https://charts.gitlab.io <span style="color:#f92672">&amp;&amp;</span> helm repo update
+// save current runner chart values
+$ helm get values runner &gt; values.yaml 
+// merge in our updated configuration
+$ helm upgrade --namespace gitlab-managed-apps <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -f values.yaml <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --set runners.nodeSelector.runner<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;large&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --set runners.builds.cpuRequests<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;3&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --set runners.tags<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;runner-large&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    runner gitlab/gitlab-runner
+</code></pre></div><p>Finally, we can confirm that the changes took hold by waiting a moment for the pods to restart, then looking up the manager pod and printing out its config:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ RUNNER_POD<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>kubectl get pods -l app<span style="color:#f92672">=</span>runner-gitlab-runner -ojsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{.items[0].metadata.name}&#39;</span><span style="color:#66d9ef">)</span>
+$ kubectl exec $RUNNER_POD cat /home/gitlab-runner/.gitlab-runner/config.toml
+</code></pre></div><p>With any luck you should see your configuration updated to reflect the new values you passed to Helm when updating your deployment.</p>
+<p>Now in your <code>.gitlab-ci.yml</code>, you can add</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">beefy job</span>:
+  <span style="color:#f92672">tags</span>:
+    - <span style="color:#ae81ff">runner-large</span>
+</code></pre></div><p>for a particular job, and your build will only run on nodes with the <code>runner: large</code> label.</p>
+<hr>
+<p>The moral of this story: If you want custom runner configuration, use your own damn Tiller.</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

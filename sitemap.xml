@@ -53,12 +53,32 @@
   </url>
   
   <url>
-    <loc>https://oofnikj.github.io/tags/gcp/</loc>
-    <lastmod>2019-10-04T08:24:57+00:00</lastmod>
+    <loc>https://oofnikj.github.io/tags/gitlab/</loc>
+    <lastmod>2019-10-09T15:11:14+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://oofnikj.github.io/tags/gitlab/</loc>
+    <loc>https://oofnikj.github.io/tags/helm/</loc>
+    <lastmod>2019-10-09T15:11:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/kubernetes/</loc>
+    <lastmod>2019-10-09T15:11:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/tiller/</loc>
+    <lastmod>2019-10-09T15:11:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tweaking-the-gitlab-kubernetes-installer/</loc>
+    <lastmod>2019-10-09T15:11:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://oofnikj.github.io/tags/gcp/</loc>
     <lastmod>2019-10-04T08:24:57+00:00</lastmod>
   </url>
   
@@ -79,11 +99,6 @@
   
   <url>
     <loc>https://oofnikj.github.io/tags/iptables/</loc>
-    <lastmod>2019-10-03T05:48:40+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://oofnikj.github.io/tags/kubernetes/</loc>
     <lastmod>2019-10-03T05:48:40+00:00</lastmod>
   </url>
   
@@ -120,11 +135,6 @@
   <url>
     <loc>https://oofnikj.github.io/tags/wordpress/</loc>
     <lastmod>2019-09-29T05:53:06+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://oofnikj.github.io/tags/helm/</loc>
-    <lastmod>2019-09-28T16:31:55+00:00</lastmod>
   </url>
   
   <url>

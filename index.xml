@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>tweaking the gitlab kubernetes installer</title>
+      <link>https://oofnikj.github.io/tweaking-the-gitlab-kubernetes-installer/</link>
+      <pubDate>Wed, 09 Oct 2019 15:11:14 +0000</pubDate>
+      
+      <guid>https://oofnikj.github.io/tweaking-the-gitlab-kubernetes-installer/</guid>
+      <description>GitLab has a lovely feature that can bring up a Kubernetes cluster and install build runners on it with a single click. But you can&amp;rsquo;t tweak it.</description>
+    </item>
+    
+    <item>
       <title>using a private container registry with gitlab</title>
       <link>https://oofnikj.github.io/using-a-private-container-registry-with-gitlab/</link>
       <pubDate>Fri, 04 Oct 2019 08:24:57 +0000</pubDate>
