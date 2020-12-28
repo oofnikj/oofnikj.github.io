@@ -96,8 +96,7 @@ I wanted the camera network to be separate from my trusted LAN, partly because i
       <pubDate>Sat, 28 Dec 2019 00:00:00 +0000</pubDate>
       
       <guid>https://oofnikj.github.io/raspberry-pi-security-camera-monitor/</guid>
-      <description>I took some time off between jobs. Among the things I did with my down time, I set up a secondary monitor for an IP camera system. Here is how it works.
-My dad had a couple of security cameras installed. They all feed in to a DVR that sits next to his computer. Besides recording, the thing muxes the camera feeds into a single picture-in-picture stream which is known in security-camera-speak as &amp;ldquo;channel zero&amp;rdquo;.</description>
+      <description>A remote Raspberry Pi-powered display for a video surveillance system.</description>
     </item>
     
     <item>
