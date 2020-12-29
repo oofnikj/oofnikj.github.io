@@ -313,11 +313,11 @@
 
 PUBLIC_DIR<span style="color:#f92672">=</span>public
 
-rm -rf <span style="color:#e6db74">${</span>PUBLIC_DIR<span style="color:#e6db74">}</span>/*
 hugo -d <span style="color:#e6db74">${</span>PUBLIC_DIR<span style="color:#e6db74">}</span>
 
 pushd <span style="color:#e6db74">${</span>PUBLIC_DIR<span style="color:#e6db74">}</span>
-git commit -am <span style="color:#e6db74">&#39;publish&#39;</span> --allow-empty
+git add .
+git commit -am <span style="color:#e6db74">&#39;publish&#39;</span> <span style="color:#f92672">||</span> true
 popd
 git add <span style="color:#e6db74">${</span>PUBLIC_DIR<span style="color:#e6db74">}</span></code></pre></td></tr></table>
 </div>
