@@ -301,7 +301,7 @@ if (!doNotTrack) {
 <p>I&rsquo;d experimented here and there with Jekyll and Hugo and GitHub Pages and all that, but I was wholly unsatisified with the migration tools I found. They all left me with some yucky half-markdown-half-HTML mess that required a bunch of manual regexing. There&rsquo;s not a <em>whole</em> lot on here, but it got pretty tiring after a few hundred lines.</p>
 <p>And then I found <a href="https://github.com/lonekorean/wordpress-export-to-markdown">wordpress-export-to-markdown</a>, which did an absolutely fantastic job. So, shoutout to <a href="https://github.com/lonekorean">lonekorean</a> on GitHub for that gem.</p>
 <p>I more or less followed the Hugo <a href="https://gohugo.io/getting-started/quick-start/">getting started guide</a> using the Git submodule layout. After finding a <a href="https://github.com/vaga/hugo-theme-m10c">theme</a>, doing some <a href="https://mertbakir.gitlab.io/hugo/tag-cloud-in-hugo/">tweaking</a>, and organizing the content, things were more or less ready to publish.</p>
-<p>As a finishing touch, I added a pre-commit hook to rebuild the site and commit the changes to the submodule repository whenever I add or change content.</p>
+<p>Finally, a script to publish new changes:</p>
 
 
 
@@ -319,6 +319,8 @@ if (!doNotTrack) {
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/usr/bin/env bash
@@ -332,17 +334,12 @@ pushd <span style="color:#e6db74">${</span>PUBLIC_DIR<span style="color:#e6db74"
 git add .
 git commit -am <span style="color:#e6db74">&#39;publish&#39;</span> <span style="color:#f92672">||</span> true
 popd
-git add <span style="color:#e6db74">${</span>PUBLIC_DIR<span style="color:#e6db74">}</span></code></pre></td></tr></table>
+git add <span style="color:#e6db74">${</span>PUBLIC_DIR<span style="color:#e6db74">}</span>
+git commit -am <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>1<span style="color:#66d9ef">:-</span>auto publish<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">||</span> true
+git push --recurse-submodules<span style="color:#f92672">=</span>on-demand</code></pre></td></tr></table>
 </div>
 </div>
-<p>From the source repository:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd .git/hooks <span style="color:#f92672">&amp;&amp;</span> ln -s ../../publish.sh pre-commit
-</code></pre></div><p>As long as <code>publish.sh</code> is executable, the commit hook will regenerate your static site and update the submodule refrence.</p>
-<p>Finally, configure Git to push changes to submodules as needed:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git config push.recurseSubmodules on-demand
-</code></pre></div><p>Create an alias to publish:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git config alias.publish <span style="color:#e6db74">&#39;! f() { git add . &amp;&amp; git commit -m &#34;$1&#34; &amp;&amp; git push ; } ; f&#39;</span>
-</code></pre></div><p>Bye, Wordpress.</p>
+<p>Bye, Wordpress.</p>
 
     </div>
     <div class="post-footer">
