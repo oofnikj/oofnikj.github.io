@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>HAProxy on bad gateway</title>
-    <link>https://oofnikj.github.io/tags/haproxy/</link>
+    <link>https://badgateway.qc.to/tags/haproxy/</link>
     <description>Recent content in HAProxy on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 03 Oct 2019 05:48:40 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/haproxy/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Oct 2019 05:48:40 +0000</lastBuildDate><atom:link href="https://badgateway.qc.to/tags/haproxy/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>high performance kubernetes load balancing</title>
-      <link>https://oofnikj.github.io/high-performance-kubernetes-load-balancing/</link>
+      <link>https://badgateway.qc.to/high-performance-kubernetes-load-balancing/</link>
       <pubDate>Thu, 03 Oct 2019 05:48:40 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/high-performance-kubernetes-load-balancing/</guid>
+      <guid>https://badgateway.qc.to/high-performance-kubernetes-load-balancing/</guid>
       <description>What began as an investigation into a very stubborn intermittent error turned into a write-up on how to squeeze the most out of your Kubernetes deployment.</description>
     </item>
     

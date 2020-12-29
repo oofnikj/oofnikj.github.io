@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>blog on bad gateway</title>
-    <link>https://oofnikj.github.io/tags/blog/</link>
+    <link>https://badgateway.qc.to/tags/blog/</link>
     <description>Recent content in blog on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Dec 2020 09:53:26 +0200</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 29 Dec 2020 09:53:26 +0200</lastBuildDate><atom:link href="https://badgateway.qc.to/tags/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>migration to hugo</title>
-      <link>https://oofnikj.github.io/migration-to-hugo/</link>
+      <link>https://badgateway.qc.to/migration-to-hugo/</link>
       <pubDate>Tue, 29 Dec 2020 09:53:26 +0200</pubDate>
       
-      <guid>https://oofnikj.github.io/migration-to-hugo/</guid>
+      <guid>https://badgateway.qc.to/migration-to-hugo/</guid>
       <description>Recap of migrating from Wordpress to Hugo.</description>
     </item>
     

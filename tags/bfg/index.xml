@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>bfg on bad gateway</title>
-    <link>https://oofnikj.github.io/tags/bfg/</link>
+    <link>https://badgateway.qc.to/tags/bfg/</link>
     <description>Recent content in bfg on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 27 Oct 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/bfg/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Oct 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://badgateway.qc.to/tags/bfg/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>clean up your git</title>
-      <link>https://oofnikj.github.io/clean-up-your-git/</link>
+      <link>https://badgateway.qc.to/clean-up-your-git/</link>
       <pubDate>Sun, 27 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/clean-up-your-git/</guid>
+      <guid>https://badgateway.qc.to/clean-up-your-git/</guid>
       <description>Have you ever found yourself frantically trying to un-commit some enormous binary file you&amp;rsquo;ve accidentally checked in to version control? Or perhaps you&amp;rsquo;ve made the mistake of committing your AWS root credentials?</description>
     </item>
     

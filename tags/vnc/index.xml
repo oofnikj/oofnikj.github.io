@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>vnc on bad gateway</title>
-    <link>https://oofnikj.github.io/tags/vnc/</link>
+    <link>https://badgateway.qc.to/tags/vnc/</link>
     <description>Recent content in vnc on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 08 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/vnc/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 08 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://badgateway.qc.to/tags/vnc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>better remote desktop</title>
-      <link>https://oofnikj.github.io/better-remote-desktop/</link>
+      <link>https://badgateway.qc.to/better-remote-desktop/</link>
       <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/better-remote-desktop/</guid>
+      <guid>https://badgateway.qc.to/better-remote-desktop/</guid>
       <description>I was looking for something that I could use to log in to my desktop over a not so good WAN link and ended up forking Chromium.</description>
     </item>
     

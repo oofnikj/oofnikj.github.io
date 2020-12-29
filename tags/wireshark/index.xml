@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>wireshark on bad gateway</title>
-    <link>https://oofnikj.github.io/tags/wireshark/</link>
+    <link>https://badgateway.qc.to/tags/wireshark/</link>
     <description>Recent content in wireshark on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 Jan 2020 07:43:42 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/wireshark/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Jan 2020 07:43:42 +0000</lastBuildDate><atom:link href="https://badgateway.qc.to/tags/wireshark/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>slow your network down</title>
-      <link>https://oofnikj.github.io/slow-your-network-down/</link>
+      <link>https://badgateway.qc.to/slow-your-network-down/</link>
       <pubDate>Tue, 21 Jan 2020 07:43:42 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/slow-your-network-down/</guid>
+      <guid>https://badgateway.qc.to/slow-your-network-down/</guid>
       <description>Have you you ever wanted to deliberately slow down your network to test your web service over a flaky connection? You can do it with &lt;code&gt;netem&lt;/code&gt;, the Network Emulator.</description>
     </item>
     

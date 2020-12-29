@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>gitlab on bad gateway</title>
-    <link>https://oofnikj.github.io/tags/gitlab/</link>
+    <link>https://badgateway.qc.to/tags/gitlab/</link>
     <description>Recent content in gitlab on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 27 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 27 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://badgateway.qc.to/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>multi-architecture docker builds</title>
-      <link>https://oofnikj.github.io/multi-architecture-docker-builds/</link>
+      <link>https://badgateway.qc.to/multi-architecture-docker-builds/</link>
       <pubDate>Thu, 27 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/multi-architecture-docker-builds/</guid>
+      <guid>https://badgateway.qc.to/multi-architecture-docker-builds/</guid>
       <description>Wouldn&amp;rsquo;t it be nice to have your Docker images come out of the oven ready to run on &lt;em&gt;anything&lt;/em&gt;?</description>
     </item>
     
     <item>
       <title>tweaking the gitlab kubernetes installer</title>
-      <link>https://oofnikj.github.io/tweaking-the-gitlab-kubernetes-installer/</link>
+      <link>https://badgateway.qc.to/tweaking-the-gitlab-kubernetes-installer/</link>
       <pubDate>Wed, 09 Oct 2019 15:11:14 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tweaking-the-gitlab-kubernetes-installer/</guid>
+      <guid>https://badgateway.qc.to/tweaking-the-gitlab-kubernetes-installer/</guid>
       <description>GitLab has a lovely feature that can bring up a Kubernetes cluster and install build runners on it with a single click. But you can&amp;rsquo;t tweak it.</description>
     </item>
     
     <item>
       <title>using a private container registry with gitlab</title>
-      <link>https://oofnikj.github.io/using-a-private-container-registry-with-gitlab/</link>
+      <link>https://badgateway.qc.to/using-a-private-container-registry-with-gitlab/</link>
       <pubDate>Fri, 04 Oct 2019 08:24:57 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/using-a-private-container-registry-with-gitlab/</guid>
+      <guid>https://badgateway.qc.to/using-a-private-container-registry-with-gitlab/</guid>
       <description>In the process of migrating our CI from self-hosted Jenkins to GitLab, I&amp;rsquo;ve encountered a couple of hurdles.</description>
     </item>
     

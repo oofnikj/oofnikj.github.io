@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>postgres on bad gateway</title>
-    <link>https://oofnikj.github.io/tags/postgres/</link>
+    <link>https://badgateway.qc.to/tags/postgres/</link>
     <description>Recent content in postgres on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 13 Oct 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/postgres/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 13 Oct 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://badgateway.qc.to/tags/postgres/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>postgres &lt;--&gt; google cloud storage</title>
-      <link>https://oofnikj.github.io/postgres-google-cloud-storage/</link>
+      <link>https://badgateway.qc.to/postgres-google-cloud-storage/</link>
       <pubDate>Sun, 13 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/postgres-google-cloud-storage/</guid>
+      <guid>https://badgateway.qc.to/postgres-google-cloud-storage/</guid>
       <description>Don&amp;rsquo;t run a database if you can get away with it.</description>
     </item>
     

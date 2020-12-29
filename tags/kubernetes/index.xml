@@ -2,44 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>kubernetes on bad gateway</title>
-    <link>https://oofnikj.github.io/tags/kubernetes/</link>
+    <link>https://badgateway.qc.to/tags/kubernetes/</link>
     <description>Recent content in kubernetes on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 02 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 02 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://badgateway.qc.to/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>deploy jenkins the easy way</title>
-      <link>https://oofnikj.github.io/deploy-jenkins-the-easy-way/</link>
+      <link>https://badgateway.qc.to/deploy-jenkins-the-easy-way/</link>
       <pubDate>Sun, 02 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/deploy-jenkins-the-easy-way/</guid>
+      <guid>https://badgateway.qc.to/deploy-jenkins-the-easy-way/</guid>
       <description>Jenkins will probably never go away. It&amp;rsquo;s an absolute beast of a software package, both in terms of capabilities, as well as headache - inducing power.</description>
     </item>
     
     <item>
       <title>tweaking the gitlab kubernetes installer</title>
-      <link>https://oofnikj.github.io/tweaking-the-gitlab-kubernetes-installer/</link>
+      <link>https://badgateway.qc.to/tweaking-the-gitlab-kubernetes-installer/</link>
       <pubDate>Wed, 09 Oct 2019 15:11:14 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tweaking-the-gitlab-kubernetes-installer/</guid>
+      <guid>https://badgateway.qc.to/tweaking-the-gitlab-kubernetes-installer/</guid>
       <description>GitLab has a lovely feature that can bring up a Kubernetes cluster and install build runners on it with a single click. But you can&amp;rsquo;t tweak it.</description>
     </item>
     
     <item>
       <title>high performance kubernetes load balancing</title>
-      <link>https://oofnikj.github.io/high-performance-kubernetes-load-balancing/</link>
+      <link>https://badgateway.qc.to/high-performance-kubernetes-load-balancing/</link>
       <pubDate>Thu, 03 Oct 2019 05:48:40 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/high-performance-kubernetes-load-balancing/</guid>
+      <guid>https://badgateway.qc.to/high-performance-kubernetes-load-balancing/</guid>
       <description>What began as an investigation into a very stubborn intermittent error turned into a write-up on how to squeeze the most out of your Kubernetes deployment.</description>
     </item>
     
     <item>
       <title>local development with kubernetes</title>
-      <link>https://oofnikj.github.io/local-development-with-kubernetes/</link>
+      <link>https://badgateway.qc.to/local-development-with-kubernetes/</link>
       <pubDate>Sat, 28 Sep 2019 16:31:55 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/local-development-with-kubernetes/</guid>
+      <guid>https://badgateway.qc.to/local-development-with-kubernetes/</guid>
       <description>I wrote this howto for work while learning Kubernetes, mostly for myself, but also for other devs to jump in and learn without racking up cloud costs.</description>
     </item>
     

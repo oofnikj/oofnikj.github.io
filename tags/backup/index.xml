@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>backup on bad gateway</title>
-    <link>https://oofnikj.github.io/tags/backup/</link>
+    <link>https://badgateway.qc.to/tags/backup/</link>
     <description>Recent content in backup on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 29 Sep 2019 05:53:06 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/backup/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 29 Sep 2019 05:53:06 +0000</lastBuildDate><atom:link href="https://badgateway.qc.to/tags/backup/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>backing up wordpress with git</title>
-      <link>https://oofnikj.github.io/backing-up-wordpress-with-git/</link>
+      <link>https://badgateway.qc.to/backing-up-wordpress-with-git/</link>
       <pubDate>Sun, 29 Sep 2019 05:53:06 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/backing-up-wordpress-with-git/</guid>
+      <guid>https://badgateway.qc.to/backing-up-wordpress-with-git/</guid>
       <description>So I started this blog, and it&amp;rsquo;s running on a virtual server somewhere in the cloud. What happens if it disappears?</description>
     </item>
     

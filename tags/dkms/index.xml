@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>dkms on bad gateway</title>
-    <link>https://oofnikj.github.io/tags/dkms/</link>
+    <link>https://badgateway.qc.to/tags/dkms/</link>
     <description>Recent content in dkms on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 12 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/dkms/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 12 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://badgateway.qc.to/tags/dkms/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>kernel patching with dkms</title>
-      <link>https://oofnikj.github.io/kernel-patching-with-dkms/</link>
+      <link>https://badgateway.qc.to/kernel-patching-with-dkms/</link>
       <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/kernel-patching-with-dkms/</guid>
+      <guid>https://badgateway.qc.to/kernel-patching-with-dkms/</guid>
       <description>How do you maintain a patched version of an in-tree Linux kernel module?</description>
     </item>
     

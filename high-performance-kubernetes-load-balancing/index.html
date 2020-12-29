@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="oofnik" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://oofnikj.github.io/css/main.min.99a990457db5f02a4b145a12d510d8f1c85e1bcd0ca21ca530eb2f0d22cc6422.css" />
+    <link rel="stylesheet" href="https://badgateway.qc.to/css/main.min.99a990457db5f02a4b145a12d510d8f1c85e1bcd0ca21ca530eb2f0d22cc6422.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -18,7 +18,7 @@
     <meta property="og:title" content="high performance kubernetes load balancing" />
 <meta property="og:description" content="What began as an investigation into a very stubborn intermittent error turned into a write-up on how to squeeze the most out of your Kubernetes deployment." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://oofnikj.github.io/high-performance-kubernetes-load-balancing/" />
+<meta property="og:url" content="https://badgateway.qc.to/high-performance-kubernetes-load-balancing/" />
 <meta property="article:published_time" content="2019-10-03T05:48:40+00:00" />
 <meta property="article:modified_time" content="2019-10-03T05:48:40+00:00" />
 
@@ -26,7 +26,7 @@
   </head>
   <body>
     <header class="app-header">
-      <a href="https://oofnikj.github.io/"><img class="app-header-avatar" src="/bg.png" alt="oofnik" /></a>
+      <a href="https://badgateway.qc.to/"><img class="app-header-avatar" src="/bg.png" alt="oofnik" /></a>
       <h1>bad gateway</h1>
       <nav class="app-header-menu">
           <a class="app-header-menu-item" href="/posts/">Posts</a>
@@ -276,11 +276,11 @@
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-              <a class="tag" href="https://oofnikj.github.io/tags/haproxy/">HAProxy</a>
-              <a class="tag" href="https://oofnikj.github.io/tags/iptables/">iptables</a>
-              <a class="tag" href="https://oofnikj.github.io/tags/kubernetes/">kubernetes</a>
-              <a class="tag" href="https://oofnikj.github.io/tags/traefik/">Traefik</a>
-              <a class="tag" href="https://oofnikj.github.io/tags/uwsgi/">uWSGI</a>
+              <a class="tag" href="https://badgateway.qc.to/tags/haproxy/">HAProxy</a>
+              <a class="tag" href="https://badgateway.qc.to/tags/iptables/">iptables</a>
+              <a class="tag" href="https://badgateway.qc.to/tags/kubernetes/">kubernetes</a>
+              <a class="tag" href="https://badgateway.qc.to/tags/traefik/">Traefik</a>
+              <a class="tag" href="https://badgateway.qc.to/tags/uwsgi/">uWSGI</a>
         </div>
       </div>
     </header>
@@ -339,7 +339,7 @@ At this point HAProxy returns status <code>429</code> to the client until the re
 </code></pre>
 <p>My next attempt involved deploying an ingress controller to handle load balancing at the application layer.</p>
 <h4 id="layer-7---traefik">Layer 7 - Traefik</h4>
-<p>Since I&rsquo;d read a lot about <a href="https://traefik.io/">Traefik</a> and played around with it while writing my <a href="https://oofnikj.github.io/local-development-with-kubernetes/">local Kubernetes development guide</a>, I decided to give it a try.</p>
+<p>Since I&rsquo;d read a lot about <a href="https://traefik.io/">Traefik</a> and played around with it while writing my <a href="https://badgateway.qc.to/local-development-with-kubernetes/">local Kubernetes development guide</a>, I decided to give it a try.</p>
 <p>First, I wrote an <code>Ingress</code> object to be picked up by the Traefik controller. Then, per the <a href="https://docs.traefik.io/v1.7/configuration/backends/kubernetes/#annotations">docs</a>, I had to add some annotations to my app&rsquo;s service definition to limit the maximum number of connections:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">...
 <span style="color:#f92672">metadata</span>:

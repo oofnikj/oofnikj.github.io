@@ -2,431 +2,431 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on bad gateway</title>
-    <link>https://oofnikj.github.io/tags/</link>
+    <link>https://badgateway.qc.to/tags/</link>
     <description>Recent content in Tags on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Dec 2020 09:53:26 +0200</lastBuildDate><atom:link href="https://oofnikj.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 29 Dec 2020 09:53:26 +0200</lastBuildDate><atom:link href="https://badgateway.qc.to/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>blog</title>
-      <link>https://oofnikj.github.io/tags/blog/</link>
+      <link>https://badgateway.qc.to/tags/blog/</link>
       <pubDate>Tue, 29 Dec 2020 09:53:26 +0200</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/blog/</guid>
+      <guid>https://badgateway.qc.to/tags/blog/</guid>
       <description></description>
     </item>
     
     <item>
       <title>hugo</title>
-      <link>https://oofnikj.github.io/tags/hugo/</link>
+      <link>https://badgateway.qc.to/tags/hugo/</link>
       <pubDate>Tue, 29 Dec 2020 09:53:26 +0200</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/hugo/</guid>
+      <guid>https://badgateway.qc.to/tags/hugo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>wordpress</title>
-      <link>https://oofnikj.github.io/tags/wordpress/</link>
+      <link>https://badgateway.qc.to/tags/wordpress/</link>
       <pubDate>Tue, 29 Dec 2020 09:53:26 +0200</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/wordpress/</guid>
+      <guid>https://badgateway.qc.to/tags/wordpress/</guid>
       <description></description>
     </item>
     
     <item>
       <title>networking</title>
-      <link>https://oofnikj.github.io/tags/networking/</link>
+      <link>https://badgateway.qc.to/tags/networking/</link>
       <pubDate>Fri, 13 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/networking/</guid>
+      <guid>https://badgateway.qc.to/tags/networking/</guid>
       <description></description>
     </item>
     
     <item>
       <title>openwrt</title>
-      <link>https://oofnikj.github.io/tags/openwrt/</link>
+      <link>https://badgateway.qc.to/tags/openwrt/</link>
       <pubDate>Fri, 13 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/openwrt/</guid>
+      <guid>https://badgateway.qc.to/tags/openwrt/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vlan</title>
-      <link>https://oofnikj.github.io/tags/vlan/</link>
+      <link>https://badgateway.qc.to/tags/vlan/</link>
       <pubDate>Fri, 13 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/vlan/</guid>
+      <guid>https://badgateway.qc.to/tags/vlan/</guid>
       <description></description>
     </item>
     
     <item>
       <title>dkms</title>
-      <link>https://oofnikj.github.io/tags/dkms/</link>
+      <link>https://badgateway.qc.to/tags/dkms/</link>
       <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/dkms/</guid>
+      <guid>https://badgateway.qc.to/tags/dkms/</guid>
       <description></description>
     </item>
     
     <item>
       <title>linux</title>
-      <link>https://oofnikj.github.io/tags/linux/</link>
+      <link>https://badgateway.qc.to/tags/linux/</link>
       <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/linux/</guid>
+      <guid>https://badgateway.qc.to/tags/linux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>wifi</title>
-      <link>https://oofnikj.github.io/tags/wifi/</link>
+      <link>https://badgateway.qc.to/tags/wifi/</link>
       <pubDate>Sat, 12 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/wifi/</guid>
+      <guid>https://badgateway.qc.to/tags/wifi/</guid>
       <description></description>
     </item>
     
     <item>
       <title>docker</title>
-      <link>https://oofnikj.github.io/tags/docker/</link>
+      <link>https://badgateway.qc.to/tags/docker/</link>
       <pubDate>Thu, 27 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/docker/</guid>
+      <guid>https://badgateway.qc.to/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
       <title>gitlab</title>
-      <link>https://oofnikj.github.io/tags/gitlab/</link>
+      <link>https://badgateway.qc.to/tags/gitlab/</link>
       <pubDate>Thu, 27 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/gitlab/</guid>
+      <guid>https://badgateway.qc.to/tags/gitlab/</guid>
       <description></description>
     </item>
     
     <item>
       <title>multiarch</title>
-      <link>https://oofnikj.github.io/tags/multiarch/</link>
+      <link>https://badgateway.qc.to/tags/multiarch/</link>
       <pubDate>Thu, 27 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/multiarch/</guid>
+      <guid>https://badgateway.qc.to/tags/multiarch/</guid>
       <description></description>
     </item>
     
     <item>
       <title>gitops</title>
-      <link>https://oofnikj.github.io/tags/gitops/</link>
+      <link>https://badgateway.qc.to/tags/gitops/</link>
       <pubDate>Sun, 02 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/gitops/</guid>
+      <guid>https://badgateway.qc.to/tags/gitops/</guid>
       <description></description>
     </item>
     
     <item>
       <title>helm</title>
-      <link>https://oofnikj.github.io/tags/helm/</link>
+      <link>https://badgateway.qc.to/tags/helm/</link>
       <pubDate>Sun, 02 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/helm/</guid>
+      <guid>https://badgateway.qc.to/tags/helm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>jenkins</title>
-      <link>https://oofnikj.github.io/tags/jenkins/</link>
+      <link>https://badgateway.qc.to/tags/jenkins/</link>
       <pubDate>Sun, 02 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/jenkins/</guid>
+      <guid>https://badgateway.qc.to/tags/jenkins/</guid>
       <description></description>
     </item>
     
     <item>
       <title>kubernetes</title>
-      <link>https://oofnikj.github.io/tags/kubernetes/</link>
+      <link>https://badgateway.qc.to/tags/kubernetes/</link>
       <pubDate>Sun, 02 Aug 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/kubernetes/</guid>
+      <guid>https://badgateway.qc.to/tags/kubernetes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>aws</title>
-      <link>https://oofnikj.github.io/tags/aws/</link>
+      <link>https://badgateway.qc.to/tags/aws/</link>
       <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/aws/</guid>
+      <guid>https://badgateway.qc.to/tags/aws/</guid>
       <description></description>
     </item>
     
     <item>
       <title>bash</title>
-      <link>https://oofnikj.github.io/tags/bash/</link>
+      <link>https://badgateway.qc.to/tags/bash/</link>
       <pubDate>Fri, 03 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/bash/</guid>
+      <guid>https://badgateway.qc.to/tags/bash/</guid>
       <description></description>
     </item>
     
     <item>
       <title>athena</title>
-      <link>https://oofnikj.github.io/tags/athena/</link>
+      <link>https://badgateway.qc.to/tags/athena/</link>
       <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/athena/</guid>
+      <guid>https://badgateway.qc.to/tags/athena/</guid>
       <description></description>
     </item>
     
     <item>
       <title>nat</title>
-      <link>https://oofnikj.github.io/tags/nat/</link>
+      <link>https://badgateway.qc.to/tags/nat/</link>
       <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/nat/</guid>
+      <guid>https://badgateway.qc.to/tags/nat/</guid>
       <description></description>
     </item>
     
     <item>
       <title>sql</title>
-      <link>https://oofnikj.github.io/tags/sql/</link>
+      <link>https://badgateway.qc.to/tags/sql/</link>
       <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/sql/</guid>
+      <guid>https://badgateway.qc.to/tags/sql/</guid>
       <description></description>
     </item>
     
     <item>
       <title>hostapd</title>
-      <link>https://oofnikj.github.io/tags/hostapd/</link>
+      <link>https://badgateway.qc.to/tags/hostapd/</link>
       <pubDate>Thu, 20 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/hostapd/</guid>
+      <guid>https://badgateway.qc.to/tags/hostapd/</guid>
       <description></description>
     </item>
     
     <item>
       <title>rdp</title>
-      <link>https://oofnikj.github.io/tags/rdp/</link>
+      <link>https://badgateway.qc.to/tags/rdp/</link>
       <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/rdp/</guid>
+      <guid>https://badgateway.qc.to/tags/rdp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ubuntu</title>
-      <link>https://oofnikj.github.io/tags/ubuntu/</link>
+      <link>https://badgateway.qc.to/tags/ubuntu/</link>
       <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/ubuntu/</guid>
+      <guid>https://badgateway.qc.to/tags/ubuntu/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vnc</title>
-      <link>https://oofnikj.github.io/tags/vnc/</link>
+      <link>https://badgateway.qc.to/tags/vnc/</link>
       <pubDate>Sat, 08 Feb 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/vnc/</guid>
+      <guid>https://badgateway.qc.to/tags/vnc/</guid>
       <description></description>
     </item>
     
     <item>
       <title>docker-compose</title>
-      <link>https://oofnikj.github.io/tags/docker-compose/</link>
+      <link>https://badgateway.qc.to/tags/docker-compose/</link>
       <pubDate>Tue, 21 Jan 2020 07:43:42 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/docker-compose/</guid>
+      <guid>https://badgateway.qc.to/tags/docker-compose/</guid>
       <description></description>
     </item>
     
     <item>
       <title>netem</title>
-      <link>https://oofnikj.github.io/tags/netem/</link>
+      <link>https://badgateway.qc.to/tags/netem/</link>
       <pubDate>Tue, 21 Jan 2020 07:43:42 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/netem/</guid>
+      <guid>https://badgateway.qc.to/tags/netem/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tcp</title>
-      <link>https://oofnikj.github.io/tags/tcp/</link>
+      <link>https://badgateway.qc.to/tags/tcp/</link>
       <pubDate>Tue, 21 Jan 2020 07:43:42 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/tcp/</guid>
+      <guid>https://badgateway.qc.to/tags/tcp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>wireshark</title>
-      <link>https://oofnikj.github.io/tags/wireshark/</link>
+      <link>https://badgateway.qc.to/tags/wireshark/</link>
       <pubDate>Tue, 21 Jan 2020 07:43:42 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/wireshark/</guid>
+      <guid>https://badgateway.qc.to/tags/wireshark/</guid>
       <description></description>
     </item>
     
     <item>
       <title>dvr</title>
-      <link>https://oofnikj.github.io/tags/dvr/</link>
+      <link>https://badgateway.qc.to/tags/dvr/</link>
       <pubDate>Sat, 28 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/dvr/</guid>
+      <guid>https://badgateway.qc.to/tags/dvr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>raspberrypi</title>
-      <link>https://oofnikj.github.io/tags/raspberrypi/</link>
+      <link>https://badgateway.qc.to/tags/raspberrypi/</link>
       <pubDate>Sat, 28 Dec 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/raspberrypi/</guid>
+      <guid>https://badgateway.qc.to/tags/raspberrypi/</guid>
       <description></description>
     </item>
     
     <item>
       <title>bfg</title>
-      <link>https://oofnikj.github.io/tags/bfg/</link>
+      <link>https://badgateway.qc.to/tags/bfg/</link>
       <pubDate>Sun, 27 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/bfg/</guid>
+      <guid>https://badgateway.qc.to/tags/bfg/</guid>
       <description></description>
     </item>
     
     <item>
       <title>git</title>
-      <link>https://oofnikj.github.io/tags/git/</link>
+      <link>https://badgateway.qc.to/tags/git/</link>
       <pubDate>Sun, 27 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/git/</guid>
+      <guid>https://badgateway.qc.to/tags/git/</guid>
       <description></description>
     </item>
     
     <item>
       <title>gcs</title>
-      <link>https://oofnikj.github.io/tags/gcs/</link>
+      <link>https://badgateway.qc.to/tags/gcs/</link>
       <pubDate>Sun, 13 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/gcs/</guid>
+      <guid>https://badgateway.qc.to/tags/gcs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>postgres</title>
-      <link>https://oofnikj.github.io/tags/postgres/</link>
+      <link>https://badgateway.qc.to/tags/postgres/</link>
       <pubDate>Sun, 13 Oct 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/postgres/</guid>
+      <guid>https://badgateway.qc.to/tags/postgres/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tiller</title>
-      <link>https://oofnikj.github.io/tags/tiller/</link>
+      <link>https://badgateway.qc.to/tags/tiller/</link>
       <pubDate>Wed, 09 Oct 2019 15:11:14 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/tiller/</guid>
+      <guid>https://badgateway.qc.to/tags/tiller/</guid>
       <description></description>
     </item>
     
     <item>
       <title>GCP</title>
-      <link>https://oofnikj.github.io/tags/gcp/</link>
+      <link>https://badgateway.qc.to/tags/gcp/</link>
       <pubDate>Fri, 04 Oct 2019 08:24:57 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/gcp/</guid>
+      <guid>https://badgateway.qc.to/tags/gcp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>HAProxy</title>
-      <link>https://oofnikj.github.io/tags/haproxy/</link>
+      <link>https://badgateway.qc.to/tags/haproxy/</link>
       <pubDate>Thu, 03 Oct 2019 05:48:40 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/haproxy/</guid>
+      <guid>https://badgateway.qc.to/tags/haproxy/</guid>
       <description></description>
     </item>
     
     <item>
       <title>iptables</title>
-      <link>https://oofnikj.github.io/tags/iptables/</link>
+      <link>https://badgateway.qc.to/tags/iptables/</link>
       <pubDate>Thu, 03 Oct 2019 05:48:40 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/iptables/</guid>
+      <guid>https://badgateway.qc.to/tags/iptables/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Traefik</title>
-      <link>https://oofnikj.github.io/tags/traefik/</link>
+      <link>https://badgateway.qc.to/tags/traefik/</link>
       <pubDate>Thu, 03 Oct 2019 05:48:40 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/traefik/</guid>
+      <guid>https://badgateway.qc.to/tags/traefik/</guid>
       <description></description>
     </item>
     
     <item>
       <title>uWSGI</title>
-      <link>https://oofnikj.github.io/tags/uwsgi/</link>
+      <link>https://badgateway.qc.to/tags/uwsgi/</link>
       <pubDate>Thu, 03 Oct 2019 05:48:40 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/uwsgi/</guid>
+      <guid>https://badgateway.qc.to/tags/uwsgi/</guid>
       <description></description>
     </item>
     
     <item>
       <title>backup</title>
-      <link>https://oofnikj.github.io/tags/backup/</link>
+      <link>https://badgateway.qc.to/tags/backup/</link>
       <pubDate>Sun, 29 Sep 2019 05:53:06 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/backup/</guid>
+      <guid>https://badgateway.qc.to/tags/backup/</guid>
       <description></description>
     </item>
     
     <item>
       <title>revisr</title>
-      <link>https://oofnikj.github.io/tags/revisr/</link>
+      <link>https://badgateway.qc.to/tags/revisr/</link>
       <pubDate>Sun, 29 Sep 2019 05:53:06 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/revisr/</guid>
+      <guid>https://badgateway.qc.to/tags/revisr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>k3s</title>
-      <link>https://oofnikj.github.io/tags/k3s/</link>
+      <link>https://badgateway.qc.to/tags/k3s/</link>
       <pubDate>Sat, 28 Sep 2019 16:31:55 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/k3s/</guid>
+      <guid>https://badgateway.qc.to/tags/k3s/</guid>
       <description></description>
     </item>
     
     <item>
       <title>apache</title>
-      <link>https://oofnikj.github.io/tags/apache/</link>
+      <link>https://badgateway.qc.to/tags/apache/</link>
       <pubDate>Fri, 27 Sep 2019 18:20:32 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/apache/</guid>
+      <guid>https://badgateway.qc.to/tags/apache/</guid>
       <description></description>
     </item>
     
     <item>
       <title>meta</title>
-      <link>https://oofnikj.github.io/tags/meta/</link>
+      <link>https://badgateway.qc.to/tags/meta/</link>
       <pubDate>Fri, 27 Sep 2019 18:20:32 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/meta/</guid>
+      <guid>https://badgateway.qc.to/tags/meta/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SSL</title>
-      <link>https://oofnikj.github.io/tags/ssl/</link>
+      <link>https://badgateway.qc.to/tags/ssl/</link>
       <pubDate>Fri, 27 Sep 2019 18:20:32 +0000</pubDate>
       
-      <guid>https://oofnikj.github.io/tags/ssl/</guid>
+      <guid>https://badgateway.qc.to/tags/ssl/</guid>
       <description></description>
     </item>
     
