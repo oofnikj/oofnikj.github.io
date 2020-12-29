@@ -325,9 +325,9 @@ git add <span style="color:#e6db74">${</span>PUBLIC_DIR<span style="color:#e6db7
 <p>From the source repository:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd .git/hooks <span style="color:#f92672">&amp;&amp;</span> ln -s ../../publish.sh pre-commit
 </code></pre></div><p>As long as <code>publish.sh</code> is executable, the commit hook will regenerate your static site and update the submodule refrence.</p>
-<p>Finally, configure Git to push changes to submodules:</p>
+<p>Finally, configure Git to push changes to submodules as needed:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git config push.recurseSubmodules on-demand
-</code></pre></div><p>Publishing changes is just a matter of `git add . &amp;&amp; git commit</p>
+</code></pre></div><p>Publishing changes is just a  <code>git add . &amp;&amp; git commit</code> away.</p>
 <p>Bye, Wordpress.</p>
 
     </div>
