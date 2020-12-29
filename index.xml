@@ -6,7 +6,16 @@
     <description>Recent content on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 13 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://oofnikj.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 29 Dec 2020 09:53:26 +0200</lastBuildDate><atom:link href="https://oofnikj.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>migration to hugo</title>
+      <link>https://oofnikj.github.io/migration-to-hugo/</link>
+      <pubDate>Tue, 29 Dec 2020 09:53:26 +0200</pubDate>
+      
+      <guid>https://oofnikj.github.io/migration-to-hugo/</guid>
+      <description>Recap of migrating from Wordpress to Hugo.</description>
+    </item>
+    
     <item>
       <title>vlans and wifi</title>
       <link>https://oofnikj.github.io/vlans-and-wifi/</link>
