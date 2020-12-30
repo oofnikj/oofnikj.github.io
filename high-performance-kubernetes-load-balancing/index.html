@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="oofnik" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://badgateway.qc.to/css/main.min.99a990457db5f02a4b145a12d510d8f1c85e1bcd0ca21ca530eb2f0d22cc6422.css" />
+    <link rel="stylesheet" href="https://badgateway.qc.to/css/main.min.e92eb5649b27aab38a92ae4303ae78d91186c406416113b774eef063ac92db45.css" />
 
     
 <script type="application/javascript">
@@ -397,11 +397,21 @@ Transfer rate:          54.27 <span style="color:#f92672">[</span>Kbytes/sec<spa
 <p>I did some research - mostly googling around, but also examining a <code>tcpdump</code> of a load testing session, which confirmed that the non-2xx responses above were indeed mostly <code>502</code>&rsquo;s - and found an open <a href="https://github.com/containous/traefik/issues/3237">bug report</a> in the Traefik project on GitHub that seems to match my experience, with a lot of suggested workarounds.</p>
 <p>The one that eventually did the trick, as counter-intuitive as it may seem, was to <a href="https://github.com/containous/traefik/issues/3237#issuecomment-514178590">disable keepalives</a> in the Traefik configuration.</p>
 <p>Since the author of the comment on the bug report that saved the day already linked to the relevant library used by Traefik, I perused some more and found this <a href="https://github.com/golang/go/blob/release-branch.go1.12/src/net/http/transport.go#L71-L74">tidbit</a>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71</span><span style="color:#75715e">// By default, Transport caches connections for future re-use.
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72</span><span style="color:#75715e">// This may leave many open connections when accessing many hosts.
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73</span><span style="color:#75715e">// This behavior can be managed using Transport&#39;s CloseIdleConnections method
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74</span><span style="color:#75715e">// and the MaxIdleConnsPerHost and DisableKeepAlives fields.
-</span></code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// By default, Transport caches connections for future re-use.
+</span><span style="color:#75715e">// This may leave many open connections when accessing many hosts.
+</span><span style="color:#75715e">// This behavior can be managed using Transport&#39;s CloseIdleConnections method
+</span><span style="color:#75715e">// and the MaxIdleConnsPerHost and DisableKeepAlives fields.
+</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>Apparently, connection caching does not play nice with uWSGI, which we also happen to be using as our application server.</p>
 <p>Testing again after setting <code>MaxIdleConnsPerHost = -1</code> in the Traefik config yielded similar performance, but with zero errors. Great success!</p>
 <p>Let&rsquo;s see if we can push things even further.</p>

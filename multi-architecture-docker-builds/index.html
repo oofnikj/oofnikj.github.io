@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="oofnik" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://badgateway.qc.to/css/main.min.99a990457db5f02a4b145a12d510d8f1c85e1bcd0ca21ca530eb2f0d22cc6422.css" />
+    <link rel="stylesheet" href="https://badgateway.qc.to/css/main.min.e92eb5649b27aab38a92ae4303ae78d91186c406416113b774eef063ac92db45.css" />
 
     
 <script type="application/javascript">
@@ -403,39 +403,77 @@ OpenVPN 2.4.9 aarch64-alpine-linux-musl <span style="color:#f92672">[</span>SSL 
 
 
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span style="color:#f92672">variables</span>:
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span>  <span style="color:#f92672">CI_IMAGE</span>: <span style="color:#ae81ff">$DOCKER_HUB_USER/$CI_PROJECT_NAME</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span>  <span style="color:#f92672">PLATFORM</span>: <span style="color:#ae81ff">linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span style="color:#f92672">before_script</span>:
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span>  - <span style="color:#ae81ff">docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_TOKEN</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span>  - <span style="color:#ae81ff">docker run --rm --privileged multiarch/qemu-user-static --reset -p yes</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span>  - <span style="color:#ae81ff">docker buildx create --use</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span style="color:#f92672">build-master</span>:
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span>  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">$DOCKER_HUB_USER/docker:buildx</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span>  <span style="color:#f92672">stage</span>: <span style="color:#ae81ff">build</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span>  <span style="color:#f92672">services</span>:
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span>    - <span style="color:#ae81ff">docker:dind</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span>  <span style="color:#f92672">script</span>:
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span>    - <span style="color:#ae81ff">docker buildx build --push -t &#34;$CI_IMAGE&#34;</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span>      --<span style="color:#ae81ff">platform &#34;$PLATFORM&#34; --cache-from &#34;$CI_IMAGE&#34;</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span>      --<span style="color:#ae81ff">build-arg BUILDKIT_INLINE_CACHE=1 .</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span>  <span style="color:#f92672">only</span>:
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20</span>    - <span style="color:#ae81ff">master</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22</span><span style="color:#f92672">build-feature</span>:
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23</span>  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">$DOCKER_HUB_USER/docker:buildx</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24</span>  <span style="color:#f92672">stage</span>: <span style="color:#ae81ff">build</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25</span>  <span style="color:#f92672">services</span>:
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26</span>    - <span style="color:#ae81ff">docker:dind</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27</span>  <span style="color:#f92672">script</span>:
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28</span>    - <span style="color:#ae81ff">docker buildx build --push -t &#34;$CI_IMAGE:$CI_COMMIT_REF_SLUG&#34; </span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29</span>      --<span style="color:#ae81ff">platform &#34;$PLATFORM&#34; --cache-from &#34;$CI_IMAGE:$CI_COMMIT_REF_SLUG&#34;</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30</span>      --<span style="color:#ae81ff">build-arg BUILDKIT_INLINE_CACHE=1 .</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31</span>  <span style="color:#f92672">except</span>:
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32</span>    - <span style="color:#ae81ff">master</span>
-</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">variables</span>:
+  <span style="color:#f92672">CI_IMAGE</span>: <span style="color:#ae81ff">$DOCKER_HUB_USER/$CI_PROJECT_NAME</span>
+  <span style="color:#f92672">PLATFORM</span>: <span style="color:#ae81ff">linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7</span>
+
+<span style="color:#f92672">before_script</span>:
+  - <span style="color:#ae81ff">docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_TOKEN</span>
+  - <span style="color:#ae81ff">docker run --rm --privileged multiarch/qemu-user-static --reset -p yes</span>
+  - <span style="color:#ae81ff">docker buildx create --use</span>
+
+<span style="color:#f92672">build-master</span>:
+  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">$DOCKER_HUB_USER/docker:buildx</span>
+  <span style="color:#f92672">stage</span>: <span style="color:#ae81ff">build</span>
+  <span style="color:#f92672">services</span>:
+    - <span style="color:#ae81ff">docker:dind</span>
+  <span style="color:#f92672">script</span>:
+    - <span style="color:#ae81ff">docker buildx build --push -t &#34;$CI_IMAGE&#34;</span>
+      --<span style="color:#ae81ff">platform &#34;$PLATFORM&#34; --cache-from &#34;$CI_IMAGE&#34;</span>
+      --<span style="color:#ae81ff">build-arg BUILDKIT_INLINE_CACHE=1 .</span>
+  <span style="color:#f92672">only</span>:
+    - <span style="color:#ae81ff">master</span>
+
+<span style="color:#f92672">build-feature</span>:
+  <span style="color:#f92672">image</span>: <span style="color:#ae81ff">$DOCKER_HUB_USER/docker:buildx</span>
+  <span style="color:#f92672">stage</span>: <span style="color:#ae81ff">build</span>
+  <span style="color:#f92672">services</span>:
+    - <span style="color:#ae81ff">docker:dind</span>
+  <span style="color:#f92672">script</span>:
+    - <span style="color:#ae81ff">docker buildx build --push -t &#34;$CI_IMAGE:$CI_COMMIT_REF_SLUG&#34; </span>
+      --<span style="color:#ae81ff">platform &#34;$PLATFORM&#34; --cache-from &#34;$CI_IMAGE:$CI_COMMIT_REF_SLUG&#34;</span>
+      --<span style="color:#ae81ff">build-arg BUILDKIT_INLINE_CACHE=1 .</span>
+  <span style="color:#f92672">except</span>:
+    - <span style="color:#ae81ff">master</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <p>First of all, we&rsquo;re running that same <code>multiarch/qemu-user-static</code> container from before to register our foreign binary formats with the kernel. Note that your GitLab runner must allow running containers in privileged mode for this to work. GitLab shared runners allow this, but if you&rsquo;re using your own runners, privileged containers must be explicitly allowed in the runner configuration.</p>
 <p>Next up, I&rsquo;m using a custom Docker image I&rsquo;ve built based on the official <code>docker:latest</code> image which includes the <code>buildx</code> plugin. The source is available <a href="https://github.com/oofnikj/docker-buildx">here</a>.</p>
 <p>The final interesting bit is the introduction of two additional command-line arguments:</p>

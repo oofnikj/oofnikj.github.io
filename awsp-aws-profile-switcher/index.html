@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="oofnik" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://badgateway.qc.to/css/main.min.99a990457db5f02a4b145a12d510d8f1c85e1bcd0ca21ca530eb2f0d22cc6422.css" />
+    <link rel="stylesheet" href="https://badgateway.qc.to/css/main.min.e92eb5649b27aab38a92ae4303ae78d91186c406416113b774eef063ac92db45.css" />
 
     
 <script type="application/javascript">
@@ -302,54 +302,107 @@ if (!doNotTrack) {
 
 
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span style="color:#75715e">### This file is intended to be sourced from ~/.bashrc ###</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span style="color:#75715e"># quickly switch between AWS profiles with auto-completion</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span style="color:#75715e"># uses https://github.com/Nike-Inc/gimme-aws-creds to obtain credentials</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span style="color:#75715e"># if using static credentials, just comment out lines 13-15</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span>awsp<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> -n $1 <span style="color:#f92672">]]</span> ; <span style="color:#66d9ef">then</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span>        <span style="color:#75715e"># validate input</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span>        grep -q -w <span style="color:#e6db74">&#34;\[profile </span><span style="color:#e6db74">${</span>1<span style="color:#e6db74">}</span><span style="color:#e6db74">\]&#34;</span> ~/.aws/config <span style="color:#f92672">||</span> <span style="color:#f92672">{</span> echo <span style="color:#e6db74">&#34;No such profile </span>$1<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">return</span> 1; <span style="color:#f92672">}</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span>        export AWS_PROFILE<span style="color:#f92672">=</span>$1
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span>        <span style="color:#75715e"># check if we already have valid creds</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span>        <span style="color:#66d9ef">if</span> ! aws sts get-caller-identity &gt;/dev/null 2&gt;&amp;1; <span style="color:#66d9ef">then</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span>            gimme-aws-creds --profile $1
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span>        <span style="color:#66d9ef">fi</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span>        <span style="color:#75715e"># set the prompt</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span>        OLD_PS1<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>OLD_PS1<span style="color:#66d9ef">:-</span><span style="color:#e6db74">${</span>PS1<span style="color:#e6db74">}}</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span>        PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;\e[31;1m</span><span style="color:#e6db74">${</span>AWS_PROFILE<span style="color:#e6db74">}</span><span style="color:#e6db74">\e[0m </span><span style="color:#e6db74">${</span>OLD_PS1<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span>    <span style="color:#66d9ef">else</span> 
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20</span>        echo <span style="color:#e6db74">&#39;no AWS account provided&#39;</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21</span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">2</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22</span>    <span style="color:#66d9ef">fi</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23</span><span style="color:#f92672">}</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25</span><span style="color:#75715e">## basic bash completion, use fzf completion below instead if available</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26</span><span style="color:#75715e"># _awsp() {</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27</span><span style="color:#75715e">#     COMPREPLY=()</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28</span><span style="color:#75715e">#     local word=&#34;${COMP_WORDS[COMP_CWORD]}&#34;</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29</span><span style="color:#75715e">#     if [ &#34;$COMP_CWORD&#34; -eq 1 ]; then</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30</span><span style="color:#75715e">#         COMPREPLY=( $(compgen -W &#34;$(aws configure list-profiles)&#34; -- &#34;$word&#34;) )</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31</span><span style="color:#75715e">#     else</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32</span><span style="color:#75715e">#         COMPREPLY=()</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33</span><span style="color:#75715e">#     fi</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34</span><span style="color:#75715e"># }</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35</span><span style="color:#75715e"># complete -F _awsp awsp</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37</span>_fzf_complete_awsp<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38</span>    _fzf_complete --multi --reverse -- <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> &lt; &lt;<span style="color:#f92672">(</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39</span>        grep -E <span style="color:#e6db74">&#39;\[profile .+]&#39;</span> ~/.aws/config <span style="color:#ae81ff">\
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40</span><span style="color:#ae81ff"></span>        | sed -E <span style="color:#e6db74">&#39;s/\[profile (.+)\]/\1/g&#39;</span> <span style="color:#ae81ff">\
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41</span><span style="color:#ae81ff"></span>        | sort
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42</span>    <span style="color:#f92672">)</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43</span><span style="color:#f92672">}</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44</span>_fzf_complete_awsp_notrigger<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45</span>    FZF_COMPLETION_TRIGGER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span> _fzf_complete_awsp
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46</span><span style="color:#f92672">}</span>
-<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47</span>complete -F _fzf_complete_awsp_notrigger awsp
-</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">### This file is intended to be sourced from ~/.bashrc ###</span>
+
+<span style="color:#75715e"># quickly switch between AWS profiles with auto-completion</span>
+<span style="color:#75715e"># uses https://github.com/Nike-Inc/gimme-aws-creds to obtain credentials</span>
+<span style="color:#75715e"># if using static credentials, just comment out lines 13-15</span>
+
+awsp<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> -n $1 <span style="color:#f92672">]]</span> ; <span style="color:#66d9ef">then</span>
+        <span style="color:#75715e"># validate input</span>
+        grep -q -w <span style="color:#e6db74">&#34;\[profile </span><span style="color:#e6db74">${</span>1<span style="color:#e6db74">}</span><span style="color:#e6db74">\]&#34;</span> ~/.aws/config <span style="color:#f92672">||</span> <span style="color:#f92672">{</span> echo <span style="color:#e6db74">&#34;No such profile </span>$1<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">return</span> 1; <span style="color:#f92672">}</span>
+        export AWS_PROFILE<span style="color:#f92672">=</span>$1
+        <span style="color:#75715e"># check if we already have valid creds</span>
+        <span style="color:#66d9ef">if</span> ! aws sts get-caller-identity &gt;/dev/null 2&gt;&amp;1; <span style="color:#66d9ef">then</span>
+            gimme-aws-creds --profile $1
+        <span style="color:#66d9ef">fi</span>
+        <span style="color:#75715e"># set the prompt</span>
+        OLD_PS1<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>OLD_PS1<span style="color:#66d9ef">:-</span><span style="color:#e6db74">${</span>PS1<span style="color:#e6db74">}}</span>
+        PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;\e[31;1m</span><span style="color:#e6db74">${</span>AWS_PROFILE<span style="color:#e6db74">}</span><span style="color:#e6db74">\e[0m </span><span style="color:#e6db74">${</span>OLD_PS1<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">else</span> 
+        echo <span style="color:#e6db74">&#39;no AWS account provided&#39;</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">2</span>
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">## basic bash completion, use fzf completion below instead if available</span>
+<span style="color:#75715e"># _awsp() {</span>
+<span style="color:#75715e">#     COMPREPLY=()</span>
+<span style="color:#75715e">#     local word=&#34;${COMP_WORDS[COMP_CWORD]}&#34;</span>
+<span style="color:#75715e">#     if [ &#34;$COMP_CWORD&#34; -eq 1 ]; then</span>
+<span style="color:#75715e">#         COMPREPLY=( $(compgen -W &#34;$(aws configure list-profiles)&#34; -- &#34;$word&#34;) )</span>
+<span style="color:#75715e">#     else</span>
+<span style="color:#75715e">#         COMPREPLY=()</span>
+<span style="color:#75715e">#     fi</span>
+<span style="color:#75715e"># }</span>
+<span style="color:#75715e"># complete -F _awsp awsp</span>
+
+_fzf_complete_awsp<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    _fzf_complete --multi --reverse -- <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> &lt; &lt;<span style="color:#f92672">(</span>
+        grep -E <span style="color:#e6db74">&#39;\[profile .+]&#39;</span> ~/.aws/config <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        | sed -E <span style="color:#e6db74">&#39;s/\[profile (.+)\]/\1/g&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>        | sort
+    <span style="color:#f92672">)</span>
+<span style="color:#f92672">}</span>
+_fzf_complete_awsp_notrigger<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    FZF_COMPLETION_TRIGGER<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span> _fzf_complete_awsp
+<span style="color:#f92672">}</span>
+complete -F _fzf_complete_awsp_notrigger awsp
+</code></pre></td></tr></table>
+</div>
+</div>
 
     </div>
     <div class="post-footer">
