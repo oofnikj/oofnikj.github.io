@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>serverless on bad gateway</title>
+    <link>https://badgateway.qc.to/tags/serverless/</link>
+    <description>Recent content in serverless on bad gateway</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 19 Feb 2021 14:29:00 +0200</lastBuildDate><atom:link href="https://badgateway.qc.to/tags/serverless/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ship azure application gateway logs to datadog</title>
+      <link>https://badgateway.qc.to/ship-azure-application-gateway-logs-to-datadog/</link>
+      <pubDate>Fri, 19 Feb 2021 14:29:00 +0200</pubDate>
+      
+      <guid>https://badgateway.qc.to/ship-azure-application-gateway-logs-to-datadog/</guid>
+      <description>Azure doesn&amp;rsquo;t make it particularly easy to integrate with external logging and metrics providers. Here&amp;rsquo;s one way to do it.</description>
+    </item>
+    
+  </channel>
+</rss>

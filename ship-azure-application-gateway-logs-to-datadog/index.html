@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>ship azure application gateway logs to datadog | bad gateway</title>
+    <link rel="shortcut icon" href="/bg.png" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.80.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="oofnik" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://badgateway.qc.to/css/main.min.02efab24bda74e45d28d671d441895c41b3f5869b39db2e9fdbd13c500c8ce06.css" />
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-186231180-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ship azure application gateway logs to datadog"/>
+<meta name="twitter:description" content="Azure doesn&rsquo;t make it particularly easy to integrate with external logging and metrics providers. Here&rsquo;s one way to do it."/>
+
+    <meta property="og:title" content="ship azure application gateway logs to datadog" />
+<meta property="og:description" content="Azure doesn&rsquo;t make it particularly easy to integrate with external logging and metrics providers. Here&rsquo;s one way to do it." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://badgateway.qc.to/ship-azure-application-gateway-logs-to-datadog/" />
+<meta property="article:published_time" content="2021-02-19T14:29:00+02:00" />
+<meta property="article:modified_time" content="2021-02-19T14:29:00+02:00" />
+
+    <script data-goatcounter="https://badgateway.goatcounter.com/count"
+      async src="//gc.zgo.at/count.js">
+    </script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://badgateway.qc.to/"><img class="app-header-avatar" src="/bg.png" alt="oofnik" /></a>
+      <h1>bad gateway</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/posts/">Posts</a>
+            &#xB7
+          
+          <a class="app-header-menu-item" href="/tags">Tags</a>
+      </nav>
+      <p>a collection of notes about dev and ops things</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/oofnikj" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/oofnik" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/jordan-sokolic" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="/index.xml" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-rss">
+  <title>rss</title>
+  <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+</svg></a>
+        
+      </div>
+      <hr style="border: 0px; border-top: 1px dashed #f6f6f6; width: 10%;">
+      <div class="container tagcloud">
+        
+                <a href="/tags/apache" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  apache
+                </a>
+                <a href="/tags/athena" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  athena
+                </a>
+                <a href="/tags/aws" 
+                class="tagcloud-item" style="font-size: 1.0584059348440358rem;">
+                  aws
+                </a>
+                <a href="/tags/azure" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  azure
+                </a>
+                <a href="/tags/backup" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  backup
+                </a>
+                <a href="/tags/bash" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  bash
+                </a>
+                <a href="/tags/bfg" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  bfg
+                </a>
+                <a href="/tags/blog" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  blog
+                </a>
+                <a href="/tags/datadog" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  datadog
+                </a>
+                <a href="/tags/dkms" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  dkms
+                </a>
+                <a href="/tags/docker" 
+                class="tagcloud-item" style="font-size: 1.2095637166915911rem;">
+                  docker
+                </a>
+                <a href="/tags/docker-compose" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  docker-compose
+                </a>
+                <a href="/tags/dvr" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  dvr
+                </a>
+                <a href="/tags/gcp" 
+                class="tagcloud-item" style="font-size: 1.0584059348440358rem;">
+                  gcp
+                </a>
+                <a href="/tags/gcs" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  gcs
+                </a>
+                <a href="/tags/git" 
+                class="tagcloud-item" style="font-size: 1.0584059348440358rem;">
+                  git
+                </a>
+                <a href="/tags/gitlab" 
+                class="tagcloud-item" style="font-size: 1.2095637166915911rem;">
+                  gitlab
+                </a>
+                <a href="/tags/gitops" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  gitops
+                </a>
+                <a href="/tags/haproxy" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  haproxy
+                </a>
+                <a href="/tags/helm" 
+                class="tagcloud-item" style="font-size: 1.2095637166915911rem;">
+                  helm
+                </a>
+                <a href="/tags/hostapd" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  hostapd
+                </a>
+                <a href="/tags/hugo" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  hugo
+                </a>
+                <a href="/tags/iptables" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  iptables
+                </a>
+                <a href="/tags/jenkins" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  jenkins
+                </a>
+                <a href="/tags/k3s" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  k3s
+                </a>
+                <a href="/tags/kubernetes" 
+                class="tagcloud-item" style="font-size: 1.3168118696880717rem;">
+                  kubernetes
+                </a>
+                <a href="/tags/linux" 
+                class="tagcloud-item" style="font-size: 1.2095637166915911rem;">
+                  linux
+                </a>
+                <a href="/tags/meta" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  meta
+                </a>
+                <a href="/tags/multiarch" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  multiarch
+                </a>
+                <a href="/tags/nat" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  nat
+                </a>
+                <a href="/tags/netem" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  netem
+                </a>
+                <a href="/tags/networking" 
+                class="tagcloud-item" style="font-size: 1.2095637166915911rem;">
+                  networking
+                </a>
+                <a href="/tags/openwrt" 
+                class="tagcloud-item" style="font-size: 1.2095637166915911rem;">
+                  openwrt
+                </a>
+                <a href="/tags/postgres" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  postgres
+                </a>
+                <a href="/tags/raspberrypi" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  raspberrypi
+                </a>
+                <a href="/tags/rdp" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  rdp
+                </a>
+                <a href="/tags/revisr" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  revisr
+                </a>
+                <a href="/tags/serverless" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  serverless
+                </a>
+                <a href="/tags/sql" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  sql
+                </a>
+                <a href="/tags/ssl" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  ssl
+                </a>
+                <a href="/tags/tcp" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  tcp
+                </a>
+                <a href="/tags/tiller" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  tiller
+                </a>
+                <a href="/tags/traefik" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  traefik
+                </a>
+                <a href="/tags/ubuntu" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  ubuntu
+                </a>
+                <a href="/tags/uwsgi" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  uwsgi
+                </a>
+                <a href="/tags/vlan" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  vlan
+                </a>
+                <a href="/tags/vnc" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  vnc
+                </a>
+                <a href="/tags/wifi" 
+                class="tagcloud-item" style="font-size: 1.0584059348440358rem;">
+                  wifi
+                </a>
+                <a href="/tags/wireshark" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  wireshark
+                </a>
+                <a href="/tags/wordpress" 
+                class="tagcloud-item" style="font-size: 1.2095637166915911rem;">
+                  wordpress
+                </a>
+    </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">ship azure application gateway logs to datadog</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Feb 19, 2021
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          8 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://badgateway.qc.to/tags/azure/">azure</a>
+              <a class="tag" href="https://badgateway.qc.to/tags/datadog/">datadog</a>
+              <a class="tag" href="https://badgateway.qc.to/tags/serverless/">serverless</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>After building out our cloud infrastructure exclusively on AWS for several years, our company recently started delving into Azure. Besides being a great learning experience, it&rsquo;s always good to understand and be familiar with how the basic building blocks of the cloud (compute, storage, permissions, observability) are implemented across providers.</p>
+<p>Even if you build your product to run on an industry standard platform, the state of the cloud is such that differences in implementation can have a significant impact on migration efforts. Infrastructure-as-code solutions are not cloud agnostic; a complete rewrite of all your module and environment code is usually necessary. In short, it&rsquo;s more than just running <code>sed -i 's/aws/azure/g'</code> on your code base.</p>
+<p>With that said, there are obvious advantages to be had by aiming for standards compliance &ndash; even if the code is different, the same deployment tools and practices are still applicable whether you&rsquo;re deploying to AWS, Azure, or GCP. By factoring the infrastructure stuff out from the business logic, development teams can focus on writing good, secure code without worrying too much over how or where (or even whether) it will run.</p>
+<h2 id="the-stack">The Stack</h2>
+<p>I&rsquo;m going to focus here on the fourth building block &ndash; observability &ndash; and how I built a log delivery pipeline on Azure to complement the one we had already built with AWS.</p>
+<p>Both cloud providers offer a variety of managed load balancer solutions. On AWS, we&rsquo;re using Application Load Balancer to front our workload running on EKS. The load balancers log all traffic to an S3 storage bucket. Those log writes trigger a Lambda function which parses and forwards the logs to Datadog.</p>
+<p>In Azure land, Azure Application Gateway forwards traffic to our workload running on AKS. The Application Gateway is configured through a diagnostic setting to write logs to Azure blob storage. An Azure Function App is triggered by the logs and, once again, forwards the logs to Datadog. The end result, for either cloud, is the same. But more importantly, both of these pipelines are deployed using the same tools, from the same VCS repository.</p>
+<p>Thankfully, Datadog provides <a href="https://github.com/DataDog/datadog-serverless-functions">serverless code</a> for both AWS and Azure to do the log forwarding. But the documentation is a bit thin on how to actually go about deploying it.</p>
+<p>Inspired by some <a href="https://itnext.io/datadog-azure-api-management-logs-60f9d45d667a">similar write-ups</a>, I sought out a way to do exactly that.</p>
+<h2 id="azure-functions">Azure Functions</h2>
+<p>A lot has been written about serverless architectures, but one of the biggest pitfalls I&rsquo;ve encountered with every single serverless platform I&rsquo;ve had the misfortune of touching is the amount of voodoo necessary to actually get serverless code running.</p>
+<p>Also, in every case, that voodoo looks <em>completely different</em>.</p>
+<p>It might be simply because serverless hasn&rsquo;t had time to coalesce around a standard way of doing things like other more mature orchestration frameworks have had. But as of early 2021, every time I encounter something serverless, I can&rsquo;t shake the feeling that the whole thing is held together with duct tape and crossed fingers.</p>
+<p>But anyway.</p>
+<p>I followed the <a href="https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-node?tabs=azure-cli%2Cbrowser">Azure Quickstart</a> for Azure Functions to get a feel for how to create a new serverless deployment using their CLI tool. Creating a new JavaScript function generates a <code>function.json</code> file which, among other things, defines how that function is triggered. Datadog <a href="https://github.com/DataDog/datadog-serverless-functions/tree/master/azure/blobs_logs_monitoring">provides</a> a sample <code>function.json</code> with their Azure serverless code, but I had to do a lot of extra reading to understand what&rsquo;s going on behind the scenes.</p>
+<p>One thing that took me a while to understand was the Azure Functions pricing tier. It turns out that when you create an Azure Function App through the UI (or through the CLI with the <code>--consumption-plan-location</code> argument), you&rsquo;re <em>implicitly</em> creating a dynamic (i.e. serverless) App Service plan to host it. This is the pay-as-you-go function hosting pricing tier offered by Azure, and the one that will seem most familiar to folks with experience with other serverless platforms. For some unknown reason, Azure calls this plan the <a href="https://docs.microsoft.com/en-us/azure/azure-functions/consumption-plan">Consumption plan</a>. I wish I knew why.</p>
+<p>Another confusing bit is the <code>bindings.connection</code> entry in the <code>function.json</code> manifest. <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob-trigger?tabs=javascript#configuration">Apparently</a>, by leaving this field blank, as long as you&rsquo;ve configured your application settings properly (which we&rsquo;ll do in the deployment section below), your blob storage-triggered function will <em>just work</em>. Magic voodoo.</p>
+<hr>
+<p>Once everything is set up properly, you should have a set of files that looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">.
+├── <span style="color:#66d9ef">function</span>
+│   ├── datadog_logs_monitoring
+│   │   ├── <span style="color:#66d9ef">function</span>.json
+│   │   └── index.js
+│   ├── host.json
+│   └── local.settings.json
+└── ...
+</code></pre></div><p>The first two files are from the Datadog repo linked above. <code>host.json</code> is the Azure serverless manifest for the multi-function app that got generated from the Azure quickstart guide. <code>local.settings.json</code> is optional here; it gets ignored on deploy as you&rsquo;ll see soon.</p>
+<p>From the <code>function</code> directory, you can actually go ahead and deploy the function to Azure using the CLI tool &ndash; no, not <code>az</code>, but <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local">the <em>other</em> Azure CLI tool</a> for functions &ndash; as long as you&rsquo;ve set up the Azure App Service infrastructure already.</p>
+<p>I guess one of the appeals of the serverless bandwagon is cutting out the ops middle-man by allowing devs to deploy directly from their workstations to production with a simple CLI command. But we&rsquo;re going to make things complicated again and do it in Terraform.</p>
+<h2 id="deployment">Deployment</h2>
+<p>The rest of this post is heavily borrowed from <a href="https://adrianhall.github.io/typescript/2019/10/23/terraform-functions/">Adrian Hall</a>&rsquo;s excellent write-up on deploying an Azure Function App with Terraform. I think it says something about the Azure docs that a personal blog post by a Microsoft employee was my primary reference for how to do this, but I digress.</p>
+<p>The basic idea is this: Use Terraform to setup the Azure App Function infrastructure along with all of the requisite parts. Then, using the <code>archive</code> provider, package the code into a <code>zip</code> file, upload it to blob storage, and &hellip; duct tape and crossed fingers.</p>
+<p>Input variables are as follows:</p>
+<ul>
+<li><code>prefix</code>: resource name prefix</li>
+<li><code>tags</code>: a map of tags</li>
+<li><code>resource_group_name</code>: name of the resource group where your Application Gateway is deployed</li>
+<li><code>azurerm_application_gateway_id</code>: ID of the App Gateway</li>
+<li><code>storage_account_name</code>: name of a storage account where App Gateway logs and function code will be uploaded to</li>
+<li><code>datadog_api_key</code>: Datadog API key</li>
+</ul>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">121
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">122
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">123
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">124
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">125
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">126
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">127
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">128
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">129
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">130
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">131
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">132
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">133
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">134
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">135
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">136
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">137
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">138
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">139
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">140
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">141
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">142
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">143
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">144
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">145
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">146
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">147
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">148
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">data</span> <span style="color:#e6db74">&#34;azurerm_monitor_diagnostic_categories&#34; &#34;app_gw&#34;</span> {
+  resource_id <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">azurerm_application_gateway_id</span>
+}
+
+<span style="color:#66d9ef">data</span> <span style="color:#e6db74">&#34;azurerm_storage_account&#34; &#34;storage&#34;</span> {
+  name                <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">storage_account_name</span>
+  resource_group_name <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">resource_group_name</span>
+}<span style="color:#75715e">
+</span><span style="color:#75715e">
+</span><span style="color:#75715e"># Diagnostic setting to push App Gateway access logs to storage
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;azurerm_monitor_diagnostic_setting&#34; &#34;app_gw_logs&#34;</span> {
+  name               <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;${var.prefix}-app-gw-logs&#34;</span>
+  target_resource_id <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">azurerm_application_gateway_id</span>
+  storage_account_id <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">azurerm_storage_account</span>.<span style="color:#66d9ef">storage</span>.<span style="color:#66d9ef">id</span>
+
+  <span style="color:#66d9ef">dynamic</span> <span style="color:#66d9ef">log</span> {
+    for_each <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">azurerm_monitor_diagnostic_categories</span>.<span style="color:#66d9ef">app_gw</span>.<span style="color:#66d9ef">logs</span>
+    <span style="color:#66d9ef">content</span> {
+      category <span style="color:#f92672">=</span> <span style="color:#66d9ef">log</span>.<span style="color:#66d9ef">key</span>
+      <span style="color:#66d9ef">retention_policy</span> {
+        enabled <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+        days    <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>
+      }
+    }
+  }
+
+  <span style="color:#66d9ef">dynamic</span> <span style="color:#66d9ef">metric</span> {
+    for_each <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">azurerm_monitor_diagnostic_categories</span>.<span style="color:#66d9ef">app_gw</span>.<span style="color:#66d9ef">metrics</span>
+    <span style="color:#66d9ef">content</span> {
+      category <span style="color:#f92672">=</span> <span style="color:#66d9ef">metric</span>.<span style="color:#66d9ef">key</span>
+      <span style="color:#66d9ef">retention_policy</span> {
+        enabled <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+        days    <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>
+      }
+    }
+  }
+}
+
+<span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;time_rotating&#34; &#34;sas&#34;</span> {
+  rotation_days <span style="color:#f92672">=</span> <span style="color:#ae81ff">365</span>
+}<span style="color:#75715e">
+</span><span style="color:#75715e">
+</span><span style="color:#75715e"># Obtain Shared Access Signature token for our function to read from our storage account
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">data</span> <span style="color:#e6db74">&#34;azurerm_storage_account_sas&#34; &#34;sas&#34;</span> {
+  connection_string <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">azurerm_storage_account</span>.<span style="color:#66d9ef">storage</span>.<span style="color:#66d9ef">primary_connection_string</span>
+  https_only        <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+  start             <span style="color:#f92672">=</span> <span style="color:#66d9ef">formatdate</span>(<span style="color:#e6db74">&#34;YYYY-MM-DD&#34;</span>, <span style="color:#66d9ef">time_rotating</span>.<span style="color:#66d9ef">sas</span>.<span style="color:#66d9ef">id</span>)
+  expiry <span style="color:#f92672">=</span> <span style="color:#66d9ef">formatdate</span>(<span style="color:#e6db74">&#34;YYYY-MM-DD&#34;</span>, <span style="color:#66d9ef">timeadd</span>(<span style="color:#66d9ef">time_rotating</span>.<span style="color:#66d9ef">sas</span>.<span style="color:#66d9ef">id</span>,
+  <span style="color:#e6db74">&#34;${time_rotating.sas.rotation_days * 24}h&#34;</span>))
+  <span style="color:#66d9ef">resource_types</span> {
+    object    <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+    container <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+    service   <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+  }
+  <span style="color:#66d9ef">services</span> {
+    blob  <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+    queue <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+    table <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+    file  <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+  }
+  <span style="color:#66d9ef">permissions</span> {
+    read    <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+    write   <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+    delete  <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+    list    <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+    add     <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+    create  <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+    update  <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+    process <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+  }
+}<span style="color:#75715e">
+</span><span style="color:#75715e">
+</span><span style="color:#75715e"># Storage container where our function code will be uploaded
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;azurerm_storage_container&#34; &#34;function_releases&#34;</span> {
+  name                  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;function-releases&#34;</span>
+  storage_account_name  <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">azurerm_storage_account</span>.<span style="color:#66d9ef">storage</span>.<span style="color:#66d9ef">name</span>
+  container_access_type <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;private&#34;</span>
+}<span style="color:#75715e">
+</span><span style="color:#75715e">
+</span><span style="color:#75715e"># Create our function zip archive
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">data</span> <span style="color:#e6db74">&#34;archive_file&#34; &#34;function&#34;</span> {
+  type        <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;zip&#34;</span>
+  source_dir  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;${path.module}/function&#34;</span>
+  output_path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;${path.module}/function.zip&#34;</span>
+  excludes <span style="color:#f92672">=</span> [
+    <span style="color:#e6db74">&#34;${path.module}/function/local.settings.json&#34;</span>,
+    <span style="color:#e6db74">&#34;${path.module}/function/.gitignore&#34;</span>
+  ]
+}
+
+<span style="color:#66d9ef">data</span> <span style="color:#e6db74">&#34;azurerm_resource_group&#34; &#34;rg&#34;</span> {
+  name <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">resource_group_name</span>
+}<span style="color:#75715e">
+</span><span style="color:#75715e">
+</span><span style="color:#75715e"># Actually upload it to storage
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;azurerm_storage_blob&#34; &#34;datadog_logs_sender&#34;</span> {
+  type                   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Block&#34;</span>
+  storage_account_name   <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">azurerm_storage_account</span>.<span style="color:#66d9ef">storage</span>.<span style="color:#66d9ef">name</span>
+  storage_container_name <span style="color:#f92672">=</span> <span style="color:#66d9ef">azurerm_storage_container</span>.<span style="color:#66d9ef">function_releases</span>.<span style="color:#66d9ef">name</span>
+  name                   <span style="color:#f92672">=</span> <span style="color:#66d9ef">format</span>(<span style="color:#e6db74">&#34;function_%s.zip&#34;</span>, <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">archive_file</span>.<span style="color:#66d9ef">function</span>.<span style="color:#66d9ef">output_sha</span>)
+  source                 <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">archive_file</span>.<span style="color:#66d9ef">function</span>.<span style="color:#66d9ef">output_path</span>
+}<span style="color:#75715e">
+</span><span style="color:#75715e">
+</span><span style="color:#75715e"># The &#39;implicit&#39; app service plan discussed earlier
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;azurerm_app_service_plan&#34; &#34;datadog_logs_sender&#34;</span> {
+  name <span style="color:#f92672">=</span> <span style="color:#66d9ef">format</span>(
+  <span style="color:#e6db74">&#34;%s-%s&#34;, &#34;datadog-logs-sender&#34;</span>, <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">azurerm_resource_group</span>.<span style="color:#66d9ef">rg</span>.<span style="color:#66d9ef">name</span>)
+  location            <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">azurerm_resource_group</span>.<span style="color:#66d9ef">rg</span>.<span style="color:#66d9ef">location</span>
+  resource_group_name <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">azurerm_resource_group</span>.<span style="color:#66d9ef">rg</span>.<span style="color:#66d9ef">name</span>
+  kind                <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;functionapp&#34;</span>
+  reserved            <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+
+  <span style="color:#66d9ef">sku</span> {
+    tier <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Dynamic&#34;</span><span style="color:#75715e"> # we&#39;re using serverless mode
+</span><span style="color:#75715e"></span>    size <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Y1&#34;</span>
+  }
+}
+
+<span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;azurerm_function_app&#34; &#34;datadog_logs_sender&#34;</span> {
+  name <span style="color:#f92672">=</span> <span style="color:#66d9ef">format</span>(
+  <span style="color:#e6db74">&#34;%s-%s&#34;, &#34;datadog-logs-sender&#34;</span>, <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">azurerm_resource_group</span>.<span style="color:#66d9ef">rg</span>.<span style="color:#66d9ef">name</span>)
+  location                   <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">azurerm_resource_group</span>.<span style="color:#66d9ef">rg</span>.<span style="color:#66d9ef">location</span>
+  resource_group_name        <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">azurerm_resource_group</span>.<span style="color:#66d9ef">rg</span>.<span style="color:#66d9ef">name</span>
+  app_service_plan_id        <span style="color:#f92672">=</span> <span style="color:#66d9ef">azurerm_app_service_plan</span>.<span style="color:#66d9ef">datadog_logs_sender</span>.<span style="color:#66d9ef">id</span>
+  storage_account_name       <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">azurerm_storage_account</span>.<span style="color:#66d9ef">storage</span>.<span style="color:#66d9ef">name</span>
+  storage_account_access_key <span style="color:#f92672">=</span> <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">azurerm_storage_account</span>.<span style="color:#66d9ef">storage</span>.<span style="color:#66d9ef">primary_access_key</span>
+  os_type                    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;linux&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">  # Environment variables for our function runtime along with some voodoo
+</span><span style="color:#75715e">  # to tell Azure where to find our function code
+</span><span style="color:#75715e"></span>  app_settings <span style="color:#f92672">=</span> {
+    DD_SOURCE                    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;azure-application-gateway&#34;</span>
+    DD_SERVICE                   <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">azurerm_application_gateway_id</span>
+    DD_SOURCE_CATEGORY           <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;azure&#34;</span>
+    DD_SITE                      <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;datadoghq.com&#34;</span>
+    DD_TAGS                      <span style="color:#f92672">=</span> <span style="color:#66d9ef">join</span>(<span style="color:#e6db74">&#34;,&#34;, [for k, v in var.tags : &#34;${k}:${v}&#34;</span>])
+    DD_API_KEY                   <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">datadog_api_key</span>
+    FUNCTIONS_WORKER_RUNTIME     <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;node&#34;</span>
+    WEBSITE_NODE_DEFAULT_VERSION <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;~12&#34;</span>
+    WEBSITE_RUN_FROM_PACKAGE <span style="color:#f92672">=</span> <span style="color:#66d9ef">format</span>(
+      <span style="color:#e6db74">&#34;https://%s.blob.core.windows.net/%s/%s%s&#34;</span>,
+      <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">azurerm_storage_account</span>.<span style="color:#66d9ef">storage</span>.<span style="color:#66d9ef">name</span>,
+      <span style="color:#66d9ef">azurerm_storage_container</span>.<span style="color:#66d9ef">function_releases</span>.<span style="color:#66d9ef">name</span>,
+      <span style="color:#66d9ef">azurerm_storage_blob</span>.<span style="color:#66d9ef">datadog_logs_sender</span>.<span style="color:#66d9ef">name</span>,
+      <span style="color:#66d9ef">data</span>.<span style="color:#66d9ef">azurerm_storage_account_sas</span>.<span style="color:#66d9ef">sas</span>.<span style="color:#66d9ef">sas</span>
+    )
+  }
+}</code></pre></td></tr></table>
+</div>
+</div>
+<p>The only essential part that remains is to configure Datadog to properly grok the timestamp field from the logs. This can be done by defining a new log pipeline with a filter like <code>source:azure-application-gateway</code>, and adding a date remapper to pull the timestamp from the <code>timeStamp</code> field. There are a couple of other handy built-in processors available in Datadog to parse things like HTTP status codes and user agent strings that I recommend using as well.</p>
+<hr>
+<h1 id="resources">Resources</h1>
+<ol>
+<li><a href="https://github.com/DataDog/datadog-serverless-functions">https://github.com/DataDog/datadog-serverless-functions</a></li>
+<li><a href="https://itnext.io/datadog-azure-api-management-logs-60f9d45d667a">https://itnext.io/datadog-azure-api-management-logs-60f9d45d667a</a></li>
+<li><a href="https://adrianhall.github.io/typescript/2019/10/23/terraform-functions/">https://adrianhall.github.io/typescript/2019/10/23/terraform-functions/</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-functions/">https://docs.microsoft.com/en-us/azure/azure-functions/</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-functions/consumption-plan">https://docs.microsoft.com/en-us/azure/azure-functions/consumption-plan</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local">https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-node?tabs=azure-cli%2Cbrowser">https://docs.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-node?tabs=azure-cli%2Cbrowser</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob-trigger?tabs=javascript#configuration">https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob-trigger?tabs=javascript#configuration</a></li>
+</ol>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

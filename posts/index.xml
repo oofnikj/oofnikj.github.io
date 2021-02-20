@@ -6,7 +6,16 @@
     <description>Recent content in Posts on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Dec 2020 09:53:26 +0200</lastBuildDate><atom:link href="https://badgateway.qc.to/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 19 Feb 2021 14:29:00 +0200</lastBuildDate><atom:link href="https://badgateway.qc.to/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ship azure application gateway logs to datadog</title>
+      <link>https://badgateway.qc.to/ship-azure-application-gateway-logs-to-datadog/</link>
+      <pubDate>Fri, 19 Feb 2021 14:29:00 +0200</pubDate>
+      
+      <guid>https://badgateway.qc.to/ship-azure-application-gateway-logs-to-datadog/</guid>
+      <description>Azure doesn&amp;rsquo;t make it particularly easy to integrate with external logging and metrics providers. Here&amp;rsquo;s one way to do it.</description>
+    </item>
+    
     <item>
       <title>migration to hugo</title>
       <link>https://badgateway.qc.to/migration-to-hugo/</link>
