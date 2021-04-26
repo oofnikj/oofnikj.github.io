@@ -6,7 +6,16 @@
     <description>Recent content on bad gateway</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 19 Feb 2021 14:29:00 +0200</lastBuildDate><atom:link href="https://badgateway.qc.to/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Apr 2021 22:15:01 +0300</lastBuildDate><atom:link href="https://badgateway.qc.to/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>recovering lost pdf passwords</title>
+      <link>https://badgateway.qc.to/recovering-lost-pdf-passwords/</link>
+      <pubDate>Mon, 26 Apr 2021 22:15:01 +0300</pubDate>
+      
+      <guid>https://badgateway.qc.to/recovering-lost-pdf-passwords/</guid>
+      <description>How to recover a lost PDF password using open source tools.</description>
+    </item>
+    
     <item>
       <title>ship azure application gateway logs to datadog</title>
       <link>https://badgateway.qc.to/ship-azure-application-gateway-logs-to-datadog/</link>

@@ -1,374 +1,238 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
-  <url>
-    <loc>https://badgateway.qc.to/tags/azure/</loc>
-    <lastmod>2021-02-19T14:29:00+02:00</lastmod>
-  </url>
-  
   <url>
     <loc>https://badgateway.qc.to/</loc>
+    <lastmod>2021-04-26T22:15:01+03:00</lastmod>
+  </url><url>
+    <loc>https://badgateway.qc.to/tags/bruteforce/</loc>
+    <lastmod>2021-04-26T22:15:01+03:00</lastmod>
+  </url><url>
+    <loc>https://badgateway.qc.to/tags/encryption/</loc>
+    <lastmod>2021-04-26T22:15:01+03:00</lastmod>
+  </url><url>
+    <loc>https://badgateway.qc.to/tags/john/</loc>
+    <lastmod>2021-04-26T22:15:01+03:00</lastmod>
+  </url><url>
+    <loc>https://badgateway.qc.to/posts/</loc>
+    <lastmod>2021-04-26T22:15:01+03:00</lastmod>
+  </url><url>
+    <loc>https://badgateway.qc.to/recovering-lost-pdf-passwords/</loc>
+    <lastmod>2021-04-26T22:15:01+03:00</lastmod>
+  </url><url>
+    <loc>https://badgateway.qc.to/tags/</loc>
+    <lastmod>2021-04-26T22:15:01+03:00</lastmod>
+  </url><url>
+    <loc>https://badgateway.qc.to/tags/azure/</loc>
     <lastmod>2021-02-19T14:29:00+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/datadog/</loc>
     <lastmod>2021-02-19T14:29:00+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://badgateway.qc.to/posts/</loc>
-    <lastmod>2021-02-19T14:29:00+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/serverless/</loc>
     <lastmod>2021-02-19T14:29:00+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/ship-azure-application-gateway-logs-to-datadog/</loc>
     <lastmod>2021-02-19T14:29:00+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://badgateway.qc.to/tags/</loc>
-    <lastmod>2021-02-19T14:29:00+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/blog/</loc>
     <lastmod>2020-12-29T09:53:26+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/hugo/</loc>
     <lastmod>2020-12-29T09:53:26+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/migration-to-hugo/</loc>
     <lastmod>2020-12-29T09:53:26+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/wordpress/</loc>
     <lastmod>2020-12-29T09:53:26+02:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/networking/</loc>
     <lastmod>2020-11-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/openwrt/</loc>
     <lastmod>2020-11-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/vlan/</loc>
     <lastmod>2020-11-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/vlans-and-wifi/</loc>
     <lastmod>2020-11-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/dkms/</loc>
     <lastmod>2020-09-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/kernel-patching-with-dkms/</loc>
     <lastmod>2020-09-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/linux/</loc>
     <lastmod>2020-09-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/wifi/</loc>
     <lastmod>2020-09-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/docker/</loc>
     <lastmod>2020-08-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/gitlab/</loc>
     <lastmod>2020-08-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/multi-architecture-docker-builds/</loc>
     <lastmod>2020-08-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/multiarch/</loc>
     <lastmod>2020-08-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/deploy-jenkins-the-easy-way/</loc>
     <lastmod>2020-08-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/gitops/</loc>
     <lastmod>2020-08-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/helm/</loc>
     <lastmod>2020-08-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/jenkins/</loc>
     <lastmod>2020-08-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/kubernetes/</loc>
     <lastmod>2020-08-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/aws/</loc>
     <lastmod>2020-07-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/awsp-aws-profile-switcher/</loc>
     <lastmod>2020-07-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/bash/</loc>
     <lastmod>2020-07-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/athena/</loc>
     <lastmod>2020-05-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/breaking-down-aws-flow-logs/</loc>
     <lastmod>2020-05-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/nat/</loc>
     <lastmod>2020-05-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/sql/</loc>
     <lastmod>2020-05-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/contain-your-router/</loc>
     <lastmod>2020-02-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/hostapd/</loc>
     <lastmod>2020-02-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/better-remote-desktop/</loc>
     <lastmod>2020-02-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/rdp/</loc>
     <lastmod>2020-02-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/ubuntu/</loc>
     <lastmod>2020-02-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/vnc/</loc>
     <lastmod>2020-02-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/docker-compose/</loc>
     <lastmod>2020-01-21T07:43:42+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/netem/</loc>
     <lastmod>2020-01-21T07:43:42+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/slow-your-network-down/</loc>
     <lastmod>2020-01-21T07:43:42+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/tcp/</loc>
     <lastmod>2020-01-21T07:43:42+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/wireshark/</loc>
     <lastmod>2020-01-21T07:43:42+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/dvr/</loc>
     <lastmod>2019-12-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/raspberry-pi-security-camera-monitor/</loc>
     <lastmod>2019-12-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/raspberrypi/</loc>
     <lastmod>2019-12-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/bfg/</loc>
     <lastmod>2019-10-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/clean-up-your-git/</loc>
     <lastmod>2019-10-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/git/</loc>
     <lastmod>2019-10-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/gcs/</loc>
     <lastmod>2019-10-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/postgres/</loc>
     <lastmod>2019-10-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/postgres-google-cloud-storage/</loc>
     <lastmod>2019-10-13T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/tiller/</loc>
     <lastmod>2019-10-09T15:11:14+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tweaking-the-gitlab-kubernetes-installer/</loc>
     <lastmod>2019-10-09T15:11:14+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/gcp/</loc>
     <lastmod>2019-10-04T08:24:57+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/using-a-private-container-registry-with-gitlab/</loc>
     <lastmod>2019-10-04T08:24:57+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/haproxy/</loc>
     <lastmod>2019-10-03T05:48:40+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/high-performance-kubernetes-load-balancing/</loc>
     <lastmod>2019-10-03T05:48:40+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/iptables/</loc>
     <lastmod>2019-10-03T05:48:40+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/traefik/</loc>
     <lastmod>2019-10-03T05:48:40+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/uwsgi/</loc>
     <lastmod>2019-10-03T05:48:40+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/backing-up-wordpress-with-git/</loc>
     <lastmod>2019-09-29T05:53:06+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/backup/</loc>
     <lastmod>2019-09-29T05:53:06+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/revisr/</loc>
     <lastmod>2019-09-29T05:53:06+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/k3s/</loc>
     <lastmod>2019-09-28T16:31:55+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/local-development-with-kubernetes/</loc>
     <lastmod>2019-09-28T16:31:55+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/apache/</loc>
     <lastmod>2019-09-27T18:20:32+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/how-to-make-a-blog/</loc>
     <lastmod>2019-09-27T18:20:32+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/meta/</loc>
     <lastmod>2019-09-27T18:20:32+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/tags/ssl/</loc>
     <lastmod>2019-09-27T18:20:32+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://badgateway.qc.to/categories/</loc>
   </url>
-  
 </urlset>
