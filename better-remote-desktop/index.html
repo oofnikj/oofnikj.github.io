@@ -4,7 +4,7 @@
     <title>better remote desktop | bad gateway</title>
     <link rel="shortcut icon" href="/bg.png" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.82.1" />
+    <meta name="generator" content="Hugo 0.89.4" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="oofnik" />
     <meta name="description" content="" />
@@ -31,8 +31,8 @@ if (!doNotTrack) {
 <meta property="og:description" content="I was looking for something that I could use to log in to my desktop over a not so good WAN link and ended up forking Chromium." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://badgateway.qc.to/better-remote-desktop/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-02-08T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2020-02-08T00:00:00&#43;00:00" />
+<meta property="article:published_time" content="2020-02-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-02-08T00:00:00+00:00" />
 
 
     <script data-goatcounter="https://badgateway.goatcounter.com/count"
@@ -224,6 +224,10 @@ if (!doNotTrack) {
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   postgres
                 </a>
+                <a href="/tags/power" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  power
+                </a>
                 <a href="/tags/raspberrypi" 
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   raspberrypi
@@ -342,14 +346,14 @@ if (!doNotTrack) {
 <p>First, you&rsquo;ll of course need to install CRD. Visit <a href="https://remotedesktop.google.com/access">https://remotedesktop.google.com/access</a> and follow the steps to get it installed on your system.</p>
 <p>Next, we need to make a change to the PolKit configuration so our remote virtual desktop doesn&rsquo;t crash immediately upon startup. You can read more about this issue <a href="https://c-nergy.be/blog/?p=12043">here</a>, which fixes the same issue for xrdp.</p>
 <p>Create a file called <code>45-allow-colord.pkla</code> in <code>/etc/polkit-1/localauthority/50-local.d/</code> with the following contents:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#66d9ef">[Allow Colord all Users]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#66d9ef">[Allow Colord all Users]</span>
 <span style="color:#a6e22e">Identity</span><span style="color:#f92672">=</span><span style="color:#e6db74">unix-user:*</span>
 <span style="color:#a6e22e">Action</span><span style="color:#f92672">=</span><span style="color:#e6db74">org.freedesktop.color-manager.create-device;org.freedesktop.color-manager.create-profile;org.freedesktop.color-manager.delete-device;org.freedesktop.color-manager.delete-profile;org.freedesktop.color-manager.modify-device;org.freedesktop.color-manager.modify-profile</span>
 <span style="color:#a6e22e">ResultAny</span><span style="color:#f92672">=</span><span style="color:#e6db74">no</span>
 <span style="color:#a6e22e">ResultInactive</span><span style="color:#f92672">=</span><span style="color:#e6db74">no</span>
 <span style="color:#a6e22e">ResultActive</span><span style="color:#f92672">=</span><span style="color:#e6db74">yes</span>
 </code></pre></div><p>Next, generate the session file which CRD will execute to launch the desktop. We need to set some environment variables, and then launch the desktop shell:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cat <span style="color:#e6db74">&lt;&lt;EOF &gt; ~/.chrome-remote-desktop-session
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cat <span style="color:#e6db74">&lt;&lt;EOF &gt; ~/.chrome-remote-desktop-session
 </span><span style="color:#e6db74">export \$(dbus-launch)
 </span><span style="color:#e6db74">export GNOME_SHELL_SESSION_MODE=$GNOME_SHELL_SESSION_MODE 
 </span><span style="color:#e6db74">export XDG_CURRENT_DESKTOP=$XDG_CURRENT_DESKTOP
@@ -359,7 +363,7 @@ if (!doNotTrack) {
 </span><span style="color:#e6db74">EOF</span>
 </code></pre></div><p>Side note: The above snippet is called a <a href="https://www.tldp.org/LDP/abs/html/here-docs.html">here document</a>. If you&rsquo;re not familiar with them, it&rsquo;s a useful way of generating config files dynamically &ndash; basically a template engine built right in to the shell.</p>
 <p>Finally, restart the <code>chrome-remote-desktop</code> service:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo systemctl restart chrome-remote-desktop.service
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo systemctl restart chrome-remote-desktop.service
 </code></pre></div><p>And you should be good to go.</p>
 <h3 id="mirror-mode">Mirror mode</h3>
 <p>Unlike on other platforms, Chrome Remote Desktop for Linux launches a virtual desktop session separate from your main console session (just like xrdp), which can be remotely accessed. I was surprised to find, however, that there&rsquo;s no easy way to switch Chrome Remote Desktop to &ldquo;mirror&rdquo; a.k.a. shadowing a.k.a, shared mode, where the console session <em>is</em> the remote session.</p>

@@ -4,7 +4,7 @@
     <title>multi-architecture docker builds | bad gateway</title>
     <link rel="shortcut icon" href="/bg.png" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.82.1" />
+    <meta name="generator" content="Hugo 0.89.4" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="oofnik" />
     <meta name="description" content="" />
@@ -31,8 +31,8 @@ if (!doNotTrack) {
 <meta property="og:description" content="Wouldn&rsquo;t it be nice to have your Docker images come out of the oven ready to run on anything?" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://badgateway.qc.to/multi-architecture-docker-builds/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-08-27T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2020-08-27T00:00:00&#43;00:00" />
+<meta property="article:published_time" content="2020-08-27T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-08-27T00:00:00+00:00" />
 
 
     <script data-goatcounter="https://badgateway.goatcounter.com/count"
@@ -224,6 +224,10 @@ if (!doNotTrack) {
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   postgres
                 </a>
+                <a href="/tags/power" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  power
+                </a>
                 <a href="/tags/raspberrypi" 
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   raspberrypi
@@ -340,12 +344,12 @@ if (!doNotTrack) {
 <p>The tooling required to build multi-architecture Docker images is still experimental, so the process is a bit clunky. Hopefully that will change in the future, but in the mean time, make sure you&rsquo;re running at least Docker version 19.03.</p>
 <h3 id="prepare">Prepare</h3>
 <p>If you&rsquo;re running Docker Desktop for Mac v19.03 or later, experimental mode can be enabled under <strong>Preferences &gt; Command Line</strong>. On Linux, you&rsquo;ll need to enable experimental mode by adding the following key - value pair to your <code>~/.docker/config.json</code> (create it if it doesn&rsquo;t exist):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;experimental&#34;</span>: <span style="color:#e6db74">&#34;enabled&#34;</span>}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;experimental&#34;</span>: <span style="color:#e6db74">&#34;enabled&#34;</span>}
 </code></pre></div><p>We can accomplish that programmatically with <code>jq</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ jq <span style="color:#e6db74">&#39;. += {&#34;experimental&#34;: &#34;enabled&#34;}&#39;</span> ~/.docker/config.json &gt; /tmp/config
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ jq <span style="color:#e6db74">&#39;. += {&#34;experimental&#34;: &#34;enabled&#34;}&#39;</span> ~/.docker/config.json &gt; /tmp/config
 $ mv /tmp/config ~/.docker/config.json
 </code></pre></div><p>Confirm that your Docker client now has experimental superpowers:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx inspect --bootstrap
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx inspect --bootstrap
 Name:   default
 Driver: docker
 
@@ -356,11 +360,11 @@ Status:    running
 Platforms: linux/amd64, linux/386
 </code></pre></div><p>You should see some information like the above, telling us a little bit about the currently selected builder instance using the legacy <code>docker</code> driver. The <code>--bootstrap</code> option ensures that the builder is booted up to make sure all the information about the builder is available.</p>
 <p>For multi-architecture builds, create a new BuildKit builder instance and set it to the default. It should return a random whimsical name:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx create --use
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx create --use
 competent_chaplygin
 </code></pre></div><p>A lot is happening in this single command, but in short, it&rsquo;s creating a new builder instance using the <code>docker-container</code> driver and BuildKit backend. We need this new kind of builder to build our multi-arch Docker image.</p>
 <p>Re-run <code>docker buildx inspect</code> and you should see some additional output:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx inspect --bootstrap
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx inspect --bootstrap
 Name:   competent_chaplygin
 Driver: docker-container
 
@@ -371,9 +375,9 @@ Status:    running
 Platforms: linux/amd64, linux/386
 </code></pre></div><p>If you&rsquo;re on Mac OS, you can probably skip this next step, but Linux users will have to register additional platforms like <code>linux/arm64</code>, either by installing some packages or running the <code>multiarch/qemu-user-static</code> container in privileged mode.</p>
 <p>This step tells the running kernel how to process binary files built for foreign architectures through the <code>binfmt_misc</code> interface. Only privileged containers can write to the <code>proc</code> filesystem of the host, which is why we need to add the <code>--privileged</code> flag. Artur Klauser has an outstanding <a href="https://nexus.eddiesinentropy.net/2020/01/12/Building-Multi-architecture-Docker-Images-With-Buildx/">write-up</a> on this topic for more information, but luckily, the <a href="https://hub.docker.com/r/multiarch/qemu-user-static">multiarch</a> project has done brilliant work by packaging everything we need to do in one command:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 </code></pre></div><p>And just like that, our builder becomes cross-platform capable:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx inspect --bootstrap
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx inspect --bootstrap
 Name:   competent_chaplygin
 Driver: docker-container
 
@@ -384,24 +388,24 @@ Status:    running
 Platforms: linux/amd64, linux/386, linux/arm64, linux/riscv64, linux/ppc64le, linux/arm/v7, linux/arm/v6
 </code></pre></div><h3 id="build">Build</h3>
 <p>Next, let&rsquo;s create a simple Dockerfile to test our BuildKit builder. We&rsquo;ll install <code>openvpn</code>, a SSL-based VPN:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cat <span style="color:#e6db74">&lt;&lt;EOF &gt; Dockerfile
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cat <span style="color:#e6db74">&lt;&lt;EOF &gt; Dockerfile
 </span><span style="color:#e6db74">FROM alpine:latest
 </span><span style="color:#e6db74">RUN apk update &amp;&amp; apk add openvpn
 </span><span style="color:#e6db74">ENTRYPOINT [&#34;/usr/sbin/openvpn&#34;]
 </span><span style="color:#e6db74">EOF</span>
 </code></pre></div><p>Normally we&rsquo;d build this image with <code>docker build -t openvpn .</code> , but the syntax for the BuildKit builder is a little different:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx build -t openvpn --platform linux/amd64,linux/arm64 .
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx build -t openvpn --platform linux/amd64,linux/arm64 .
 </code></pre></div><p>You&rsquo;ll notice that the output of the BuildKit builder looks a little different too.</p>
 <p>It took me a while to realize that it&rsquo;s <a href="https://github.com/docker/buildx#--load">not possible</a> to actually <em>load</em> multi-arch images directly into the local Docker daemon; they must first be pushed to a registry. Once the image has been uploaded, a client comes along and issues a <code>docker pull</code> command, which will only pull down the image for the relevant architecture.</p>
 <p>There are plenty of services that offer free container registries such as Docker Hub or GitLab. I&rsquo;m going to assume you&rsquo;ve got something already set up at <code>docker.io/&lt;youruser&gt;</code>, so replace that with your actual image repository prefix in the following steps. Just make sure that if you&rsquo;re pushing containers to public registries, you&rsquo;re not including any sensitive data like passwords or API keys.</p>
 <p>Actually, that goes for private registries too. Secrets in Docker images are no less bad than secrets in Git. Unless they&rsquo;re encrypted, just <strong>don&rsquo;t do it</strong>.</p>
 <p>Note that with Docker Hub, the <code>docker.io</code> prefix can be omitted.</p>
 <p>With <code>docker buildx</code>, you build and push the image in one go:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx build -t docker.io/&lt;youruser&gt;/openvpn --platform linux/amd64,linux/arm64 . --push
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker buildx build -t docker.io/&lt;youruser&gt;/openvpn --platform linux/amd64,linux/arm64 . --push
 </code></pre></div><p>If all goes as planned, Docker will have built your image for each architecture specified in a comma-separated list, in parallel, and push each container image with the default <code>latest</code> tag, all as a single manifest.</p>
 <p>A couple of things to note here. The foreign architectures will take significantly longer than the native builds (i.e. building a <code>linux/arm64</code> image on an Intel / AMD machine) because the machine instructions are actually being translated in real-time by QEMU, a software-based processor emulator, as the container is being built.</p>
 <p>If you run <code>ps</code> during the build, you will see something like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ps -ef | grep qemu
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ps -ef | grep qemu
 root       <span style="color:#ae81ff">10151</span>   <span style="color:#ae81ff">10128</span>  <span style="color:#ae81ff">2</span> 06:20 ?        00:00:00 /usr/bin/qemu-aarch64-static /bin/sh -c apk update <span style="color:#f92672">&amp;&amp;</span> apk add openvpn
 root       <span style="color:#ae81ff">10168</span>   <span style="color:#ae81ff">10151</span> <span style="color:#ae81ff">28</span> 06:20 ?        00:00:00 /usr/bin/qemu-aarch64-static /sbin/apk update
 </code></pre></div><p>It works sort of like the JVM, but for ARM or PowerPC instead of Java bytecode. Amazing.</p>
@@ -412,15 +416,15 @@ root       <span style="color:#ae81ff">10168</span>   <span style="color:#ae81ff
 <h3 id="run">Run</h3>
 <p>If we can build foreign architectures, surely we can run them, too, you ask? Well, earlier we enabled experimental mode for the Docker client. Now we need to enable it for the daemon.</p>
 <p>Add the following key - value pair to <code>/etc/docker/daemon.json</code> (again, create it if it doesn&rsquo;t exist):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;experimental&#34;</span>: <span style="color:#66d9ef">true</span>}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{<span style="color:#f92672">&#34;experimental&#34;</span>: <span style="color:#66d9ef">true</span>}
 </code></pre></div><p>That&rsquo;s not a typo. The daemon expects boolean value <code>true</code> while the client expects the string value <code>&quot;enabled&quot;</code>.</p>
 <p>Docker devs, if you&rsquo;re reading this, a little consistency please before this goes GA would be much appreciated.</p>
 <p>Next, we have to restart our Docker daemon. If you&rsquo;re running Docker with <code>systemd</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo systemctl restart docker
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo systemctl restart docker
 </code></pre></div><p>Now we can pull our multi-arch image back down from our registry, forcing Docker to pull the specified platform:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker pull &lt;username&gt;/openvpn --platform linux/arm64 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker pull &lt;username&gt;/openvpn --platform linux/arm64 
 </code></pre></div><p>If we run this image with the <code>--version</code> parameter, OpenVPN will print out the architecture for which it was compiled, which is why I&rsquo;ve used it for this example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker run --rm &lt;youruser&gt;/openvpn --version
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker run --rm &lt;youruser&gt;/openvpn --version
 OpenVPN 2.4.9 aarch64-alpine-linux-musl <span style="color:#f92672">[</span>SSL <span style="color:#f92672">(</span>OpenSSL<span style="color:#f92672">)]</span> <span style="color:#f92672">[</span>LZO<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>LZ4<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>EPOLL<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>MH/PKTINFO<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>AEAD<span style="color:#f92672">]</span> built on Apr <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">2020</span>
 </code></pre></div><hr>
 <h2 id="gitlab">GitLab</h2>
@@ -431,7 +435,7 @@ OpenVPN 2.4.9 aarch64-alpine-linux-musl <span style="color:#f92672">[</span>SSL 
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
@@ -465,7 +469,7 @@ OpenVPN 2.4.9 aarch64-alpine-linux-musl <span style="color:#f92672">[</span>SSL 
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">variables</span>:
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">variables</span>:
   <span style="color:#f92672">CI_IMAGE</span>: <span style="color:#ae81ff">$DOCKER_HUB_USER/$CI_PROJECT_NAME</span>
   <span style="color:#f92672">PLATFORM</span>: <span style="color:#ae81ff">linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7</span>
 

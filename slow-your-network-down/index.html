@@ -4,7 +4,7 @@
     <title>slow your network down | bad gateway</title>
     <link rel="shortcut icon" href="/bg.png" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.82.1" />
+    <meta name="generator" content="Hugo 0.89.4" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="oofnik" />
     <meta name="description" content="" />
@@ -31,8 +31,8 @@ if (!doNotTrack) {
 <meta property="og:description" content="Have you you ever wanted to deliberately slow down your network to test your web service over a flaky connection? You can do it with netem, the Network Emulator." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://badgateway.qc.to/slow-your-network-down/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-01-21T07:43:42&#43;00:00" />
-<meta property="article:modified_time" content="2020-01-21T07:43:42&#43;00:00" />
+<meta property="article:published_time" content="2020-01-21T07:43:42+00:00" />
+<meta property="article:modified_time" content="2020-01-21T07:43:42+00:00" />
 
 
     <script data-goatcounter="https://badgateway.goatcounter.com/count"
@@ -224,6 +224,10 @@ if (!doNotTrack) {
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   postgres
                 </a>
+                <a href="/tags/power" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  power
+                </a>
                 <a href="/tags/raspberrypi" 
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   raspberrypi
@@ -342,9 +346,8 @@ if (!doNotTrack) {
 <p><code>netem</code> works at the kernel TCP/IP stack. It&rsquo;s part of a tool called <code>tc</code>, for traffic control, which has shipped with Linux for at least the last decade as a component of the <code>iproute2</code> suite of networking power tools.</p>
 <p>Luckily, the dude who wrote <code>netem</code> also wrote a <a href="netem.pdf">paper</a> explaining what it is and how to use it all the way back in 2005. In brief, <code>netem</code> is one of a set of queuing disciplines which sit between the kernel TCP/IP stack and the hardware (or virtualized) network interface. The role of a queuing discipline is to decide how to prioritize packets <em>leaving</em> the stack destined for the interface.</p>
 <p>From the aforementioned paper:</p>
-<figure>
-    <img src="fig1.png"
-         alt="netem block diagram"/> <figcaption>
+<figure><img src="fig1.png"
+         alt="netem block diagram"/><figcaption>
             <p><code>netem</code> block diagram</p>
         </figcaption>
 </figure>
@@ -353,37 +356,35 @@ if (!doNotTrack) {
 <h2 id="examples">Examples</h2>
 <p>I wrote a little <a href="https://github.com/oofnikj/netem-examples">framework</a> using Docker Compose to demonstrate how <code>netem</code> affects both bandwidth and latency by bringing up two containers, adding the <code>netem</code> queuing discipline to one of the containerized network interfaces, then running ping and <a href="https://github.com/esnet/iperf">iperf3</a>. We&rsquo;ll be using it to demonstrate the havoc <code>netem</code> can simulate.</p>
 <p>First, try running it without any options:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ NETEM<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span> docker-compose up</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ NETEM<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span> docker-compose up</code></pre></div>
 <p>You should see typical <code>localhost</code> performance: sub-millisecond latency and &gt;10 Gbps bandwidth.</p>
 <h3 id="latency">Latency</h3>
 <p>Let&rsquo;s sprinkle some latency on our perfect network:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ NETEM<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;delay 60ms&#39;</span> docker-compose up</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ NETEM<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;delay 60ms&#39;</span> docker-compose up</code></pre></div>
 <p>You&rsquo;ll notice that not only was latency affected, but bandwidth too. By a lot.</p>
 <p>The reason for this has to do with the fact that TCP is a guaranteed delivery protocol. Specifically, the sender must wait for the receiver to acknowledge receipt of data every <em>X</em> bytes, known as the receive window.`</p>
 <p>In the real world (or our simulation of it) where latency exists, those acknowledgements also take time to reach the other end, slowing the whole transmission down.</p>
 <p>Take a look at these two plots, generated by <a href="https://wireshark.org">Wireshark</a>:</p>
-<figure>
-    <img src="windowscaling_60ms.png"
-         alt="TCP window scaling, 60ms"/> <figcaption>
+<figure><img src="windowscaling_60ms.png"
+         alt="TCP window scaling, 60ms"/><figcaption>
             <p>TCP window scaling, 60ms</p>
         </figcaption>
 </figure>
 
-<figure>
-    <img src="throughput_60ms.png"
-         alt="TCP throughput, 60ms"/> <figcaption>
+<figure><img src="throughput_60ms.png"
+         alt="TCP throughput, 60ms"/><figcaption>
             <p>TCP throughput, 60ms</p>
         </figcaption>
 </figure>
 
 <p>Within the first two seconds, the client scales up the TCP receive window to roughly 3 MiB, which is the full capacity of the client&rsquo;s receive buffer (limited by the kernel parameter <code>net.ipv4.tcp_rmem</code>). You can see quite clearly the corresponding linear increase in throughput.</p>
 <p>We can also add latency with some random jitter to make our network act even more like the real world by adding a second parameter to <code>delay</code>, like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ NETEM<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;delay 60ms 10ms&#39;</span> docker-compose up</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ NETEM<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;delay 60ms 10ms&#39;</span> docker-compose up</code></pre></div>
 <p>Now the ping results dance between 55-65 ms.</p>
 <p>There&rsquo;s even a way to change the distribution curve of the latency filter for some seriously detailed testing. But I&rsquo;ll leave that as an exercise for you, dear reader.</p>
 <h3 id="throughput">Throughput</h3>
 <p>We can also directly throttle the throughput of our network by specifying a target <code>rate</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ NETEM<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;rate 5mbit&#39;</span> docker-compose up</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ NETEM<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;rate 5mbit&#39;</span> docker-compose up</code></pre></div>
 <pre><code>iperf3-client_1  | [  5]   4.00-5.00   sec   585 KBytes  4.80 Mbits/sec                  
 iperf3-client_1  | [  5]   5.00-6.00   sec   581 KBytes  4.76 Mbits/sec                  
 iperf3-client_1  | [  5]   6.00-7.00   sec   584 KBytes  4.78 Mbits/sec  

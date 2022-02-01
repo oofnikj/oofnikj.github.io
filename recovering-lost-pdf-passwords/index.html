@@ -4,7 +4,7 @@
     <title>recovering lost pdf passwords | bad gateway</title>
     <link rel="shortcut icon" href="/bg.png" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.82.1" />
+    <meta name="generator" content="Hugo 0.89.4" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="oofnik" />
     <meta name="description" content="" />
@@ -31,8 +31,8 @@ if (!doNotTrack) {
 <meta property="og:description" content="How to recover a lost PDF password using open source tools." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://badgateway.qc.to/recovering-lost-pdf-passwords/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-04-26T22:15:01&#43;03:00" />
-<meta property="article:modified_time" content="2021-04-26T22:15:01&#43;03:00" />
+<meta property="article:published_time" content="2021-04-26T22:15:01+03:00" />
+<meta property="article:modified_time" content="2021-04-26T22:15:01+03:00" />
 
 
     <script data-goatcounter="https://badgateway.goatcounter.com/count"
@@ -224,6 +224,10 @@ if (!doNotTrack) {
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   postgres
                 </a>
+                <a href="/tags/power" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  power
+                </a>
                 <a href="/tags/raspberrypi" 
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   raspberrypi
@@ -339,20 +343,20 @@ if (!doNotTrack) {
 </ol>
 <h2 id="attack">Attack</h2>
 <p>So we run <code>crunch</code> like this (consult the <code>man</code> page for how the options work):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ crunch <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">6</span> ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 -o wordlist.txt
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ crunch <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">6</span> ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 -o wordlist.txt
 Crunch will now generate the following amount of data: <span style="color:#ae81ff">15237476352</span> bytes
 <span style="color:#ae81ff">14531</span> MB
 ...
 </code></pre></div><p><code>crunch</code> will deterministically iterate over all possible combinations of characters according to our parameters. After a few moments, we get 15 gigabytes of newline-delimited plaintext with our password presumably buried somewhere deep within.</p>
 <p>The next tool we&rsquo;re using is called <a href="https://www.openwall.com/john/">John the Ripper</a>. <code>john</code>, for short, is a suite of &ldquo;security auditing&rdquo; tools that have been around for quite a while used to <del>crack</del> audit all kinds of passwords &ndash; encrypted Word documents, ZIP files, PDFs, *nix <code>/etc/passwd</code> hashes, you name it.</p>
 <p>There&rsquo;s probably a native way to install <code>john</code> on your OS, but just to be sure we obtain the full suite, we&rsquo;ll download and compile it from source. I mean, we&rsquo;re hackers now, right?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git clone https://github.com/openwall/john.git
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git clone https://github.com/openwall/john.git
 $ pushd john/src <span style="color:#f92672">&amp;&amp;</span> ./configure <span style="color:#f92672">&amp;&amp;</span> make -j<span style="color:#66d9ef">$(</span>nproc<span style="color:#66d9ef">)</span>
 $ popd
 </code></pre></div><p>We&rsquo;re using a PDF as our example, so we&rsquo;ll use the <code>pdf2john</code> Perl script which comes with the suite to extract the password hash embedded in our document.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ john/run/pdf2john.pl document.pdf &gt; document.hash
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ john/run/pdf2john.pl document.pdf &gt; document.hash
 </code></pre></div><p>And now, the fun part.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ john/run/john --wordlist<span style="color:#f92672">=</span>wordlist.txt --fork<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>nproc<span style="color:#66d9ef">)</span> document.hash
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ john/run/john --wordlist<span style="color:#f92672">=</span>wordlist.txt --fork<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>nproc<span style="color:#66d9ef">)</span> document.hash
 </code></pre></div><pre><code>Using default input encoding: UTF-8
 Loaded 1 password hash (PDF [MD5 SHA2 RC4/AES 32/64])
 Cost 1 (revision) is 3 for all loaded hashes
@@ -364,7 +368,7 @@ Session completed.
 </code></pre>
 <p>The <code>--fork=$(nproc)</code> bit will tell <code>john</code> to split the work up across all available CPU cores on your system.<code>john</code> will stop when it finds a match.</p>
 <p>I was sitting on the other side of the room; I knew it was done when the fans stopped whirring at full blast.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ ./john/run/john --show --format<span style="color:#f92672">=</span>PDF document.hash
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ ./john/run/john --show --format<span style="color:#f92672">=</span>PDF document.hash
 doc.pdf:ABC123
 </code></pre></div><p>Bada-<em>boom</em>.</p>
 <hr>

@@ -4,7 +4,7 @@
     <title>breaking down AWS flow logs | bad gateway</title>
     <link rel="shortcut icon" href="/bg.png" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.82.1" />
+    <meta name="generator" content="Hugo 0.89.4" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="oofnik" />
     <meta name="description" content="" />
@@ -31,8 +31,8 @@ if (!doNotTrack) {
 <meta property="og:description" content="Extract detailed cost information from network flow logs and present it in an interactive dashboard." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://badgateway.qc.to/breaking-down-aws-flow-logs/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-05-23T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2020-05-23T00:00:00&#43;00:00" />
+<meta property="article:published_time" content="2020-05-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-23T00:00:00+00:00" />
 
 
     <script data-goatcounter="https://badgateway.goatcounter.com/count"
@@ -224,6 +224,10 @@ if (!doNotTrack) {
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   postgres
                 </a>
+                <a href="/tags/power" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  power
+                </a>
                 <a href="/tags/raspberrypi" 
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   raspberrypi
@@ -341,14 +345,13 @@ if (!doNotTrack) {
 <p>AWS Flow Logs, when enabled on a network interface, provide a line-by-line aggregation of every byte going into or coming out of that interface. The logs can be queried directly in CloudWatch or, for more extensive analysis, dumped to an S3 bucket in tabular format. AWS provides <a href="https://docs.aws.amazon.com/athena/latest/ug/vpc-flow-logs.html">documentation</a> on how to query flow logs with Athena, which was helpful for getting us started, but there are plenty of other tools that can do the job.</p>
 <p>A standard set of fields is provided, including source and destination address, bytes transferred, and timestamp, but there are some <a href="https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html#flow-logs-fields">additional fields</a> we&rsquo;ll need to include in order to analyze NAT traffic.</p>
 <p>A typical flow log entry might look like this:</p>
-<pre><code class="language-csv" data-lang="csv">srcaddr dstaddr pkt-srcaddr pkt-dstaddr srcport dstport bytes tcp-flags start log-status account-id interface-id protocol packets action end
+<pre tabindex="0"><code class="language-csv" data-lang="csv">srcaddr dstaddr pkt-srcaddr pkt-dstaddr srcport dstport bytes tcp-flags start log-status account-id interface-id protocol packets action end
 10.10.52.25 10.10.10.1 10.10.52.25 188.24.16.5 443 14365 9804 0 1590015808 OK 111111111111 eni-0ad2cbc46f103cb9a 6 76 ACCEPT 1590015928
 </code></pre><p>We&rsquo;re interested in a couple of things here. First of all, it&rsquo;s important to note that flow logs will always show the internal IP address of an interface in the <code>srcaddr</code> and <code>dstaddr</code> fields, even if the packet arrives on an external address. Since we&rsquo;re analyzing NAT traffic, we need to include the additional packet and source destination address fields.</p>
 <p>Also, the <code>account-id</code> field isn&rsquo;t the account ID of the packet origin &ndash; it&rsquo;s just the account ID of the NAT gateway to which the interface is attached.</p>
 <p>Perhaps more confusing is the fact that an AWS-managed NAT gateway only has one network interface. This means that every entry in the flow log for this particular interface will (hopefully) have a second entry with an identical byte count, same ENI ID, same timestamps, but a different set of IP addresses - first from the source to the NAT gateway, and second from the NAT gateway to the external destination.</p>
-<figure>
-    <img src="images/flowlogs.png"
-         alt="color-coded matching flow log entries for a NAT gateway"/> <figcaption>
+<figure><img src="images/flowlogs.png"
+         alt="color-coded matching flow log entries for a NAT gateway"/><figcaption>
             <p>color-coded matching flow log entries for a NAT gateway</p>
         </figcaption>
 </figure>
@@ -358,14 +361,14 @@ if (!doNotTrack) {
 <p>NAT, short for Network Address Translation, does exactly what the name indicates: a NAT gateway proxies IP traffic between an internal address on your network and an external destination, keeping track of the outgoing connections so it knows where to send any incoming responses that might return. It gets a lot more <a href="https://en.wikipedia.org/wiki/Network_address_translation">complicated</a> than that, but that&rsquo;s the general idea.</p>
 <p>Knowing this, we can select only for the rows of flow log data in which NAT actually occurs - in other words, the rows that cost us money.</p>
 <p>Using SQL, that would look something like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> flow_logs
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> flow_logs
 <span style="color:#66d9ef">WHERE</span> dstaddr <span style="color:#f92672">!=</span> pkt_dstaddr
 <span style="color:#66d9ef">OR</span> srcaddr <span style="color:#f92672">!=</span> pkt_srcaddr
 </code></pre></div><p>Only the first line in the above set of matching flow log entries would match our <code>WHERE</code> criteria - that&rsquo;s the only row in which we&rsquo;re interested, since it captures information about who sent the packet (<code>srcaddr</code> - the source), who received it (<code>dstaddr</code> - the NAT gateway), and the packet&rsquo;s final destination (<code>pkt-dstaddr</code>). For traffic flowing back through the gateway, we&rsquo;d be interested in <code>pkt-srcaddr</code> to know where that packet really came from.</p>
 <p>It should be noted that technically, we&rsquo;re being charged for the <em>second</em> row, not the first one. But the first row contains the information we want, and since the byte count is identical (two sides of the same flow), that&rsquo;s the line we&rsquo;ll focus on.</p>
 <p>With that logic, we can build some more complex queries.</p>
 <p>Here&rsquo;s an example that will show us the top 10 source - destination pairs of traffic flow, ordered by total bytes (not actual IPs!):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> pkt_srcaddr, pkt_dstaddr, <span style="color:#66d9ef">sum</span>(bytes) 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span> pkt_srcaddr, pkt_dstaddr, <span style="color:#66d9ef">sum</span>(bytes) 
 <span style="color:#66d9ef">FROM</span> flow_logs 
 <span style="color:#66d9ef">WHERE</span> pkt_srcaddr <span style="color:#f92672">!=</span> srcaddr 
   <span style="color:#66d9ef">OR</span> pkt_dstaddr <span style="color:#f92672">!=</span> dstaddr 

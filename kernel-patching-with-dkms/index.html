@@ -4,7 +4,7 @@
     <title>kernel patching with dkms | bad gateway</title>
     <link rel="shortcut icon" href="/bg.png" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.82.1" />
+    <meta name="generator" content="Hugo 0.89.4" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="oofnik" />
     <meta name="description" content="" />
@@ -31,8 +31,8 @@ if (!doNotTrack) {
 <meta property="og:description" content="How do you maintain a patched version of an in-tree Linux kernel module?" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://badgateway.qc.to/kernel-patching-with-dkms/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-09-12T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2020-09-12T00:00:00&#43;00:00" />
+<meta property="article:published_time" content="2020-09-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-09-12T00:00:00+00:00" />
 
 
     <script data-goatcounter="https://badgateway.goatcounter.com/count"
@@ -224,6 +224,10 @@ if (!doNotTrack) {
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   postgres
                 </a>
+                <a href="/tags/power" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  power
+                </a>
                 <a href="/tags/raspberrypi" 
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   raspberrypi
@@ -329,7 +333,7 @@ if (!doNotTrack) {
 <p>After some Googling, I learned that Qualcomm / Atheros Wi-Fi chipsets are more amenable to operating in AP mode at 5 GHz. So I had to go find a suitable Wi-Fi module that would work.</p>
 <p>A quick trip to the local laptop repair shop later, I had a Lenovo-branded M.2 Wi-Fi module with an Atheros chipset ready to swap with the stock Intel hardware.</p>
 <p>For anyone wondering, here&rsquo;s the exact hardware spec:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ lspci -kvnn
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ lspci -kvnn
 02:00.0 Network controller <span style="color:#f92672">[</span>0280<span style="color:#f92672">]</span>: Qualcomm Atheros QCA6174 802.11ac Wireless Network Adapter <span style="color:#f92672">[</span>168c:003e<span style="color:#f92672">]</span> <span style="color:#f92672">(</span>rev 20<span style="color:#f92672">)</span>
 	Subsystem: Lenovo QCA6174 802.11ac Wireless Network Adapter <span style="color:#f92672">[</span>17aa:3044<span style="color:#f92672">]</span>
 	Flags: bus master, fast devsel, latency 0, IRQ <span style="color:#ae81ff">131</span>

@@ -4,7 +4,7 @@
     <title>vlans and wifi | bad gateway</title>
     <link rel="shortcut icon" href="/bg.png" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.82.1" />
+    <meta name="generator" content="Hugo 0.89.4" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="oofnik" />
     <meta name="description" content="" />
@@ -31,8 +31,8 @@ if (!doNotTrack) {
 <meta property="og:description" content="Transporting tagged VLAN traffic over a wireless link is a reasonably common setup in commercial environments. It turned out to be unexpectedly challenging with OpenWrt." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://badgateway.qc.to/vlans-and-wifi/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-11-13T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2020-11-13T00:00:00&#43;00:00" />
+<meta property="article:published_time" content="2020-11-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-11-13T00:00:00+00:00" />
 
 
     <script data-goatcounter="https://badgateway.goatcounter.com/count"
@@ -224,6 +224,10 @@ if (!doNotTrack) {
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   postgres
                 </a>
+                <a href="/tags/power" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  power
+                </a>
                 <a href="/tags/raspberrypi" 
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   raspberrypi
@@ -345,7 +349,7 @@ if (!doNotTrack) {
 <p>The basic idea is this: set up router A in master (AP) mode, router B as a Wi-Fi client (STA), each with a static private IP somewhere in RFC1918. The wireless interfaces must each be configured with an MTU (maximum transmission unit) large enough to accommodate a full 1500-byte Ethernet frame, plus the GRE protocol headers, plus the encapsulating IP overhead. 802.11 supports an MTU of up to 2304, so I chose a reasonable value of 2048 bytes.</p>
 <p>Next, a GRE layer 2 tunnel is defined and bound to the wireless interface. The remote and local addresses must match the addresses chosen above. Optionally, the GRE interface is enslaved to a trunk bridge interface so that we may link in to a real wired backhaul network.</p>
 <p>In declarative UCI, all of that comes together (for router A) like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#/etc/config/wireless</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#/etc/config/wireless</span>
 
 config wifi-iface <span style="color:#e6db74">&#39;trunk&#39;</span>
         option device      <span style="color:#e6db74">&#39;radio0&#39;</span>
@@ -357,7 +361,7 @@ config wifi-iface <span style="color:#e6db74">&#39;trunk&#39;</span>
         option key         <span style="color:#e6db74">&#39;supersecretpassword&#39;</span>
         option hidden      <span style="color:#e6db74">&#39;1&#39;</span>            <span style="color:#75715e"># avoids beacon pollution</span>
         option disassoc_low_ack <span style="color:#e6db74">&#39;0&#39;</span>       <span style="color:#75715e"># helps stay connected</span>
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># /etc/config/network</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># /etc/config/network</span>
 
 config interface <span style="color:#e6db74">&#39;wtun&#39;</span>                   <span style="color:#75715e"># must match &#39;network&#39; above</span>
         option proto     <span style="color:#e6db74">&#39;static&#39;</span>

@@ -4,7 +4,7 @@
     <title>local development with kubernetes | bad gateway</title>
     <link rel="shortcut icon" href="/bg.png" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.82.1" />
+    <meta name="generator" content="Hugo 0.89.4" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="oofnik" />
     <meta name="description" content="" />
@@ -31,8 +31,8 @@ if (!doNotTrack) {
 <meta property="og:description" content="I wrote this howto for work while learning Kubernetes, mostly for myself, but also for other devs to jump in and learn without racking up cloud costs." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://badgateway.qc.to/local-development-with-kubernetes/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-09-28T16:31:55&#43;00:00" />
-<meta property="article:modified_time" content="2019-09-28T16:31:55&#43;00:00" />
+<meta property="article:published_time" content="2019-09-28T16:31:55+00:00" />
+<meta property="article:modified_time" content="2019-09-28T16:31:55+00:00" />
 
 
     <script data-goatcounter="https://badgateway.goatcounter.com/count"
@@ -224,6 +224,10 @@ if (!doNotTrack) {
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   postgres
                 </a>
+                <a href="/tags/power" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  power
+                </a>
                 <a href="/tags/raspberrypi" 
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   raspberrypi
@@ -331,7 +335,7 @@ A lot has changed in a year!</p>
 <h2 id="installation">Installation</h2>
 <p><code>k3s</code> claims to be runnable on any Linux (amd64, armv7, arm64). For this guide we&rsquo;re running Ubuntu 18.04 LTS.</p>
 <p>Install it with</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ curl -sfL https://get.k3s.io | sh -</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ curl -sfL https://get.k3s.io | sh -</code></pre></div>
 <h4 id="disclaimer">Disclaimer:</h4>
 <p>Piping a shell script straight from the internet is living on the edge. But you&rsquo;re probably following this in a throwaway VM anyway, right? Right? I mean, who goes running random commands they find on internet blogs on their local computers?</p>
 <p>Anyway. The installation script will download the <code>k3s</code> binary to <code>/usr/local/bin</code> by default and add a <code>systemd</code> service definition to run the agent in server mode, listening on <code>https://localhost:6443</code>. It will start a local cluster of 1 node and write a Kubernetes config file to <code>/etc/rancher/k3s/k3s.yaml</code>.</p>
@@ -339,29 +343,29 @@ A lot has changed in a year!</p>
 <p>By default, <code>k3s</code> creates the config file with <code>0600</code> permissions (only root can read or write to it) because it contains authentication information for controlling your Kubernetes “cluster”.</p>
 <p>In order to interact with our cluster as a non-root user, copy this config to your local user directory where your <code>kubectl</code> client expects it to be.</p>
 <p><strong>NOTE:</strong> If you&rsquo;ve already got some cluster credentials stored in the default location, they will be overwritten by the following command!</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ mkdir -p ~/.kube
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ mkdir -p ~/.kube
 $ sudo k3s kubectl config view --raw &gt; ~/.kube/config</code></pre></div>
 <p>If you want to preserve your existing Kubernetes cluster authentication credentials, <code>kubectl</code> can merge two YAML configs together &ndash; but be warned, it&rsquo;s a bit kludgy.</p>
 <p>First, copy the <code>k3s</code> credentials to a temporary file using the <code>kubectl</code> command that comes built-in to <code>k3s</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo k3s kubectl config view --raw &gt; ~/.kube/config-k3s</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo k3s kubectl config view --raw &gt; ~/.kube/config-k3s</code></pre></div>
 <p>Set the <code>KUBECONFIG</code> environment variable in your shell to point to the <code>k3s</code> configuration <em>in addition</em> to your original config using the same syntax you&rsquo;d use for appending multiple paths to a <code>PATH</code> variable:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ export KUBECONFIG<span style="color:#f92672">=</span>~/.kube/config-k3s:~/.kube/config</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ export KUBECONFIG<span style="color:#f92672">=</span>~/.kube/config-k3s:~/.kube/config</code></pre></div>
 <p>Now we merge the configurations together, replace the original, and clean up:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl config view --raw &gt; ~/.kube/config-merged
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl config view --raw &gt; ~/.kube/config-merged
 $ mv ~/.kube/config-merged ~/.kube/config
 $ rm ~/.kube/config-k3s
 $ unset KUBECONFIG</code></pre></div>
 <p>You can now check to make sure both your original clusters and your new local <code>k3s</code> cluster are present:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl config get-contexts
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl config get-contexts
 CURRENT   NAME        CLUSTER     AUTHINFO   NAMESPACE
 *         cluster-1   cluster-1   default    
           default     default     default    </code></pre></div>
 <p>Now let&rsquo;s set our <code>k3s</code> cluster (named <code>default</code> by default) as the current context:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl config use-context default</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl config use-context default</code></pre></div>
 <p>You might want to rename the nondescript <code>default</code> with a more descriptive name:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl config rename-context default k3s-local</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl config rename-context default k3s-local</code></pre></div>
 <p>And now if we check our contexts, we should see this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl config get-contexts
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl config get-contexts
 CURRENT   NAME        CLUSTER     AUTHINFO   NAMESPACE
           cluster-1   cluster-1   default    
 *         k3s-local   k3s-local   default     </code></pre></div>
@@ -369,27 +373,27 @@ CURRENT   NAME        CLUSTER     AUTHINFO   NAMESPACE
 <p>You may have more than one <code>kubectl</code> available.</p>
 <p>Using <code>k3s kubectl</code> over <code>kubectl</code> shouldn’t make a difference as long as you set your Kubernetes config properly.</p>
 <p>The following commands are equivalent:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ KUBECONFIG<span style="color:#f92672">=</span>~/.kube/config-k3s kubectl get nodes
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ KUBECONFIG<span style="color:#f92672">=</span>~/.kube/config-k3s kubectl get nodes
 $ kubectl get nodes --kubeconfig<span style="color:#f92672">=</span>~/.kube/config-k3s
 $ sudo k3s kubectl get nodes</code></pre></div>
 <h3 id="command-completion">Command completion</h3>
 <p>It is extremely handy to have command completion available for <code>kubectl</code> since the commands tend to get pretty verbose. If your package manager didn&rsquo;t install completion alongside <code>kubectl</code>, you can install it manually by</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl completion bash | sudo tee /usr/share/bash-completion/completions/kubectl
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl completion bash | sudo tee /usr/share/bash-completion/completions/kubectl
 $ source ~/.bashrc</code></pre></div>
 <p>Also, it’s tiring to type <code>kubectl</code> repeatedly, so let’s alias it to <code>kl</code>, and make sure completions are loaded for the alias too.
 Add these lines to your <code>~/.bash_aliases</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">alias kl<span style="color:#f92672">=</span>kubectl
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">alias kl<span style="color:#f92672">=</span>kubectl
 type -f __start_kubectl 2&gt;&amp;amp;- <span style="color:#f92672">||</span> _completion_loader kubectl
 complete -o default -o nospace -F __start_kubectl kl</code></pre></div>
 <p><strong>NOTE:</strong> On Ubuntu 16.04 right on up through 20.04, bash completion is disabled by default system-wide. So let’s make sure it&rsquo;s installed and enabled:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo apt -y install bash-completion
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo apt -y install bash-completion
 $ sudo sed -i.bak -E <span style="color:#e6db74">&#39;/if ! shopt -oq posix; then/,+6 s/^#//g&#39;</span> /etc/bash.bashrc</code></pre></div>
 <p>Make sure to restart your shell for changes to take effect.</p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 <h2 id="running-a-container">Running a Container</h2>
 <p>Run a container inside your cluster:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl run -it ubuntu --image<span style="color:#f92672">=</span>ubuntu:bionic -- bash</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl run -it ubuntu --image<span style="color:#f92672">=</span>ubuntu:bionic -- bash</code></pre></div>
 <p>If you&rsquo;ve used Docker before, you&rsquo;ll appreciate the similarity to the <code>docker run</code> syntax.</p>
 <p>This does a few things behind the scenes:</p>
 <ul>
@@ -400,35 +404,35 @@ $ sudo sed -i.bak -E <span style="color:#e6db74">&#39;/if ! shopt -oq posix; the
 <p>You can poke around, install some packages, take a look at <code>/etc/resolv.conf</code>, maybe take a look at the running environment with <code>env</code>, or <code>mount</code>, or <code>top</code>.</p>
 <p>When you are done, exit the shell. This will terminate the pod.</p>
 <p>Note, however, that Kubernetes will create a new pod in its place. This can be confirmed by running <code>kubectl get pods</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">NAME      READY   STATUS    RESTARTS   AGE
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">NAME      READY   STATUS    RESTARTS   AGE
 ubuntu    1/1     Running   <span style="color:#ae81ff">1</span>          75s</code></pre></div>
 <p>To get rid of the pod for good, run:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl delete pod ubuntu</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl delete pod ubuntu</code></pre></div>
 <h2 id="configuration-as-code">Configuration as Code</h2>
 <p>One of the real superpowers of Kubernetes, in my opinion, is the ability to do almost anything either completely imperatively (&ldquo;do this! do that! then do these three things!&quot;) or declaratively (&ldquo;here&rsquo;s what I want it to look like at the end - <em>you</em> figure out how to get there&rdquo;).</p>
 <p>Let&rsquo;s take our imperative <code>kubectl run</code> example from above, and generate a declarative manifest from it that we can save to a file and, say, commit to version control:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl run ubuntu --image<span style="color:#f92672">=</span>ubuntu:bionic --dry-run<span style="color:#f92672">=</span>client --output yaml &gt; pod.yaml</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl run ubuntu --image<span style="color:#f92672">=</span>ubuntu:bionic --dry-run<span style="color:#f92672">=</span>client --output yaml &gt; pod.yaml</code></pre></div>
 <p>What you&rsquo;ll get back instead of a shell prompt inside your container is the instructions for building your deployment in YAML form, which you can then modify as needed, and then apply with <code>kubectl apply -f pod.yaml</code>.</p>
 <hr>
 <h1 id="helm">Helm</h1>
 <p>What would Linux be without <code>apt</code>? Helm is the <code>apt</code> of Kubernetes, and more. It uses charts, which are like package manifests, to instantiate and manage Kubernetes objects such as deployments, secrets, and configMaps as a unified, versioned set called a release. It can template values using the Go templating language, <code>gotpl</code>. It can roll back releases to previous versions. It can&hellip; well, you get it.</p>
 <h2 id="installation-1">Installation</h2>
 <p>Helm can  be installed on all supported OSes with:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash</code></pre></div>
 <p>Install Helm bash completion:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ helm completion bash | sudo tee /usr/share/bash-completion/completions/helm
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ helm completion bash | sudo tee /usr/share/bash-completion/completions/helm
 $ source ~/.bashrc</code></pre></div>
 <h2 id="example-install-grafana">Example: Install Grafana</h2>
 <p>Let’s test our local Kubernetes cluster by installing a relatively straightforward Helm chart, Grafana.</p>
 <p>First, let&rsquo;s add the Helm stable chart repository:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ helm repo add stable https://kubernetes-charts.storage.googleapis.com
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ helm repo add stable https://kubernetes-charts.storage.googleapis.com
 $ helm repo update</code></pre></div>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ helm install grafana stable/grafana</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ helm install grafana stable/grafana</code></pre></div>
 <p>After a few moments you should see some output describing the Kubernetes objects created that make up the release, as well as some notes about next steps. Following these notes, retrieve the auto-generated admin password:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl get secret --namespace default grafana -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{.data.admin-password}&#34;</span> | base64 --decode ; echo</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl get secret --namespace default grafana -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{.data.admin-password}&#34;</span> | base64 --decode ; echo</code></pre></div>
 <p>Since the Grafana chart deploys a service of type <code>ClusterIP</code> by default with no ingress to route traffic to the cluster from outside, we have to use port forwarding to access the pod.</p>
 <p>Think of port forwarding as the <code>ssh -L</code> of Kubernetes - it abstracts away all the complex networking stuff happening under the hood (and there&rsquo;s a lot of it) to give you access to your services through the control plane, like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ export POD_NAME<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>kubectl get pods --namespace default -l <span style="color:#e6db74">&#34;app=grafana,release=grafana&#34;</span> -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{.items[0].metadata.name}&#34;</span><span style="color:#66d9ef">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ export POD_NAME<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>kubectl get pods --namespace default -l <span style="color:#e6db74">&#34;app=grafana,release=grafana&#34;</span> -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{.items[0].metadata.name}&#34;</span><span style="color:#66d9ef">)</span>
 $ kubectl --namespace default port-forward $POD_NAME <span style="color:#ae81ff">3000</span></code></pre></div>
 <p>Note that if you installed <code>kubectl</code> bash completion, the generated pod name will be available as a completion in an interactive shell.</p>
 <p>Now we can access Grafana at <code>http://localhost:3000</code>, just as if we had deployed Grafana to a remote server and logged in to it with <code>ssh -L</code>.</p>
@@ -437,9 +441,9 @@ $ kubectl --namespace default port-forward $POD_NAME <span style="color:#ae81ff"
 <p>Every Kubernetes object has as part of its metadata a set of key-value pairs called labels. We can perform operations on multiple objects at a time using label selectors. An example of this can be seen above in the port forwarding command - specifically the <code>-l app=grafana,release=grafana</code> part. This is useful if, for example, you have two versions of the same app deployed simultaneously, and you want to differentiate between two sets of objects by release.</p>
 <p>Most Helm charts provide a label called <code>release</code> with the name of the release as the value. The Grafana chart is no exception.</p>
 <p>So let&rsquo;s get a list of all objects matching this label selector:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kl get all -l app<span style="color:#f92672">=</span>grafana,release<span style="color:#f92672">=</span>grafana</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kl get all -l app<span style="color:#f92672">=</span>grafana,release<span style="color:#f92672">=</span>grafana</code></pre></div>
 <p>You should get back something like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">NAME                          READY   STATUS    RESTARTS   AGE
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">NAME                          READY   STATUS    RESTARTS   AGE
 pod/grafana-6c6d9cfd6-4fhnn   1/1     Running   <span style="color:#ae81ff">0</span>          2m18s
 
 NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT<span style="color:#f92672">(</span>S<span style="color:#f92672">)</span>   AGE
@@ -452,47 +456,47 @@ NAME                                DESIRED   CURRENT   READY   AGE
 replicaset.apps/grafana-6c6d9cfd6   <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>         <span style="color:#ae81ff">1</span>       2m18s</code></pre></div>
 <p><code>kubectl</code> also supports different output formats like YAML, JSON, and even <code>jsonpath</code> which can extract specific fields from the manifest to be used programmatically. [<a href="https://kubernetes.io/docs/reference/kubectl/jsonpath/">7</a>]</p>
 <p>For example, to get the <code>ClusterIP</code> address for the Grafana service from above to be used in a script:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl get svc -l app<span style="color:#f92672">=</span>grafana,release<span style="color:#f92672">=</span>grafana <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl get svc -l app<span style="color:#f92672">=</span>grafana,release<span style="color:#f92672">=</span>grafana <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{.items[0].spec.clusterIP}&#39;</span>
 10.43.184.148</code></pre></div>
 <p>A more complicated example which gets the port number for a port named <code>service</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl get svc -l app<span style="color:#f92672">=</span>grafana,release<span style="color:#f92672">=</span>grafana <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl get svc -l app<span style="color:#f92672">=</span>grafana,release<span style="color:#f92672">=</span>grafana <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  -ojsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{.items[*].spec.ports[?(@.name==&#34;service&#34;)].port}&#39;</span>
 <span style="color:#ae81ff">80</span></code></pre></div>
 <p>Here&rsquo;s the equivalent in <code>jq</code>, which some may feel a little more at home with (I know I do):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl get svc -l app<span style="color:#f92672">=</span>grafana,release<span style="color:#f92672">=</span>grafana -ojson <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl get svc -l app<span style="color:#f92672">=</span>grafana,release<span style="color:#f92672">=</span>grafana -ojson <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  | jq <span style="color:#e6db74">&#39;.items[].spec.ports[] | select(.name==&#34;service&#34;).port&#39;</span>
 <span style="color:#ae81ff">80</span></code></pre></div>
 <p>When done testing, we can delete the release and make it like it never existed with</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ helm delete grafana</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ helm delete grafana</code></pre></div>
 <p>When all else fails:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl cluster-info dump</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl cluster-info dump</code></pre></div>
 <hr>
 <h2 id="using-a-private-registry">Using a Private Registry</h2>
 <p>You might be working on a project the world isn&rsquo;t yet ready for, in which case you&rsquo;re probably using a private container registry that requires credentials. If we want to use a container image hosted on a private registry like <a href="http://gcr.io/">gcr.io</a>, we need to tell <code>k3s</code> how to authenticate. In GKE this would normally just work, but since we&rsquo;re not running in Google&rsquo;s walled garden we have to specify an <code>ImagePullSecret</code>.</p>
 <p>First we need to create a service account key with read-only access to Google Cloud Storage, which Google Container Registry uses as its backend:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ gcloud iam service-accounts keys create <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ gcloud iam service-accounts keys create <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --iam-account<span style="color:#f92672">=</span>gcr-readonly@&lt;your_project_id&gt;.iam.gserviceaccount.com <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  gcr-readonly.json</code></pre></div>
 <p>Create a Kubernetes secret of type <code>docker-registry</code> from the service account key.</p>
 <p>We are going to call our secret <code>gcr-readonly-secret</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl create secret docker-registry gcr-readonly-secret <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl create secret docker-registry gcr-readonly-secret <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --docker-server<span style="color:#f92672">=</span>https://gcr.io <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --docker-username<span style="color:#f92672">=</span>_json_key <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>  --docker-password<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cat gcr-readonly.json<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span></code></pre></div>
 <p>Now we can do one of two things: a) Specify an <code>imagePullSecret</code> for every deployment that needs to pull images from this registry, or b) patch our default service account to include a reference to our image pull secret. We&rsquo;re going to go with option B to keep our manifests <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl patch serviceaccount default -p <span style="color:#ae81ff">\
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl patch serviceaccount default -p <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span><span style="color:#e6db74">&#39;{&#34;imagePullSecrets&#34;: [{&#34;name&#34;: &#34;gcr-readonly-secret&#34;}]}&#39;</span></code></pre></div>
 <p>Although not strictly necessary, we also want to create a generic secret with this service account key to be used by pods themselves to interact with GCS:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl create secret generic gcs-service-account-key --from-file<span style="color:#f92672">=</span>gcr-readonly.json</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl create secret generic gcs-service-account-key --from-file<span style="color:#f92672">=</span>gcr-readonly.json</code></pre></div>
 <p>Now we can create pods and deployments from images in our private container registry, <code>gcr.io/&lt;your_project_id&gt;</code> and <code>k3s</code> will be able to pull them.</p>
 <p>For the sake of brevity I&rsquo;m leaving out some of the GCP-specific steps of interacting with a private registry, but the overall development process would go something like:</p>
 <ul>
 <li>write a Dockerfile for your code and its dependencies</li>
 <li>build a container with
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">docker build -t gcr.io/&lt;your_project_id&gt;/super-cool-app:0.0.1</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">docker build -t gcr.io/&lt;your_project_id&gt;/super-cool-app:0.0.1</code></pre></div></li>
 <li>push it to your registry with
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">docker push gcr.io/&lt;your_project_id&gt;/super-cool-app:0.0.1</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">docker push gcr.io/&lt;your_project_id&gt;/super-cool-app:0.0.1</code></pre></div></li>
 <li>write some Kubernetes manifests (or even your very own Helm chart!) to deploy your app</li>
 </ul>
 <p>And that&rsquo;s it, folks.</p>

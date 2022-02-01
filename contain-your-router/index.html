@@ -4,7 +4,7 @@
     <title>contain your router | bad gateway</title>
     <link rel="shortcut icon" href="/bg.png" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.82.1" />
+    <meta name="generator" content="Hugo 0.89.4" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="oofnik" />
     <meta name="description" content="" />
@@ -31,8 +31,8 @@ if (!doNotTrack) {
 <meta property="og:description" content="I hate home router hardware. I really do. So I set out on building a replacement &ndash; without spending any money." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://badgateway.qc.to/contain-your-router/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-02-20T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2020-02-20T00:00:00&#43;00:00" />
+<meta property="article:published_time" content="2020-02-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-02-20T00:00:00+00:00" />
 
 
     <script data-goatcounter="https://badgateway.goatcounter.com/count"
@@ -224,6 +224,10 @@ if (!doNotTrack) {
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   postgres
                 </a>
+                <a href="/tags/power" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  power
+                </a>
                 <a href="/tags/raspberrypi" 
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   raspberrypi
@@ -367,16 +371,16 @@ if (!doNotTrack) {
 <ul>
 <li>
 <p>Run a detached container:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker run --rm -it -d --name netns-test alpine
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker run --rm -it -d --name netns-test alpine
 17da7018a16ce46ce87a1f14d263e3fc367ea9c1d2d0a896e812c652445042a0
 </code></pre></div></li>
 <li>
 <p>Get the container&rsquo;s parent PID:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ PID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>docker inspect -f <span style="color:#e6db74">&#39;{{.State.Pid}}&#39;</span> netns-test<span style="color:#66d9ef">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ PID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>docker inspect -f <span style="color:#e6db74">&#39;{{.State.Pid}}&#39;</span> netns-test<span style="color:#66d9ef">)</span>
 </code></pre></div></li>
 <li>
 <p>Get our Wi-Fi interface name:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ip link show
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ip link show
 ...
 4: wlp2s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span style="color:#ae81ff">1500</span> qdisc noqueue state UP mode DORMANT group default qlen <span style="color:#ae81ff">1000</span>
     link/ether xx:xx:xx:xx:xx:xx brd ff:ff:ff:ff:ff:ff
@@ -384,26 +388,26 @@ if (!doNotTrack) {
 </code></pre></div></li>
 <li>
 <p>Get the physical device associated with our interface:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ PHY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>cat /sys/class/net/wlp2s0/phy80211/name<span style="color:#66d9ef">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ PHY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>cat /sys/class/net/wlp2s0/phy80211/name<span style="color:#66d9ef">)</span>
 </code></pre></div></li>
 <li>
 <p>Move our device to the container namespace:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo iw phy $PHY set netns $PID
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ sudo iw phy $PHY set netns $PID
 </code></pre></div></li>
 <li>
 <p>Show that the interface is now inside the container namespace:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker exec netns-test ip link show wlp2s0
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker exec netns-test ip link show wlp2s0
 4: wlp2s0: &lt;BROADCAST,MULTICAST&gt; mtu <span style="color:#ae81ff">1500</span> qdisc noop state DOWN qlen <span style="color:#ae81ff">1000</span>
     link/ether xx:xx:xx:xx:xx:xx brd ff:ff:ff:ff:ff:ff
 </code></pre></div></li>
 <li>
 <p>And not in our host namespace:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ip link show dev wlp2s0
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ip link show dev wlp2s0
 Device <span style="color:#e6db74">&#34;wlp2s0&#34;</span> does not exist.
 </code></pre></div></li>
 <li>
 <p>Shut it down to get our Wi-Fi back:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker kill netns-test
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ docker kill netns-test
 </code></pre></div></li>
 </ul>
 <hr>

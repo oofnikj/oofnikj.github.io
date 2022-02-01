@@ -4,7 +4,7 @@
     <title>ship azure application gateway logs to datadog | bad gateway</title>
     <link rel="shortcut icon" href="/bg.png" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.82.1" />
+    <meta name="generator" content="Hugo 0.89.4" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="oofnik" />
     <meta name="description" content="" />
@@ -31,8 +31,8 @@ if (!doNotTrack) {
 <meta property="og:description" content="Azure doesn&rsquo;t make it particularly easy to integrate with external logging and metrics providers. Here&rsquo;s one way to do it." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://badgateway.qc.to/ship-azure-application-gateway-logs-to-datadog/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-02-19T14:29:00&#43;02:00" />
-<meta property="article:modified_time" content="2021-02-19T14:29:00&#43;02:00" />
+<meta property="article:published_time" content="2021-02-19T14:29:00+02:00" />
+<meta property="article:modified_time" content="2021-02-19T14:29:00+02:00" />
 
 
     <script data-goatcounter="https://badgateway.goatcounter.com/count"
@@ -224,6 +224,10 @@ if (!doNotTrack) {
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   postgres
                 </a>
+                <a href="/tags/power" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  power
+                </a>
                 <a href="/tags/raspberrypi" 
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   raspberrypi
@@ -341,7 +345,7 @@ if (!doNotTrack) {
 <p>Another confusing bit is the <code>bindings.connection</code> entry in the <code>function.json</code> manifest. <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob-trigger?tabs=javascript#configuration">Apparently</a>, by leaving this field blank, as long as you&rsquo;ve configured your application settings properly (which we&rsquo;ll do in the deployment section below), your blob storage-triggered function will <em>just work</em>. Magic voodoo.</p>
 <hr>
 <p>Once everything is set up properly, you should have a set of files that looks like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">.
 ├── <span style="color:#66d9ef">function</span>
 │   ├── datadog_logs_monitoring
 │   │   ├── <span style="color:#66d9ef">function</span>.json
@@ -366,7 +370,7 @@ if (!doNotTrack) {
 </ul>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
@@ -516,7 +520,7 @@ if (!doNotTrack) {
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">148
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">data</span> <span style="color:#e6db74">&#34;azurerm_monitor_diagnostic_categories&#34; &#34;app_gw&#34;</span> {
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-hcl" data-lang="hcl"><span style="color:#66d9ef">data</span> <span style="color:#e6db74">&#34;azurerm_monitor_diagnostic_categories&#34; &#34;app_gw&#34;</span> {
   resource_id <span style="color:#f92672">=</span> <span style="color:#66d9ef">var</span>.<span style="color:#66d9ef">azurerm_application_gateway_id</span>
 }
 

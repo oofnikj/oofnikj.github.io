@@ -4,7 +4,7 @@
     <title>clean up your git | bad gateway</title>
     <link rel="shortcut icon" href="/bg.png" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.82.1" />
+    <meta name="generator" content="Hugo 0.89.4" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="oofnik" />
     <meta name="description" content="" />
@@ -31,8 +31,8 @@ if (!doNotTrack) {
 <meta property="og:description" content="Have you ever found yourself frantically trying to un-commit some enormous binary file you&rsquo;ve accidentally checked in to version control? Or perhaps you&rsquo;ve made the mistake of committing your AWS root credentials?" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://badgateway.qc.to/clean-up-your-git/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-10-27T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2019-10-27T00:00:00&#43;00:00" />
+<meta property="article:published_time" content="2019-10-27T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-10-27T00:00:00+00:00" />
 
 
     <script data-goatcounter="https://badgateway.goatcounter.com/count"
@@ -224,6 +224,10 @@ if (!doNotTrack) {
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   postgres
                 </a>
+                <a href="/tags/power" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  power
+                </a>
                 <a href="/tags/raspberrypi" 
                 class="tagcloud-item" style="font-size: 0.8rem;">
                   raspberrypi
@@ -339,7 +343,7 @@ This means that the clone will be bare, i.e., only the stuff that normally resid
 We opted for <code>--strip-biggest-blobs 50</code>, which deletes the 50 biggest files in the repository&rsquo;s history, but only those that have been explicitly deleted already.</li>
 <li>Expire unreachable objects and run garbage collection on the repository, triggering a repack of all data:</li>
 </ul>
-<pre><code>$ git reflog expire --expire=now --all &amp;&amp; git gc --prune=now --aggressive
+<pre tabindex="0"><code>$ git reflog expire --expire=now --all &amp;&amp; git gc --prune=now --aggressive
 </code></pre><p>This was all fairly straightforward in our case, except for one snag: The BFG part of the process took only 3 or 4 minutes. But during the repack stage, after bringing my quad core, 16 GB laptop to its knees for 30 minutes, Git was killed by OOM.</p>
 <p><code>git gc</code> uses <code>git-pack-objects</code> under the hood. As it turns out, this process can consume an obnoxiously huge amount of memory if your repository is big enough.</p>
 <p>From the <code>git-config</code> man page:</p>
@@ -348,19 +352,19 @@ We opted for <code>--strip-biggest-blobs 50</code>, which deletes the 50 biggest
 <p><code>The maximum size of memory that is consumed by each thread in git-pack-objects(1) for pack window memory when no limit is given on the command line. The value can be suffixed with &quot;k&quot;, &quot;m&quot;, or &quot;g&quot;. When left unconfigured (or set explicitly to 0), **there will be no limit**.</code></p>
 </blockquote>
 <p>I had to limit the window memory per thread to something reasonable to allow the process to finish:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git config pack.windowMemory 1g
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ git config pack.windowMemory 1g
 </code></pre></div><p>Now we can re-run <code>git gc</code> as above, hopefully without running out of memory. Sit back and relax while your CPU fan prepares for take-off.</p>
 <hr>
 <h2 id="beam-me-up">Beam me up</h2>
 <p>Look at how much junk we got rid of:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd ../repo-before <span style="color:#f92672">&amp;&amp;</span> du -h -d0 .git
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd ../repo-before <span style="color:#f92672">&amp;&amp;</span> du -h -d0 .git
 1.7G	.git
 $ cd ../repo-after <span style="color:#f92672">&amp;&amp;</span> du -h -d0 .git
 652M	.git
 </code></pre></div><p>Time to push your shiny new repository up to remote.</p>
 <p>I suggest creating a new repository instead of overwriting the original with <code>--force</code>, but it&rsquo;s your call.</p>
 <p>Just make sure to push everything, including your tags, since this is the only time you&rsquo;ll be able to do so. You can either replace your existing remote as I did to avoid confusion, or (if you&rsquo;re brave) create a new remote with a different name.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd repo-after
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd repo-after
 $ git remote remove origin
 $ git remote add origin &lt;your_remote_url&gt;
 $ git push --set-upstream origin --all
