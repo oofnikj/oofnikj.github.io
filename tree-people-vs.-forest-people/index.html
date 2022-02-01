@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>tree people vs. forest people | bad gateway</title>
+    <link rel="shortcut icon" href="/bg.png" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.89.4" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="oofnik" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://badgateway.qc.to/css/main.min.02efab24bda74e45d28d671d441895c41b3f5869b39db2e9fdbd13c500c8ce06.css" />
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-186231180-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="tree people vs. forest people"/>
+<meta name="twitter:description" content="Don&rsquo;t get lost in the forest."/>
+
+    <meta property="og:title" content="tree people vs. forest people" />
+<meta property="og:description" content="Don&rsquo;t get lost in the forest." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://badgateway.qc.to/tree-people-vs.-forest-people/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-01T14:56:39+02:00" />
+<meta property="article:modified_time" content="2022-02-01T14:56:39+02:00" />
+
+
+    <script data-goatcounter="https://badgateway.goatcounter.com/count"
+      async src="//gc.zgo.at/count.js">
+    </script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://badgateway.qc.to/"><img class="app-header-avatar" src="/bg.png" alt="oofnik" /></a>
+      <h1>bad gateway</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/posts/">Posts</a>
+            &#xB7
+          
+          <a class="app-header-menu-item" href="/tags">Tags</a>
+      </nav>
+      <p>a collection of notes about dev and ops things</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/oofnikj" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/oofnik" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/jordan-sokolic" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="/index.xml" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-rss">
+  <title>rss</title>
+  <path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle>
+</svg></a>
+        
+      </div>
+      <hr style="border: 0px; border-top: 1px dashed #f6f6f6; width: 10%;">
+      <div class="container tagcloud">
+        
+                <a href="/tags/apache" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  apache
+                </a>
+                <a href="/tags/athena" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  athena
+                </a>
+                <a href="/tags/aws" 
+                class="tagcloud-item" style="font-size: 1.0584059348440358rem;">
+                  aws
+                </a>
+                <a href="/tags/azure" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  azure
+                </a>
+                <a href="/tags/backup" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  backup
+                </a>
+                <a href="/tags/bash" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  bash
+                </a>
+                <a href="/tags/bfg" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  bfg
+                </a>
+                <a href="/tags/blog" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  blog
+                </a>
+                <a href="/tags/bruteforce" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  bruteforce
+                </a>
+                <a href="/tags/datadog" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  datadog
+                </a>
+                <a href="/tags/devops" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  devops
+                </a>
+                <a href="/tags/dkms" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  dkms
+                </a>
+                <a href="/tags/docker" 
+                class="tagcloud-item" style="font-size: 1.2095637166915911rem;">
+                  docker
+                </a>
+                <a href="/tags/docker-compose" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  docker-compose
+                </a>
+                <a href="/tags/dvr" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  dvr
+                </a>
+                <a href="/tags/encryption" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  encryption
+                </a>
+                <a href="/tags/engineering" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  engineering
+                </a>
+                <a href="/tags/gcp" 
+                class="tagcloud-item" style="font-size: 1.0584059348440358rem;">
+                  gcp
+                </a>
+                <a href="/tags/gcs" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  gcs
+                </a>
+                <a href="/tags/git" 
+                class="tagcloud-item" style="font-size: 1.0584059348440358rem;">
+                  git
+                </a>
+                <a href="/tags/gitlab" 
+                class="tagcloud-item" style="font-size: 1.2095637166915911rem;">
+                  gitlab
+                </a>
+                <a href="/tags/gitops" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  gitops
+                </a>
+                <a href="/tags/haproxy" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  haproxy
+                </a>
+                <a href="/tags/helm" 
+                class="tagcloud-item" style="font-size: 1.2095637166915911rem;">
+                  helm
+                </a>
+                <a href="/tags/hostapd" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  hostapd
+                </a>
+                <a href="/tags/hugo" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  hugo
+                </a>
+                <a href="/tags/iptables" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  iptables
+                </a>
+                <a href="/tags/jenkins" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  jenkins
+                </a>
+                <a href="/tags/john" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  john
+                </a>
+                <a href="/tags/k3s" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  k3s
+                </a>
+                <a href="/tags/kubernetes" 
+                class="tagcloud-item" style="font-size: 1.3168118696880717rem;">
+                  kubernetes
+                </a>
+                <a href="/tags/linux" 
+                class="tagcloud-item" style="font-size: 1.2095637166915911rem;">
+                  linux
+                </a>
+                <a href="/tags/meta" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  meta
+                </a>
+                <a href="/tags/multiarch" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  multiarch
+                </a>
+                <a href="/tags/nat" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  nat
+                </a>
+                <a href="/tags/netem" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  netem
+                </a>
+                <a href="/tags/networking" 
+                class="tagcloud-item" style="font-size: 1.2095637166915911rem;">
+                  networking
+                </a>
+                <a href="/tags/openwrt" 
+                class="tagcloud-item" style="font-size: 1.2095637166915911rem;">
+                  openwrt
+                </a>
+                <a href="/tags/postgres" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  postgres
+                </a>
+                <a href="/tags/power" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  power
+                </a>
+                <a href="/tags/raspberrypi" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  raspberrypi
+                </a>
+                <a href="/tags/rdp" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  rdp
+                </a>
+                <a href="/tags/revisr" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  revisr
+                </a>
+                <a href="/tags/serverless" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  serverless
+                </a>
+                <a href="/tags/sql" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  sql
+                </a>
+                <a href="/tags/ssl" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  ssl
+                </a>
+                <a href="/tags/tcp" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  tcp
+                </a>
+                <a href="/tags/tiller" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  tiller
+                </a>
+                <a href="/tags/traefik" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  traefik
+                </a>
+                <a href="/tags/ubuntu" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  ubuntu
+                </a>
+                <a href="/tags/uwsgi" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  uwsgi
+                </a>
+                <a href="/tags/vlan" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  vlan
+                </a>
+                <a href="/tags/vnc" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  vnc
+                </a>
+                <a href="/tags/wifi" 
+                class="tagcloud-item" style="font-size: 1.0584059348440358rem;">
+                  wifi
+                </a>
+                <a href="/tags/wireshark" 
+                class="tagcloud-item" style="font-size: 0.8rem;">
+                  wireshark
+                </a>
+                <a href="/tags/wordpress" 
+                class="tagcloud-item" style="font-size: 1.2095637166915911rem;">
+                  wordpress
+                </a>
+    </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">tree people vs. forest people</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Feb 1, 2022
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          6 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://badgateway.qc.to/tags/devops/">devops</a>
+              <a class="tag" href="https://badgateway.qc.to/tags/engineering/">engineering</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>I don&rsquo;t think it&rsquo;s wildly off base to assume that at least some of us in DevOps are attracted to the work and the methodology behind it for reasons relating to a partular mindset and problem-solving approach associated with doing what we do.</p>
+<p>You might recognize the title of this post as an allusion to the expression, &ldquo;couldn&rsquo;t see the forest for the trees&rdquo; &ndash; a situation in which one is so bogged down in the details of a particular problem that one misses or ignores the problem context in whole or in part, leading to an inelegant or incomplete solution.</p>
+<p>A lot of what we do, or at least what I do, is &ldquo;seeing the forest,&rdquo; i.e., how all the pieces of a software system interact, identifying pain points and bottlenecks, breaking down the problem into chunks that can be solved step-by-step and then putting it all back together. Across my career I&rsquo;ve encountered a diverse set of problem-solving strategies. Some strategies produce solutions that are generalizable and elegant. Others lead to solutions that are very problem-specific and hacky, barely squeaking past the minimum viable goal post while getting the job done in record time. While all of these strategies have come in handy at some point, I think DevOps work has a clear preference for the former as an intrinsic part of the methodology.</p>
+<p>Maybe this is too much of a generalization and a near-perfect example of the <a href="https://thedecisionlab.com/biases/fundamental-attribution-error/">fundamental attribution error</a>, but I find myself occasioanlly associating problem-solving strategies with personality types. If I may make a binary distinction, I propose that there exist two poles of a spectrum: &ldquo;tree people&rdquo; and &ldquo;forest people&rdquo; (with the obvious caveat that most real people lie somewhere in between). Tree people like to approach the particular, and are very good at e.g. enumerating a series of sequential tasks. Think imperative programming, algorithms engineers, data scientists. Tree people tend to build one-off solutions that cannot easily be adapted or customized to other similar problems, but they can iterate quickly with little to no up-front planning cost. Tree people roll up their sleeves and start hacking away at writing code, often rewriting the whole thing several times before arriving at a working solution. Tree people like REPLs, Jupyter notebooks, and code frameworks that support hot reloading. Copy-pasting code doesn&rsquo;t bother them too much, as long as it works.</p>
+<p>On the other extreme are forest people, who easily get lost in the specifics of any particular problem. Without having a solid working knowledge of a system overview, forest people struggle to find an entry point from where to begin. On the other hand, forest people excel at seeing the big-picture view of a system&rsquo;s architecture. They prefer to invest time in building a one-size-fits-all Grand Unified Solution that takes more time to implement, but the investment often pays for itself when the inevitable similar-but-slightly-different-problem arises down the line. Forest people like sequence diagrams, architecture schematics, and flow charts. Forest people like working with declarative configuration management and infrastructure-as-code tools modelled after object-oriented programming concepts that encourage code reuse. Writing any single line of code more than once is likely to result in some grimacing, at the very least.</p>
+<p>As an engineering student (mechanical), I often struggled working through problem sets when I was missing the conceptual framework. Whenever I worked with peers, and they were powering through some problem set, I would occasionally stop them and ask something along the lines of, &ldquo;how did you know to plug this value <em>x</em> into that formula <em>y</em>?&rdquo; They would respond with a blank stare, accompanied by &ldquo;uh, that&rsquo;s just what you do to get the answer.&rdquo; This sort of rote memorization of a sequence of steps drove me insane. I could not work through a problem set without understanding the concepts involved, and I could never understand those who had no issue doing so. Students who studied by cramming problem sets and hoping that at least some of the problems they saw last night would be on the exam the next morning tended to do pretty poorly when that wasn&rsquo;t the case; on the other hand, the converse was also true. I felt like I was part of a tiny minority of students who was actually interested in <em>why</em> the formulas worked, not just as a learning exercise but <em>to do engineering</em>.</p>
+<p>I ended up dropping out after my third year.</p>
+<p>Of course, any good, experienced engineer has acquired a lot of tools over their career, and also knows how and when (and, perhaps more importantly, how and when not) to use each one. Sometimes you have to meet deadlines, and there&rsquo;s just no time to implement Grand Unified Solution before the end of the sprint. Sometimes, the exam really is tomorrow morning, and you have to cram problem sets hoping something sticks for lack of any better strategy. But in the long run, you&rsquo;re going to forget which numbers got plugged into which formulas, and if you ever encounter a similar problem in real life, you may miss the forest for the trees, and re-invent the wheel once again, this time with a slightly different diameter. In the software world, your repo of 93 undocumented shell scripts in the root directory with names like <code>cleanup_indexes-3.sh</code> that only run on that one Ubuntu 16.04 server is eventually going to give the person who replaces you a heart attack.</p>
+<p>&ndash;</p>
+<p>I think every one of us who works in software has a preference for doing things the Tree way or the Forest way. I&rsquo;m making the case that DevOps practitioners are much more inclined to be forest people - not just in our professional work, but also in our general approach to life. We prefer concepts and ideas over step-by-step howtos. We tend to remember narratives and personal stories in terms of motivating factors and circumstances rather than a temporal sequence of events. We wince at the thought of rote task completion, always opting for automation whenever and wherever feasible, not out of <em>laziness</em> but out of a desire for predictability, consistency and reproducibility. But we are also susceptible to ignore outliers, even when they are statistically significant. We run the risk of over-engineering, spending time and effort building perfect mousetraps that could (and should) be spent elsewhere. Unlike tree people who are busy counting leaves, we tend to spend so much time thinking in terms of <em>forests</em> that we forget that forests themselves are comprised of <em>trees</em>. The end result is often a generalized solution that <em>in theory</em> should work for every case, but <em>in practice</em> works for no case in particular.</p>
+<p>My advice for fellow forest people: embrace your systematizing tendencies to build beautiful, resilient systems, but don&rsquo;t overdo it. Be cognizant of the fact that the tree people in your life probably see things very differently from the way you do. Make concerted effort to provide relatable, concrete examples for why doing and seeing things your way sometimes pays off in the long run. Also, sometimes you might be wrong, and in some particular instances, just grit your teeth and do it the Tree way, and be done with it.</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
